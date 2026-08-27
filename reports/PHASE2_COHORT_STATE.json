@@ -1,0 +1,104 @@
+{
+  "phase": "PHASE 2 - BUILD COMPLETE COHORT STATE",
+  "generated_at_utc": "2026-08-27T13:28:11+00:00",
+  "source": {
+    "music_version": "1.0.1",
+    "source_doi": "10.13026/z3m7-rf58",
+    "phase1_audit_passed": true
+  },
+  "safety": {
+    "raw_write_operations": 0,
+    "dat_waveform_content_read": false,
+    "feature_extraction_performed": false,
+    "phase_3_started": false
+  },
+  "cohort": {
+    "official_patient_count": 992,
+    "subjects_parquet_rows": 992,
+    "patient_ids_100_percent_preserved": true,
+    "holter_patients": 936,
+    "no_holter_patients": 56,
+    "high_resolution_patients": 687,
+    "no_high_resolution_patients": 305,
+    "metadata_file_consistent_patients": 992,
+    "metadata_file_inconsistent_patients": 0,
+    "af_patients": 192,
+    "rhythm_unknown_patients": 2,
+    "pvc_count_24h_available_patients": 932,
+    "followup_available_patients": 992,
+    "cause_of_death_available_patients": 992
+  },
+  "records": {
+    "total": 1623,
+    "holter": 936,
+    "high_resolution": 687,
+    "mapping_anomalies": 0,
+    "header_anomalies": 0,
+    "missing_dat": 0,
+    "missing_hea": 0,
+    "integrity_status_distribution": {
+      "OK": 1623
+    }
+  },
+  "endpoints": {
+    "90": {
+      "POSITIVE": 11,
+      "NEGATIVE": 978,
+      "CENSORED": 0,
+      "COMPETING_EVENT": 3,
+      "UNKNOWN": 0
+    },
+    "180": {
+      "POSITIVE": 19,
+      "NEGATIVE": 947,
+      "CENSORED": 7,
+      "COMPETING_EVENT": 19,
+      "UNKNOWN": 0
+    },
+    "365": {
+      "POSITIVE": 38,
+      "NEGATIVE": 894,
+      "CENSORED": 15,
+      "COMPETING_EVENT": 45,
+      "UNKNOWN": 0
+    },
+    "730": {
+      "POSITIVE": 64,
+      "NEGATIVE": 816,
+      "CENSORED": 25,
+      "COMPETING_EVENT": 87,
+      "UNKNOWN": 0
+    }
+  },
+  "scd_interval": {
+    "label": "baseline enrollment/Holter to recorded SCD outcome interval",
+    "summary_days": {
+      "count": 94,
+      "min": 33,
+      "p25": 215,
+      "median": 479.5,
+      "p75": 840.25,
+      "max": 1726
+    },
+    "bins": {
+      "le_90d": 11,
+      "d91_180": 8,
+      "d181_365": 19,
+      "d366_730": 26,
+      "gt_730d": 30
+    }
+  },
+  "eligibility": {
+    "signal_qc_performed": false,
+    "primary_pending_signal_qc": 936,
+    "hrv_pending_signal_qc": 751,
+    "legacy_pending_signal_qc": 936
+  },
+  "unresolved_decoding": {
+    "holter_rhythm_raw_codes_not_in_official_codes": [
+      "4"
+    ],
+    "pvc_burden": "null for all subjects; no approved denominator is available in Phase 2",
+    "exit_status_blank_with_survivor_cause_count": 695
+  }
+}

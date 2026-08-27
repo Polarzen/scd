@@ -1,0 +1,905 @@
+schema_version: 1
+table: subjects
+primary_key: patient_id
+columns:
+- name: patient_id
+  dtype: string
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Stable official MUSIC Patient ID; primary key.
+- name: Patient ID
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Follow-up period from enrollment (days)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: days_4years
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Exit of the study
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Cause of death
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Age
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Gender (male=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Weight (kg)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Height (cm)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Body Mass Index (Kg/m2)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: NYHA class
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Diastolic blood  pressure (mmHg)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Systolic blood pressure (mmHg)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: HF etiology - Diagnosis
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Diabetes (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: History of dyslipemia (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Peripheral vascular disease (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: History of hypertension (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Prior Myocardial Infarction (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Prior implantable device
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Prior Revascularization
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Syncope
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: daily smoking (cigarretes/day)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: smoke-free time (years)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: cigarettes /year
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: alcohol consumption (standard units)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Albumin (g/L)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: ALT or GPT (IU/L)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: AST or GOT (IU/L)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Normalized Troponin
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Total Cholesterol (mmol/L)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Creatinine (?mol/L)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Gamma-glutamil transpeptidase (IU/L)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Glucose (mmol/L)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Hemoglobin (g/L)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: HDL (mmol/L)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Potassium (mEq/L)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: LDL (mmol/L)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Sodium (mEq/L)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Pro-BNP (ng/L)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Protein (g/L)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: T3 (pg/dL)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: T4 (ng/L)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Troponin (ng/mL)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: TSH (mIU/L)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Urea (mg/dL)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Signs of pulmonary venous hypertension (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Cardiothoracic ratio
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Left atrial size (mm)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Right ventricle contractility (altered=1)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Right ventricle end-diastolic diameter (mm)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: LVEF (%)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: 'Mitral valve insufficiency '
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Mitral flow pattern
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Left ventricular posterior wall thickness (mm)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Septal thickness (mm)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Left ventricle end-diastolic diameter (mm)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Left ventricle end-systolic diameter (mm)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Hig-resolution ECG available
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: 'ECG rhythm '
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Q-waves (necrosis, yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: PR interval (ms)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: QRS duration (ms)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: 'QRS > 120 ms '
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: QT interval (ms)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: 'QT corrected '
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: 'Average RR (ms) '
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Left ventricular hypertrophy (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Intraventricular conduction disorder
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Holter available
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Holter onset (hh:mm:ss)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: 'Holter  rhythm '
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: 'minimum RR (ms) '
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Average RR (ms)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: maximum RR (ms)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: RR range (ms)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Number of ventricular premature beats in 24h
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: 'Extrasystole couplets '
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Ventricular Extrasystole
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Ventricular Tachycardia
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Number of ventricular premature contractions per hour
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Non-sustained ventricular tachycardia (CH>10)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Number of supraventricular premature beats in 24h
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Paroxysmal supraventricular tachyarrhythmia
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Longest RR pause (ms)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Bradycardia
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: SDNN (ms)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: SDANN (ms)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: RMSSD (ms)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: pNN50 (%)
+  dtype: string
+  nullable: true
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Calcium channel blocker (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Diabetes medication (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Amiodarone (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Angiotensin-II receptor blocker (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Anticoagulants/antitrombotics  (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Betablockers (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Digoxin (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Loop diuretics (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Spironolactone (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Statins (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Hidralazina (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: ACE inhibitor (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: Nitrovasodilator (yes=1)
+  dtype: string
+  nullable: false
+  source: subject-info.csv
+  derived: false
+  description: Official MUSIC field preserved as a nullable string.
+- name: has_holter
+  dtype: boolean
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: has_high_resolution_ecg
+  dtype: boolean
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: holter_record_id
+  dtype: string
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: high_resolution_record_id
+  dtype: string
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: holter_sampling_frequency
+  dtype: float64
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: holter_channel_count
+  dtype: Int64
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: holter_lead_names
+  dtype: object
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: holter_sample_count
+  dtype: Int64
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: holter_duration_sec
+  dtype: float64
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: hr_sampling_frequency
+  dtype: float64
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: hr_channel_count
+  dtype: Int64
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: hr_lead_names
+  dtype: object
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: hr_sample_count
+  dtype: Int64
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: hr_duration_sec
+  dtype: float64
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: metadata_holter_flag
+  dtype: boolean
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: actual_holter_file_exists
+  dtype: boolean
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: holter_header_exists
+  dtype: boolean
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: holter_dat_exists
+  dtype: boolean
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: metadata_hr_flag
+  dtype: boolean
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: actual_hr_file_exists
+  dtype: boolean
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: hr_header_exists
+  dtype: boolean
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: hr_dat_exists
+  dtype: boolean
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: record_mapping_consistent
+  dtype: boolean
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: record_integrity_status
+  dtype: string
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: ecg_rhythm_raw
+  dtype: string
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: holter_rhythm_raw
+  dtype: string
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: rhythm_raw
+  dtype: string
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: rhythm_decoded
+  dtype: string
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: rhythm_group
+  dtype: string
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: af_flag
+  dtype: boolean
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: pvc_count_24h
+  dtype: Int64
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: pvc_information_available
+  dtype: boolean
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: pvc_burden
+  dtype: float64
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Not derivable reliably in Phase 2; always null pending an approved
+    denominator.
+- name: followup_days_raw
+  dtype: string
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: followup_days
+  dtype: float64
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: cause_of_death_raw
+  dtype: string
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: cause_of_death_decoded
+  dtype: string
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: exit_status_raw
+  dtype: string
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: exit_status_decoded
+  dtype: string
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: event_source_valid
+  dtype: boolean
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: eligible_primary_analysis
+  dtype: boolean
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: False if no Holter; otherwise null pending signal QC.
+- name: eligible_hrv_analysis
+  dtype: boolean
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: False for no Holter or official AF; otherwise null pending signal QC.
+- name: eligible_legacy_analysis
+  dtype: boolean
+  nullable: true
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: False if no Holter; otherwise null pending signal QC.
+- name: exclusion_reason_primary
+  dtype: string
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: exclusion_reason_hrv
+  dtype: string
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.
+- name: exclusion_reason_legacy
+  dtype: string
+  nullable: false
+  source: Phase 2 derivation from official metadata/header/manifest
+  derived: true
+  description: Phase 2 cohort-state field; see build_phase2.py.

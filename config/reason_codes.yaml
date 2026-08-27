@@ -1,0 +1,14 @@
+schema_version: 1
+reason_codes:
+  NO_HOLTER: No official Holter record is available.
+  NO_HEADER: The expected WFDB header is absent.
+  NO_DAT: The header-declared signal file is absent.
+  METADATA_FILE_MISMATCH: Official availability metadata and filesystem state disagree.
+  INVALID_HEADER: The WFDB header cannot be parsed or is internally invalid.
+  UNKNOWN_RHYTHM: The rhythm value is missing or is not defined by the official code table.
+  AF: Permanent atrial fibrillation is recorded by official rhythm metadata.
+  HIGH_PVC_BURDEN: Reserved for a future explicitly configured burden threshold; unused in Phase 2.
+  INSUFFICIENT_FOLLOWUP: Follow-up is shorter than the requested endpoint horizon.
+  COMPETING_EVENT: A non-SCD death occurred within the endpoint horizon.
+  PENDING_SIGNAL_QC: Signal-level QC has not been performed.
+  UNKNOWN: Available official information is insufficient for a more specific code.

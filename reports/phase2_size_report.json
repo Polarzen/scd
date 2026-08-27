@@ -1,0 +1,12 @@
+{
+  "source_exact": 842126,
+  "subjects.parquet": 203044,
+  "records.parquet": 151842,
+  "provenance.parquet": 141897,
+  "cohort_parquet_total": 496783,
+  "config": 29976,
+  "tests": 53763,
+  "scripts": 191393,
+  "reports": 37987,
+  "phase2_total": 1652028
+}

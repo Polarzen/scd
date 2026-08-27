@@ -1,0 +1,834 @@
+{
+  "audit": {
+    "phase": "PHASE 1 - DATA AUDIT",
+    "generated_at_utc": "2026-08-27T13:17:40+00:00",
+    "read_scope": "official metadata, codes, definitions, RECORDS, SHA256SUMS, LICENSE, and WFDB .hea headers only",
+    "waveform_content_read": false,
+    "feature_extraction_performed": false,
+    "python_version": "3.14.5"
+  },
+  "source": {
+    "dataset_name": "MUSIC (Sudden Cardiac Death in Chronic Heart Failure)",
+    "music_version": "1.0.1",
+    "source_doi": "10.13026/z3m7-rf58",
+    "root_name": "music-sudden-cardiac-death-in-chronic-heart-failure-1.0.1",
+    "root_name_matches_locked_release": true,
+    "version_explicit_in_local_small_files": false,
+    "doi_explicit_in_local_small_files": false,
+    "confirmation": "confirmed_from_locked_release_directory_name_plus_complete_expected_layout_and_official_manifest"
+  },
+  "cohort": {
+    "official_subject_rows": 992,
+    "unique_patient_ids": 992,
+    "duplicate_patient_ids": [],
+    "blank_patient_id_rows": 0,
+    "subjects_without_any_ecg_header": [
+      "P0300",
+      "P0368",
+      "P0369",
+      "P0370",
+      "P0383",
+      "P0385",
+      "P0393",
+      "P0397",
+      "P0429",
+      "P0431",
+      "P0432",
+      "P0433",
+      "P0434",
+      "P0439",
+      "P0440",
+      "P0477",
+      "P0553",
+      "P0570",
+      "P0703",
+      "P0718",
+      "P0722",
+      "P0742",
+      "P0809",
+      "P0830",
+      "P0858",
+      "P0869",
+      "P0899",
+      "P0908",
+      "P0929",
+      "P0936",
+      "P0944",
+      "P0948",
+      "P0950",
+      "P0952",
+      "P0959",
+      "P0963",
+      "P0965",
+      "P0966",
+      "P0979",
+      "P0990",
+      "P0993",
+      "P0994",
+      "P0995",
+      "P1000",
+      "P1003",
+      "P1009",
+      "P1012",
+      "P1015",
+      "P1022",
+      "P1024",
+      "P1025",
+      "P1028",
+      "P1033",
+      "P1055",
+      "P1083"
+    ]
+  },
+  "records": {
+    "records_file_entries": 1623,
+    "records_file_duplicate_entries": [],
+    "holter_record_count": 936,
+    "holter_patient_count": 936,
+    "high_resolution_record_count": 687,
+    "high_resolution_patient_count": 687,
+    "metadata_holter_available_count": 936,
+    "metadata_high_resolution_available_count": 687,
+    "metadata_holter_yes_but_header_missing": [],
+    "holter_header_present_but_metadata_not_yes": [],
+    "metadata_high_resolution_yes_but_header_missing": [],
+    "high_resolution_header_present_but_metadata_not_yes": [],
+    "unmatched_header_patient_ids": [],
+    "records_without_header": [],
+    "headers_not_in_records": [],
+    "distributions_all_records": {
+      "sampling_frequency_hz": {
+        "1000": 687,
+        "200": 936
+      },
+      "channel_count": {
+        "2": 38,
+        "3": 1585
+      },
+      "lead_combinations": {
+        "X|Y": 38,
+        "X|Y|Z": 1585
+      },
+      "duration_sec": {
+        "count": 1623,
+        "min": 797.333,
+        "p25": 1196,
+        "median": 79104,
+        "p75": 86104,
+        "max": 86399
+      }
+    },
+    "by_type": {
+      "HOLTER": {
+        "record_count": 936,
+        "patient_count": 936,
+        "sampling_frequency_distribution": {
+          "200": 936
+        },
+        "channel_count_distribution": {
+          "2": 38,
+          "3": 898
+        },
+        "lead_combination_distribution": {
+          "X|Y": 38,
+          "X|Y|Z": 898
+        },
+        "duration_sec": {
+          "count": 936,
+          "min": 29136,
+          "p25": 81330,
+          "median": 84688.5,
+          "p75": 86389,
+          "max": 86399
+        }
+      },
+      "HIGH_RESOLUTION": {
+        "record_count": 687,
+        "patient_count": 687,
+        "sampling_frequency_distribution": {
+          "1000": 687
+        },
+        "channel_count_distribution": {
+          "3": 687
+        },
+        "lead_combination_distribution": {
+          "X|Y|Z": 687
+        },
+        "duration_sec": {
+          "count": 687,
+          "min": 797.333,
+          "p25": 1196,
+          "median": 1196,
+          "p75": 1196,
+          "max": 1196
+        }
+      }
+    }
+  },
+  "integrity": {
+    "manifest_entry_count": 3251,
+    "small_file_and_header_hashes_checked": 1628,
+    "small_file_and_header_hash_mismatches": [],
+    "dat_manifest_entry_count": 1623,
+    "dat_content_hashes_checked": 0,
+    "dat_content_hash_status": "NOT_CHECKED_IN_PHASE_1_BY_DESIGN",
+    "dat_declared_but_not_in_manifest": [],
+    "dat_in_manifest_but_not_declared_by_headers": [],
+    "manifest_files_missing": [],
+    "declared_dat_files_missing": [],
+    "dat_files_shorter_than_header_requirement": [],
+    "dat_files_with_trailing_bytes": [
+      {
+        "path": "Holter_ECG/P0070.dat",
+        "minimum_bytes_from_header": 65904020,
+        "actual_bytes": 65933600,
+        "trailing_bytes": 29580
+      },
+      {
+        "path": "Holter_ECG/P0125.dat",
+        "minimum_bytes_from_header": 49959000,
+        "actual_bytes": 49960000,
+        "trailing_bytes": 1000
+      },
+      {
+        "path": "Holter_ECG/P0174.dat",
+        "minimum_bytes_from_header": 69113204,
+        "actual_bytes": 69113600,
+        "trailing_bytes": 396
+      },
+      {
+        "path": "Holter_ECG/P0247.dat",
+        "minimum_bytes_from_header": 69111576,
+        "actual_bytes": 69112000,
+        "trailing_bytes": 424
+      },
+      {
+        "path": "Holter_ECG/P0258.dat",
+        "minimum_bytes_from_header": 69111384,
+        "actual_bytes": 69112000,
+        "trailing_bytes": 616
+      },
+      {
+        "path": "Holter_ECG/P0302.dat",
+        "minimum_bytes_from_header": 69112316,
+        "actual_bytes": 69112800,
+        "trailing_bytes": 484
+      },
+      {
+        "path": "Holter_ECG/P0305.dat",
+        "minimum_bytes_from_header": 69111752,
+        "actual_bytes": 69112000,
+        "trailing_bytes": 248
+      },
+      {
+        "path": "Holter_ECG/P0310.dat",
+        "minimum_bytes_from_header": 69115384,
+        "actual_bytes": 69116000,
+        "trailing_bytes": 616
+      },
+      {
+        "path": "Holter_ECG/P0384.dat",
+        "minimum_bytes_from_header": 67063588,
+        "actual_bytes": 67064000,
+        "trailing_bytes": 412
+      },
+      {
+        "path": "Holter_ECG/P0421.dat",
+        "minimum_bytes_from_header": 69112140,
+        "actual_bytes": 69112800,
+        "trailing_bytes": 660
+      },
+      {
+        "path": "Holter_ECG/P0424.dat",
+        "minimum_bytes_from_header": 66537420,
+        "actual_bytes": 66537600,
+        "trailing_bytes": 180
+      },
+      {
+        "path": "Holter_ECG/P0425.dat",
+        "minimum_bytes_from_header": 56541536,
+        "actual_bytes": 57684800,
+        "trailing_bytes": 1143264
+      },
+      {
+        "path": "Holter_ECG/P0427.dat",
+        "minimum_bytes_from_header": 63322020,
+        "actual_bytes": 63322400,
+        "trailing_bytes": 380
+      },
+      {
+        "path": "Holter_ECG/P0448.dat",
+        "minimum_bytes_from_header": 69113092,
+        "actual_bytes": 69113600,
+        "trailing_bytes": 508
+      },
+      {
+        "path": "Holter_ECG/P0460.dat",
+        "minimum_bytes_from_header": 69111504,
+        "actual_bytes": 69112000,
+        "trailing_bytes": 496
+      },
+      {
+        "path": "Holter_ECG/P0462.dat",
+        "minimum_bytes_from_header": 69117508,
+        "actual_bytes": 69117600,
+        "trailing_bytes": 92
+      },
+      {
+        "path": "Holter_ECG/P0466.dat",
+        "minimum_bytes_from_header": 66003904,
+        "actual_bytes": 66004000,
+        "trailing_bytes": 96
+      },
+      {
+        "path": "Holter_ECG/P0489.dat",
+        "minimum_bytes_from_header": 69117252,
+        "actual_bytes": 69118400,
+        "trailing_bytes": 1148
+      },
+      {
+        "path": "Holter_ECG/P0490.dat",
+        "minimum_bytes_from_header": 69110368,
+        "actual_bytes": 69110400,
+        "trailing_bytes": 32
+      },
+      {
+        "path": "Holter_ECG/P0493.dat",
+        "minimum_bytes_from_header": 69111568,
+        "actual_bytes": 69112000,
+        "trailing_bytes": 432
+      },
+      {
+        "path": "Holter_ECG/P0494.dat",
+        "minimum_bytes_from_header": 69109652,
+        "actual_bytes": 69111200,
+        "trailing_bytes": 1548
+      },
+      {
+        "path": "Holter_ECG/P0495.dat",
+        "minimum_bytes_from_header": 69115916,
+        "actual_bytes": 69116000,
+        "trailing_bytes": 84
+      },
+      {
+        "path": "Holter_ECG/P0588.dat",
+        "minimum_bytes_from_header": 59570284,
+        "actual_bytes": 59570400,
+        "trailing_bytes": 116
+      },
+      {
+        "path": "Holter_ECG/P0592.dat",
+        "minimum_bytes_from_header": 58795500,
+        "actual_bytes": 58796000,
+        "trailing_bytes": 500
+      },
+      {
+        "path": "Holter_ECG/P0628.dat",
+        "minimum_bytes_from_header": 69116516,
+        "actual_bytes": 69118400,
+        "trailing_bytes": 1884
+      },
+      {
+        "path": "Holter_ECG/P0661.dat",
+        "minimum_bytes_from_header": 69072028,
+        "actual_bytes": 69092000,
+        "trailing_bytes": 19972
+      },
+      {
+        "path": "Holter_ECG/P0674.dat",
+        "minimum_bytes_from_header": 69072020,
+        "actual_bytes": 69116000,
+        "trailing_bytes": 43980
+      },
+      {
+        "path": "Holter_ECG/P0706.dat",
+        "minimum_bytes_from_header": 59806208,
+        "actual_bytes": 59806400,
+        "trailing_bytes": 192
+      },
+      {
+        "path": "Holter_ECG/P0738.dat",
+        "minimum_bytes_from_header": 69111816,
+        "actual_bytes": 69113600,
+        "trailing_bytes": 1784
+      },
+      {
+        "path": "Holter_ECG/P0792.dat",
+        "minimum_bytes_from_header": 69112764,
+        "actual_bytes": 69112800,
+        "trailing_bytes": 36
+      },
+      {
+        "path": "Holter_ECG/P0810.dat",
+        "minimum_bytes_from_header": 101550000,
+        "actual_bytes": 102825462,
+        "trailing_bytes": 1275462
+      },
+      {
+        "path": "Holter_ECG/P0813.dat",
+        "minimum_bytes_from_header": 69109528,
+        "actual_bytes": 69110400,
+        "trailing_bytes": 872
+      },
+      {
+        "path": "Holter_ECG/P0814.dat",
+        "minimum_bytes_from_header": 69118916,
+        "actual_bytes": 69119200,
+        "trailing_bytes": 284
+      },
+      {
+        "path": "Holter_ECG/P0829.dat",
+        "minimum_bytes_from_header": 69112764,
+        "actual_bytes": 69112800,
+        "trailing_bytes": 36
+      },
+      {
+        "path": "Holter_ECG/P0831.dat",
+        "minimum_bytes_from_header": 69112472,
+        "actual_bytes": 69112800,
+        "trailing_bytes": 328
+      },
+      {
+        "path": "Holter_ECG/P0832.dat",
+        "minimum_bytes_from_header": 69111180,
+        "actual_bytes": 69111200,
+        "trailing_bytes": 20
+      },
+      {
+        "path": "Holter_ECG/P0898.dat",
+        "minimum_bytes_from_header": 69072028,
+        "actual_bytes": 69080000,
+        "trailing_bytes": 7972
+      },
+      {
+        "path": "Holter_ECG/P0962.dat",
+        "minimum_bytes_from_header": 65615452,
+        "actual_bytes": 65616000,
+        "trailing_bytes": 548
+      },
+      {
+        "path": "Holter_ECG/P1073.dat",
+        "minimum_bytes_from_header": 58811060,
+        "actual_bytes": 58811200,
+        "trailing_bytes": 140
+      },
+      {
+        "path": "High-resolution_ECG/P0070_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0125_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0247_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0258_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0302_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0305_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0310_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0384_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0421_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0424_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0425_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0427_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0466_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0489_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0588_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0592_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0661_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0674_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0706_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      },
+      {
+        "path": "High-resolution_ECG/P0898_H.dat",
+        "minimum_bytes_from_header": 4783998,
+        "actual_bytes": 7176000,
+        "trailing_bytes": 2392002
+      }
+    ],
+    "header_anomalies": [],
+    "malformed_manifest_lines": [],
+    "unexpected_files_not_in_manifest": []
+  },
+  "outcomes": {
+    "follow_up_days": {
+      "count": 992,
+      "min": 33,
+      "p25": 1082.25,
+      "median": 1805,
+      "p75": 1913,
+      "max": 2065
+    },
+    "cause_of_death_distribution_raw_codes": {
+      "0": 726,
+      "1": 61,
+      "3": 94,
+      "6": 100,
+      "7": 11
+    },
+    "scd_definition": "Cause of death == 3, per subject-info_codes.csv",
+    "scd_total": 94,
+    "scd_by_horizon_days": {
+      "90": 11,
+      "180": 19,
+      "365": 38,
+      "730": 64
+    }
+  },
+  "rhythm_and_pvc": {
+    "af_definition": "official permanent AF code 1 in ECG rhythm and/or Holter rhythm",
+    "high_resolution_permanent_af_count": 183,
+    "holter_permanent_af_count": 171,
+    "permanent_af_unique_union_count": 192,
+    "permanent_af_unique_union_patient_ids": [
+      "P0001",
+      "P0003",
+      "P0016",
+      "P0019",
+      "P0026",
+      "P0029",
+      "P0033",
+      "P0047",
+      "P0048",
+      "P0049",
+      "P0052",
+      "P0053",
+      "P0059",
+      "P0061",
+      "P0062",
+      "P0068",
+      "P0071",
+      "P0092",
+      "P0096",
+      "P0098",
+      "P0105",
+      "P0113",
+      "P0114",
+      "P0126",
+      "P0134",
+      "P0137",
+      "P0138",
+      "P0139",
+      "P0140",
+      "P0141",
+      "P0142",
+      "P0151",
+      "P0156",
+      "P0160",
+      "P0161",
+      "P0164",
+      "P0166",
+      "P0167",
+      "P0179",
+      "P0187",
+      "P0197",
+      "P0201",
+      "P0206",
+      "P0209",
+      "P0213",
+      "P0215",
+      "P0216",
+      "P0217",
+      "P0233",
+      "P0243",
+      "P0256",
+      "P0260",
+      "P0269",
+      "P0275",
+      "P0286",
+      "P0289",
+      "P0293",
+      "P0315",
+      "P0322",
+      "P0323",
+      "P0324",
+      "P0333",
+      "P0358",
+      "P0367",
+      "P0380",
+      "P0387",
+      "P0389",
+      "P0390",
+      "P0395",
+      "P0407",
+      "P0409",
+      "P0411",
+      "P0413",
+      "P0424",
+      "P0444",
+      "P0448",
+      "P0461",
+      "P0466",
+      "P0467",
+      "P0469",
+      "P0471",
+      "P0472",
+      "P0475",
+      "P0485",
+      "P0487",
+      "P0495",
+      "P0496",
+      "P0498",
+      "P0504",
+      "P0506",
+      "P0509",
+      "P0516",
+      "P0517",
+      "P0519",
+      "P0536",
+      "P0558",
+      "P0559",
+      "P0560",
+      "P0567",
+      "P0568",
+      "P0571",
+      "P0579",
+      "P0585",
+      "P0591",
+      "P0593",
+      "P0594",
+      "P0596",
+      "P0597",
+      "P0614",
+      "P0624",
+      "P0626",
+      "P0628",
+      "P0632",
+      "P0636",
+      "P0649",
+      "P0653",
+      "P0669",
+      "P0671",
+      "P0685",
+      "P0687",
+      "P0688",
+      "P0697",
+      "P0706",
+      "P0710",
+      "P0713",
+      "P0716",
+      "P0719",
+      "P0720",
+      "P0724",
+      "P0727",
+      "P0728",
+      "P0729",
+      "P0753",
+      "P0762",
+      "P0766",
+      "P0777",
+      "P0778",
+      "P0779",
+      "P0781",
+      "P0783",
+      "P0787",
+      "P0788",
+      "P0792",
+      "P0795",
+      "P0800",
+      "P0801",
+      "P0804",
+      "P0807",
+      "P0812",
+      "P0816",
+      "P0828",
+      "P0835",
+      "P0840",
+      "P0845",
+      "P0849",
+      "P0852",
+      "P0855",
+      "P0864",
+      "P0873",
+      "P0875",
+      "P0893",
+      "P0906",
+      "P0912",
+      "P0924",
+      "P0929",
+      "P0932",
+      "P0936",
+      "P0938",
+      "P0941",
+      "P0945",
+      "P0947",
+      "P0952",
+      "P0953",
+      "P0956",
+      "P0961",
+      "P0962",
+      "P0964",
+      "P0968",
+      "P0969",
+      "P0979",
+      "P0983",
+      "P1000",
+      "P1011",
+      "P1013",
+      "P1015",
+      "P1023",
+      "P1030",
+      "P1032",
+      "P1033",
+      "P1056",
+      "P1058",
+      "P1073"
+    ],
+    "pvc_fields": {
+      "Number of ventricular premature beats in 24h": {
+        "present": true,
+        "non_missing_count": 932,
+        "missing_count": 60,
+        "summary": {
+          "count": 932,
+          "min": 0,
+          "p25": 38.75,
+          "median": 274,
+          "p75": 1613.75,
+          "max": 44500
+        }
+      },
+      "Ventricular Extrasystole": {
+        "present": true,
+        "non_missing_count": 927,
+        "missing_count": 65,
+        "summary": {
+          "count": 927,
+          "min": 0,
+          "p25": 1,
+          "median": 2,
+          "p75": 2,
+          "max": 2
+        }
+      },
+      "Number of ventricular premature contractions per hour": {
+        "present": true,
+        "non_missing_count": 755,
+        "missing_count": 237,
+        "summary": {
+          "count": 755,
+          "min": 0,
+          "p25": 0,
+          "median": 0,
+          "p75": 0,
+          "max": 1025
+        }
+      }
+    }
+  },
+  "windows": {
+    "legacy_120s_definition": "start=60+3600*k seconds, k=0..23; valid iff start+120<=record duration",
+    "legacy_120s_theoretical_window_count": 21816,
+    "full_5min_definition": "300-second non-overlapping windows, stride 300 seconds, from t=0",
+    "full_5min_theoretical_window_count": 258315
+  },
+  "size_estimate": {
+    "official_metadata_gzip_bytes": 255336,
+    "wfdb_headers_combined_gzip_bytes": 20857,
+    "assumed_feature_count": 20,
+    "assumed_feature_dtype": "float64",
+    "estimated_music_ci_low_bytes": 40479421,
+    "estimated_music_ci_high_bytes": 62665797,
+    "estimated_music_ci_low_mib": 38.6,
+    "estimated_music_ci_high_mib": 59.76,
+    "can_likely_control_within_80_mib": true,
+    "method": "20 float64 features per theoretical window; Parquet feature compression factor 0.72-1.05, encoded window metadata factor 0.20-0.75, plus 5 MiB cohort/validation/report allowance; must be replaced by measured Phase 4 size"
+  },
+  "existing_repository": {
+    "legacy_derived_csv_rows": 88,
+    "legacy_derived_csv_is_complete_cohort": false,
+    "risk": "existing extractor silently skips extraction exceptions and patients with fewer than four windows; it is not used as Phase 1 truth"
+  },
+  "hard_gate": {
+    "passed": true,
+    "reasons": [],
+    "phase_2_authorized": false
+  }
+}

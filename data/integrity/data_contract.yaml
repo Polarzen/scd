@@ -1,0 +1,30 @@
+dataset_name: MUSIC (Sudden Cardiac Death in Chronic Heart Failure)
+music_version: 1.0.1
+source_doi: 10.13026/z3m7-rf58
+subject_count_from_source: 992
+subjects_primary_key: patient_id
+records_foreign_key: patient_id
+provenance_key:
+- record_type
+- record_id
+required_source_files:
+- subject-info.csv
+- subject-info_codes.csv
+- subject-info_definitions.csv
+- RECORDS
+- SHA256SUMS.txt
+- LICENSE.txt
+allowed_record_types:
+- HOLTER
+- HIGH_RESOLUTION
+allowed_endpoint_states:
+- POSITIVE
+- NEGATIVE
+- CENSORED
+- COMPETING_EVENT
+- UNKNOWN
+parquet_compression: zstd
+missing_value_policy: Use null; never coerce missing values to 0, -1, or a sentinel
+  string.
+phase: 2
+waveform_content_included: false
