@@ -1,0 +1,14 @@
+{
+  "files": {
+    "data/features/legacy_120s/features.parquet": 331160,
+    "data/features/legacy_120s/patient_features.parquet": 143168,
+    "data/features/legacy_120s/windows.parquet": 22549,
+    "data/validation/legacy_feature_comparison.csv": 745789,
+    "data/validation/legacy_model_folds.csv": 1914,
+    "data/validation/legacy_oof_predictions.parquet": 6113,
+    "data/validation/legacy_reproduction_metrics.json": 658,
+    "data/validation/legacy_window_validation.json": 551
+  },
+  "phase3_generated_data_bytes": 1251902,
+  "repository_data_total_bytes": 2786960
+}

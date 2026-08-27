@@ -1,0 +1,24 @@
+schema_version: 1
+implementation: existing_project_code
+feature_count: 20
+features:
+  - {feature_id: feature_01, feature_name: sig_mean, category: MORPHOLOGY, unit: normalized_ecg, implementation_source: "心电图分析.py window_features; mean"}
+  - {feature_id: feature_02, feature_name: sig_std, category: MORPHOLOGY, unit: normalized_ecg, implementation_source: "心电图分析.py window_features; population std"}
+  - {feature_id: feature_03, feature_name: sig_p2p, category: MORPHOLOGY, unit: normalized_ecg, implementation_source: "心电图分析.py window_features; max-min"}
+  - {feature_id: feature_04, feature_name: sig_skew, category: SIGNAL_QUALITY, unit: dimensionless, implementation_source: "心电图分析.py window_features; pandas skew"}
+  - {feature_id: feature_05, feature_name: sig_kurt, category: SIGNAL_QUALITY, unit: dimensionless, implementation_source: "心电图分析.py window_features; pandas excess kurtosis"}
+  - {feature_id: feature_06, feature_name: beats, category: HR_DYNAMICS, unit: count, implementation_source: "心电图分析.py detect_r_peaks/window_features"}
+  - {feature_id: feature_07, feature_name: beats_per_min, category: HR_DYNAMICS, unit: bpm, implementation_source: "心电图分析.py window_features"}
+  - {feature_id: feature_08, feature_name: mean_rr, category: TIME, unit: seconds, implementation_source: "心电图分析.py hrv_features"}
+  - {feature_id: feature_09, feature_name: sdnn, category: TIME, unit: seconds, implementation_source: "心电图分析.py hrv_features; sample std"}
+  - {feature_id: feature_10, feature_name: rmssd, category: TIME, unit: seconds, implementation_source: "心电图分析.py hrv_features"}
+  - {feature_id: feature_11, feature_name: pnn50, category: TIME, unit: percent, implementation_source: "心电图分析.py hrv_features"}
+  - {feature_id: feature_12, feature_name: mean_hr, category: HR_DYNAMICS, unit: bpm, implementation_source: "心电图分析.py hrv_features"}
+  - {feature_id: feature_13, feature_name: rr_cv, category: HR_DYNAMICS, unit: dimensionless, implementation_source: "心电图分析.py hrv_features; population std/mean"}
+  - {feature_id: feature_14, feature_name: rr_sampen, category: NONLINEAR, unit: dimensionless, implementation_source: "心电图分析.py sample_entropy m=2 r=0.2*std"}
+  - {feature_id: feature_15, feature_name: rr_apen, category: NONLINEAR, unit: dimensionless, implementation_source: "心电图分析.py approximate_entropy m=2 r=0.2*std"}
+  - {feature_id: feature_16, feature_name: rr_dfa_alpha, category: NONLINEAR, unit: dimensionless, implementation_source: "心电图分析.py dfa"}
+  - {feature_id: feature_17, feature_name: pow_lf, category: FREQUENCY, unit: normalized_fraction, implementation_source: "心电图分析.py spectral_features; FFT 0.5<=f<4Hz"}
+  - {feature_id: feature_18, feature_name: pow_mf, category: FREQUENCY, unit: normalized_fraction, implementation_source: "心电图分析.py spectral_features; FFT 4<=f<15Hz"}
+  - {feature_id: feature_19, feature_name: pow_hf, category: FREQUENCY, unit: normalized_fraction, implementation_source: "心电图分析.py spectral_features; FFT 15<=f<40Hz"}
+  - {feature_id: feature_20, feature_name: pow_hf_ratio, category: FREQUENCY, unit: dimensionless, implementation_source: "心电图分析.py spectral_features; pow_hf/(pow_lf+pow_mf)"}

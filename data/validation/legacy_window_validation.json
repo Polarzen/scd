@@ -1,0 +1,23 @@
+{
+  "patient_count": 88,
+  "positive_count": 37,
+  "negative_count": 51,
+  "theoretical_window_count": 2112,
+  "expected_theoretical_window_count": 2112,
+  "window_status_counts": {
+    "SUCCESS": 2054,
+    "OUTSIDE_RECORD": 58
+  },
+  "patient_successful_window_min": 19,
+  "patient_successful_window_max": 24,
+  "raw_rr_equals_valid_rr_rows": 2112,
+  "removed_rr_total": 0,
+  "read_contract": {
+    "reader": "wfdb.rdrecord",
+    "channels": [
+      0
+    ],
+    "maximum_requested_window_sec": 120,
+    "padding": false
+  }
+}

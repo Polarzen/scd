@@ -1,0 +1,48 @@
+schema_version: 1
+source: existing_project_code
+window:
+  length_sec: 120
+  first_start_sec: 60
+  interval_sec: 3600
+  max_windows: 24
+  filter_padding_sec: 0
+channel:
+  index: 0
+  rule: first_available_channel
+filter:
+  type: butterworth_bandpass
+  order: 3
+  low_cutoff_hz: 0.5
+  high_cutoff_hz: 40.0
+  phase: zero_phase_filtfilt
+standardization:
+  method: median_center_then_population_std
+qrs:
+  input: standardized_filtered_ecg
+  detector: scipy_find_peaks_on_squared_signal
+  minimum_peak_distance_sec: 0.25
+  height_percentile: 93
+morphology_input: standardized_filtered_ecg
+rr_nn:
+  definition: raw_inter_peak_RR_only
+  minimum_rr_sec: null
+  maximum_rr_sec: null
+  local_median_criterion: null
+  ectopic_handling: none
+  interpolation_type: none
+  interpolation_frequency_hz: null
+  detrending: none
+spectral:
+  method: raw_fft_periodogram_of_ecg
+  welch_nperseg: null
+  welch_noverlap: null
+  welch_window: null
+  hrv_lf_band_hz: null
+  hrv_hf_band_hz: null
+  legacy_signal_bands_hz:
+    low: [0.5, 4.0]
+    mid: [4.0, 15.0]
+    high: [15.0, 40.0]
+notes:
+  - "The old code does not implement 0.30-2.00 s RR cleaning, local-median rejection, spline interpolation, 4 Hz resampling, or Welch HRV bands."
+  - "The fixed hourly window rule is a Phase 3 requirement and conflicts with old random-window extraction."
