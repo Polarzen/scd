@@ -73,10 +73,12 @@ jobs:
               candidates=[x.strip().upper() for x in requested.split(',') if x.strip()]
           elif stage in {'smoke','seed42'}:
               candidates=['B0','M1','M2','M3','M4','A1','A2','P1','P2']
-          elif stage in {'screening10','formal100','full'}:
+          elif stage == 'screening10':
               candidates=['B0','M2','A1']
+          elif stage in {'formal100','full'}:
+              candidates=['B0','M1','P2']
           elif stage == 'endpoints':
-              candidates=['A1']
+              candidates=['P2']
           else:
               candidates=[]
           if stage in {'smoke','seed42'}:
@@ -92,15 +94,20 @@ jobs:
               raise SystemExit(f'unknown candidates: {sorted(set(candidates)-allowed)}')
           if stage == 'screening10' and len(candidates) > 3:
               raise SystemExit('screening10 permits at most three candidates')
-          if stage in {'formal100','full'} and len([c for c in candidates if c!='B0']) > 2:
-              raise SystemExit('formal100 permits baseline plus at most two finalists')
-          endpoint=next((c for c in candidates if c!='B0'), 'A1')
+          if stage in {'formal100','full'}:
+              if 'B0' not in candidates:
+                  raise SystemExit('formal100/full requires B0 among expected candidates')
+              if len([c for c in candidates if c!='B0']) > 2:
+                  raise SystemExit('formal100 permits baseline plus at most two finalists')
+          expected_candidates=list(candidates)
+          run_candidates=[c for c in candidates if not (stage in {'formal100','full'} and c == 'B0')]
+          endpoint='P2' if 'P2' in candidates else next((c for c in candidates if c!='B0'), 'A1')
           values={
-              'candidates':json.dumps(candidates,separators=(',',':')),
+              'candidates':json.dumps(run_candidates,separators=(',',':')),
               'seeds':json.dumps(seeds,separators=(',',':')),
-              'expected_candidates':','.join(candidates),
+              'expected_candidates':','.join(expected_candidates),
               'expected_seeds':','.join(map(str,seeds)),
-              'run_candidates':str(bool(candidates and seeds)).lower(),
+              'run_candidates':str(bool(run_candidates and seeds)).lower(),
               'endpoint_candidate':endpoint,
               'stage':stage,
               'model_override':model_override,
@@ -139,6 +146,26 @@ jobs:
           cache-dependency-path: requirements-lock.txt
       - run: python -m pip install --requirement requirements-lock.txt
       - run: python -m src.cli optimization-audit --endpoint 365 --output-dir artifacts/optimization/population
+      - name: Write current audited B0 population manifest
+        run: |
+          python - <<'PY'
+          from src.full_model import DEFAULT_FEATURE_PATH, DEFAULT_SUBJECTS_PATH
+          from src.model_optimization import prepare_optimization_bundle
+
+          bundle = prepare_optimization_bundle(
+              DEFAULT_FEATURE_PATH,
+              DEFAULT_SUBJECTS_PATH,
+              candidate='B0',
+              horizon_days=365,
+          )
+          table = bundle.population_manifest_table
+          selected = set(bundle.frame['patient_id'].astype(str))
+          audited_included = table['patient_id'].astype(str).isin(selected)
+          if 'included' in table.columns and not table['included'].astype(bool).equals(audited_included):
+              raise SystemExit('B0 manifest inclusion disagrees with optimization bundle')
+          table['included'] = audited_included
+          table.to_csv('artifacts/optimization/population/b0_population_manifest.csv', index=False)
+          PY
       - uses: actions/upload-artifact@v4
         with:
           name: optimization-population-audit
@@ -196,6 +223,26 @@ jobs:
         with:
           pattern: optimization-*-seed-*
           path: artifacts/optimization/downloaded
+      - uses: actions/download-artifact@v4
+        if: ${{ needs.configure.outputs.stage == 'formal100' || needs.configure.outputs.stage == 'full' }}
+        with:
+          run-id: 33141323899
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: formal-repeated-all20-seed-*
+          path: artifacts/optimization/legacy
+      - uses: actions/download-artifact@v4
+        if: ${{ needs.configure.outputs.stage == 'formal100' || needs.configure.outputs.stage == 'full' }}
+        with:
+          name: optimization-population-audit
+          path: artifacts/optimization/population
+      - name: Import immutable formal B0 baseline
+        if: ${{ needs.configure.outputs.stage == 'formal100' || needs.configure.outputs.stage == 'full' }}
+        run: |
+          python scripts/import_formal_baseline.py \
+            --legacy-root artifacts/optimization/legacy \
+            --output-dir artifacts/optimization/downloaded \
+            --manifest artifacts/optimization/population/b0_population_manifest.csv \
+            --endpoint 365
       - name: Strict aggregate
         env:
           CANDIDATES: ${{ needs.configure.outputs.expected_candidates }}
@@ -256,6 +303,23 @@ jobs:
         with:
           pattern: optimization-*-seed-*
           path: artifacts/optimization/downloaded
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 33141323899
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: formal-repeated-all20-seed-*
+          path: artifacts/optimization/legacy
+      - uses: actions/download-artifact@v4
+        with:
+          name: optimization-population-audit
+          path: artifacts/optimization/population
+      - name: Import immutable formal B0 baseline
+        run: |
+          python scripts/import_formal_baseline.py \
+            --legacy-root artifacts/optimization/legacy \
+            --output-dir artifacts/optimization/downloaded \
+            --manifest artifacts/optimization/population/b0_population_manifest.csv \
+            --endpoint 365
       - uses: actions/download-artifact@v4
         with:
           pattern: optimization-endpoint-*d
