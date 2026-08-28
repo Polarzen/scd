@@ -21,6 +21,7 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
+from sklearn.feature_selection import SelectKBest, f_classif
 from sklearn.preprocessing import StandardScaler
 
 from .endpoints import ALLOWED_STATES, build_endpoint
@@ -53,6 +54,16 @@ MODEL_ALIASES: dict[str, str] = {
     "logit": "logistic",
     "prevalence": "dummy",
     "dummy_prevalence": "dummy",
+    "elasticnet-selected": "elasticnet_selected",
+    "elasticnet selected": "elasticnet_selected",
+    "elastic_net": "elasticnet",
+    "elastic-net": "elasticnet",
+    "elastic_net_selected": "elasticnet_selected",
+    "elastic-net-selected": "elasticnet_selected",
+    "extra_trees_regularized": "extratrees_regularized",
+    "extra-trees-regularized": "extratrees_regularized",
+    "extra trees regularized": "extratrees_regularized",
+    "et_regularized": "extratrees_regularized",
 }
 
 # Public frozen column constants are convenient for notebooks and make the
@@ -65,8 +76,11 @@ ALL20_FEATURE_NAMES: tuple[str, ...] = tuple(AGGREGATED_FEATURE_NAMES)
 def canonical_model_name(model: str) -> str:
     value = str(model).strip().lower()
     value = MODEL_ALIASES.get(value, value)
-    if value not in {"extratrees", "logistic", "dummy"}:
-        raise ValueError("model must be one of extratrees, logistic, dummy")
+    if value not in {"extratrees", "logistic", "dummy", "elasticnet", "elasticnet_selected", "extratrees_regularized"}:
+        raise ValueError(
+            "model must be one of extratrees, logistic, dummy, elasticnet, "
+            "elasticnet_selected, extratrees_regularized"
+        )
     return value
 
 
@@ -203,9 +217,34 @@ def get_model_feature_columns(
     """Return and, when given a frame, validate the profile's feature columns."""
 
     cols = list(feature_cols) if feature_cols is not None else model_feature_names(profile, feature_config_path=feature_config_path)
-    expected_count = 100 if str(profile).strip().lower().replace("-", "_") in {"all20", "all_20", "all", "full"} else len(cols)
-    if len(cols) != expected_count or len(set(cols)) != len(cols):
+    # Explicit feature lists are valid custom profiles; the frame still
+    # validates every requested column below.  The generated all20 profile
+    # retains its frozen 100-column contract.
+    if feature_cols is None:
+        expected_count = 100 if str(profile).strip().lower().replace("-", "_") in {"all20", "all_20", "all", "full"} else len(cols)
+    else:
+        expected_count = len(cols)
+    if not cols or len(cols) != expected_count or len(set(cols)) != len(cols):
         raise ValueError(f"model feature profile requires {expected_count} unique columns, got {len(cols)}")
+    unsafe = {
+        "patient_id",
+        "label",
+        "true_label",
+        "binary_label_if_evaluable",
+        "endpoint_state",
+        "endpoint_horizon_days",
+        "time_to_event",
+        "event_type",
+    }
+    unsafe_requested = [column for column in cols if str(column) in unsafe]
+    forbidden_tokens = ("patient_id", "label", "outcome", "endpoint", "cause", "death", "event", "followup", "prediction", "probability", "threshold")
+    unsafe_requested.extend(
+        column
+        for column in cols
+        if column not in unsafe_requested and any(token in str(column).lower() for token in forbidden_tokens)
+    )
+    if unsafe_requested:
+        raise ValueError(f"model feature columns cannot include identifiers or outcome fields: {unsafe_requested}")
     if frame is not None:
         missing = [column for column in cols if column not in frame.columns]
         if missing:
@@ -327,25 +366,49 @@ def build_model(
     if not cols:
         raise ValueError("at least one feature column is required")
     steps: list[tuple[str, Any]] = []
-    if kind == "logistic":
+    if kind in {"logistic", "elasticnet", "elasticnet_selected"}:
         preprocessor = Pipeline(
             steps=[
-                ("imputer", SimpleImputer(strategy="median", keep_empty_features=True)),
+                (
+                    "imputer",
+                    SimpleImputer(
+                        strategy="median",
+                        keep_empty_features=True,
+                        add_indicator=kind in {"elasticnet", "elasticnet_selected"},
+                    ),
+                ),
                 ("scale", StandardScaler()),
             ]
         )
+        if kind == "elasticnet_selected":
+            preprocessor.steps.append(("select", SelectKBest(score_func=f_classif, k="all")))
+            estimator = LogisticRegression(
+                solver="saga",
+                penalty="elasticnet",
+                max_iter=10000,
+                random_state=int(seed),
+            )
+        elif kind == "elasticnet":
+            estimator = LogisticRegression(
+                solver="saga",
+                penalty="elasticnet",
+                max_iter=10000,
+                random_state=int(seed),
+            )
+        else:
+            estimator = None
         # sklearn 1.8 represents L2 with l1_ratio=0 and warns when the
         # legacy explicit ``penalty='l2'`` spelling is fitted.  Keep the
         # compatibility branch for older versions while preserving the same
         # L2 objective on both APIs.
-        if LogisticRegression().get_params().get("penalty") == "deprecated":
+        if kind == "logistic" and LogisticRegression().get_params().get("penalty") == "deprecated":
             estimator = LogisticRegression(
                 l1_ratio=0.0,
                 solver="lbfgs",
                 max_iter=2000,
                 random_state=int(seed),
             )
-        else:
+        elif kind == "logistic":
             estimator = LogisticRegression(
                 penalty="l2",
                 solver="liblinear",
@@ -355,6 +418,20 @@ def build_model(
     elif kind == "dummy":
         preprocessor = SimpleImputer(strategy="median", keep_empty_features=True)
         estimator = DummyClassifier(strategy="prior")
+    elif kind == "extratrees_regularized":
+        preprocessor = SimpleImputer(strategy="median", keep_empty_features=True)
+        estimator = ExtraTreesClassifier(
+            n_estimators=500,
+            max_depth=None,
+            min_samples_leaf=2,
+            min_samples_split=4,
+            max_features="sqrt",
+            class_weight="balanced",
+            criterion="gini",
+            bootstrap=False,
+            random_state=int(seed),
+            n_jobs=int(n_jobs),
+        )
     else:
         preprocessor = SimpleImputer(strategy="median", keep_empty_features=True)
         estimator = ExtraTreesClassifier(
@@ -367,18 +444,26 @@ def build_model(
             random_state=int(seed),
             n_jobs=int(n_jobs),
         )
+    pipeline = Pipeline(steps=[("pre", preprocessor), ("clf", estimator)])
     if estimator_params:
         params = dict(estimator_params)
         # Accept both the public clf__ names and the older classifier__ spelling.
         params = {("clf" + key[len("classifier") :]) if key.startswith("classifier__") else key: value for key, value in params.items()}
+        pipeline_params = {key: value for key, value in params.items() if key.startswith(("clf__", "pre__"))}
         direct = {key[len("clf__") :]: value for key, value in params.items() if key.startswith("clf__")}
-        nested = {key: value for key, value in params.items() if not key.startswith("clf__")}
+        nested = {
+            key: value
+            for key, value in params.items()
+            if not key.startswith(("clf__", "pre__"))
+        }
         estimator.set_params(**direct, **nested)
-    return Pipeline(steps=[("pre", preprocessor), ("clf", estimator)])
+        if pipeline_params:
+            pipeline.set_params(**pipeline_params)
+    return pipeline
 
 
 def get_param_distributions(model: str = "extratrees") -> dict[str, list[Any]]:
-    """Return bounded search spaces for the two tuned models."""
+    """Return the fixed bounded search space for a supported model family."""
 
     kind = canonical_model_name(model)
     if kind == "extratrees":
@@ -394,6 +479,30 @@ def get_param_distributions(model: str = "extratrees") -> dict[str, list[Any]]:
         }
     if kind == "logistic":
         return {"clf__C": [0.001, 0.01, 0.1, 1.0, 10.0, 100.0]}
+    if kind == "elasticnet":
+        return {
+            "clf__C": [0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1, 3],
+            "clf__l1_ratio": [0, 0.1, 0.25, 0.5, 0.75, 1],
+            "clf__class_weight": [None, "balanced"],
+        }
+    if kind == "elasticnet_selected":
+        return {
+            "clf__C": [0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1, 3],
+            "clf__l1_ratio": [0, 0.1, 0.25, 0.5, 0.75, 1],
+            "clf__class_weight": [None, "balanced"],
+            "pre__select__k": [8, 12, 20, 30],
+        }
+    if kind == "extratrees_regularized":
+        return {
+            "clf__n_estimators": [300, 500, 800],
+            "clf__max_depth": [3, 5, 8, 12, None],
+            "clf__min_samples_leaf": [2, 4, 6, 10, 15],
+            "clf__min_samples_split": [4, 8, 12, 20],
+            "clf__max_features": ["sqrt", 0.2, 0.3, 0.5],
+            "clf__class_weight": ["balanced", "balanced_subsample"],
+            "clf__criterion": ["gini", "log_loss"],
+            "clf__bootstrap": [False, True],
+        }
     return {}
 
 

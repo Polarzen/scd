@@ -14,7 +14,9 @@ from typing import Any, Iterable, Mapping, Sequence
 import numpy as np
 import pandas as pd
 from sklearn.base import clone
+from sklearn.exceptions import ConvergenceWarning
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV, StratifiedKFold, cross_val_predict
+import warnings
 
 from .full_model import (
     DEFAULT_BOOTSTRAP_RESAMPLES,
@@ -168,11 +170,19 @@ def _fit_search(
     inner_cv = StratifiedKFold(n_splits=int(inner_folds), shuffle=True, random_state=int(seed))
     base = build_model(kind, feature_cols, seed=int(seed), n_jobs=int(n_jobs), estimator_params=estimator_params)
     search_space = dict(param_distributions) if param_distributions is not None else get_param_distributions(kind)
+    if kind == "elasticnet_selected" and "pre__select__k" in search_space:
+        # Keep the public bounded space fixed while avoiding invalid selector
+        # candidates for intentionally small custom feature lists.
+        valid_k = [int(value) for value in search_space["pre__select__k"] if int(value) <= len(feature_cols)]
+        search_space["pre__select__k"] = valid_k or [len(feature_cols)]
     search_jobs = int(n_jobs if tune_n_jobs is None else tune_n_jobs)
     if kind == "dummy" or not search_space:
-        base.fit(x_train, y_train)
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", ConvergenceWarning)
+            warnings.filterwarnings("ignore", category=FutureWarning, module=r"sklearn\.linear_model")
+            base.fit(x_train, y_train)
         return base, {}, inner_cv
-    if kind == "logistic":
+    if kind in {"logistic", "elasticnet"}:
         search: Any = GridSearchCV(
             estimator=base,
             param_grid=search_space,
@@ -197,7 +207,10 @@ def _fit_search(
             random_state=int(seed),
             error_score="raise",
         )
-    search.fit(x_train, y_train)
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", ConvergenceWarning)
+        warnings.filterwarnings("ignore", category=FutureWarning, module=r"sklearn\.linear_model")
+        search.fit(x_train, y_train)
     return search.best_estimator_, _jsonable(search.best_params_), inner_cv
 
 
@@ -235,7 +248,11 @@ def run_nested_cv(
     if int(n_iter) < 1:
         raise ValueError("n_iter must be positive")
     if outer_splits is None:
-        splits = make_outer_splits(y, outer_folds=int(outer_folds), seed=int(seed))
+        splits = _validate_outer_splits(
+            make_outer_splits(y, outer_folds=int(outer_folds), seed=int(seed)),
+            len(work),
+            y,
+        )
     else:
         splits = _validate_outer_splits(outer_splits, len(work), y)
         if len(splits) != int(outer_folds):
@@ -247,6 +264,12 @@ def run_nested_cv(
     fold_rows: list[dict[str, Any]] = []
     x_all = work[cols]
     for fold_number, (train_idx, test_idx) in enumerate(splits, start=1):
+        train_patients = set(work.iloc[train_idx]["patient_id"].astype(str))
+        test_patients = set(work.iloc[test_idx]["patient_id"].astype(str))
+        if train_patients & test_patients:
+            raise AssertionError("outer train and test patients overlap")
+        if len(test_patients) != len(test_idx):
+            raise AssertionError("outer test partition contains duplicate patients")
         x_train = x_all.iloc[train_idx]
         y_train = y[train_idx]
         x_test = x_all.iloc[test_idx]
@@ -267,14 +290,19 @@ def run_nested_cv(
         # The fitted search result is not reused to calibrate its own training
         # predictions.  Cloned best parameters generate genuine inner OOF
         # predictions, and therefore cannot see an outer test observation.
-        inner_prob = cross_val_predict(
-            clone(best),
-            x_train,
-            y_train,
-            cv=inner_cv,
-            method="predict_proba",
-            n_jobs=int(n_jobs if tune_n_jobs is None else tune_n_jobs),
-        )[:, 1]
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", ConvergenceWarning)
+            warnings.filterwarnings("ignore", category=FutureWarning, module=r"sklearn\.linear_model")
+            inner_prob = cross_val_predict(
+                clone(best),
+                x_train,
+                y_train,
+                cv=inner_cv,
+                method="predict_proba",
+                n_jobs=int(n_jobs if tune_n_jobs is None else tune_n_jobs),
+            )[:, 1]
+        if len(inner_prob) != len(x_train) or not np.isfinite(inner_prob).all():
+            raise AssertionError("inner OOF predictions must contain one finite probability per training patient")
         threshold = select_threshold_target_specificity(
             y_train,
             inner_prob,
@@ -282,6 +310,8 @@ def run_nested_cv(
         )
         test_prob = np.asarray(best.predict_proba(x_test)[:, 1], dtype=float)
         test_prob = np.clip(test_prob, 0.0, 1.0)
+        if test_prob.size != len(test_idx) or not np.isfinite(test_prob).all():
+            raise AssertionError("outer test predictions must contain one finite probability per patient")
         test_pred = (test_prob >= float(threshold)).astype(int)
         fold_metrics = metric_aliases(compute_metrics(y_test, test_prob, test_pred))
         fold_row: dict[str, Any] = {
@@ -320,7 +350,19 @@ def run_nested_cv(
                 "profile": profile,
                 "seed": int(seed),
             }
-            for metadata in ("endpoint_state", "endpoint_horizon_days", "time_to_event", "event_type"):
+            for metadata in (
+                "endpoint_state",
+                "endpoint_horizon_days",
+                "time_to_event",
+                "event_type",
+                "af_flag",
+                "pvc_count_24h",
+                "pvc_status",
+                "high_pvc",
+                "high_pvc_burden",
+                "high_pvc_flag",
+                "pvc_burden_status",
+            ):
                 if metadata in work.columns:
                     value = work.iloc[int(index)][metadata]
                     row[metadata] = None if pd.isna(value) else value
@@ -356,6 +398,11 @@ def run_nested_cv(
         "fold_thresholds": [float(value) for value in folds["threshold"].to_numpy(dtype=float)],
         "metrics": metrics,
     }
+    if "endpoint_horizon_days" in work.columns:
+        horizons = pd.to_numeric(work["endpoint_horizon_days"], errors="coerce").dropna().unique()
+        if len(horizons) != 1:
+            raise AssertionError("nested evaluation requires one endpoint horizon")
+        summary["endpoint_horizon_days"] = int(horizons[0])
     summary.update(metrics)
     summary.update(metric_aliases(metrics))
     if int(bootstrap_resamples) > 0:

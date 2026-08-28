@@ -31,6 +31,9 @@ METRIC_NAMES: tuple[str, ...] = (
     "F1",
     "PPV",
     "NPV",
+    "BrierSkill",
+    "calibration_intercept",
+    "calibration_slope",
 )
 
 
@@ -80,6 +83,95 @@ def _safe_brier(y: np.ndarray, p: np.ndarray) -> float:
     return float(brier_score_loss(y, p))
 
 
+def _safe_brier_skill(y: np.ndarray, p: np.ndarray, brier: float) -> float:
+    """Compare Brier loss with the constant observed-prevalence forecast."""
+
+    prevalence = float(np.mean(y))
+    reference = prevalence * (1.0 - prevalence)
+    # There is no informative constant-prevalence baseline for a degenerate
+    # label vector; returning NaN is preferable to an arbitrary division by
+    # zero or a manufactured score.
+    if not np.isfinite(reference) or reference <= 0.0:
+        return float("nan")
+    return float(1.0 - (float(brier) / reference))
+
+
+def _logit(probability: np.ndarray) -> np.ndarray:
+    # Clipping is only for the descriptive calibration regression.  The
+    # original probabilities remain unchanged for all other metrics.
+    eps = np.finfo(float).eps
+    clipped = np.clip(probability, eps, 1.0 - eps)
+    return np.log(clipped) - np.log1p(-clipped)
+
+
+def _expit(value: np.ndarray | float) -> np.ndarray:
+    """Numerically stable logistic transform without overflow warnings."""
+
+    array = np.asarray(value, dtype=float)
+    result = np.empty_like(array)
+    positive = array >= 0.0
+    result[positive] = 1.0 / (1.0 + np.exp(-array[positive]))
+    exp_value = np.exp(array[~positive])
+    result[~positive] = exp_value / (1.0 + exp_value)
+    return result
+
+
+def _safe_calibration_intercept(y: np.ndarray, p: np.ndarray) -> float:
+    """Fit the calibration intercept with the model logit as an offset."""
+
+    if np.unique(y).size < 2:
+        return float("nan")
+    eta = _logit(p)
+    target = float(np.sum(y))
+    # The score is monotone, so a bracketed bisection is deterministic and
+    # remains stable for probabilities at the clipping boundaries.
+    low, high = -100.0, 100.0
+    for _ in range(120):
+        mid = (low + high) / 2.0
+        fitted = _expit(np.clip(eta + mid, -745.0, 745.0))
+        if float(np.sum(fitted)) < target:
+            low = mid
+        else:
+            high = mid
+    value = (low + high) / 2.0
+    return float(value) if np.isfinite(value) and abs(value) < 100.0 else float("nan")
+
+
+def _safe_calibration_slope(y: np.ndarray, p: np.ndarray) -> float:
+    """Fit logistic calibration ``y ~ intercept + slope * logit(p)``."""
+
+    if np.unique(y).size < 2:
+        return float("nan")
+    x = _logit(p)
+    if np.ptp(x) <= np.finfo(float).eps:
+        return float("nan")
+    design = np.column_stack((np.ones(x.size, dtype=float), x))
+    beta = np.array([_safe_calibration_intercept(y, p), 1.0], dtype=float)
+    if not np.isfinite(beta).all():
+        return float("nan")
+    for _ in range(100):
+        eta = np.clip(design @ beta, -745.0, 745.0)
+        fitted = _expit(eta)
+        weights = fitted * (1.0 - fitted)
+        hessian = design.T @ (weights[:, None] * design)
+        gradient = design.T @ (y - fitted)
+        if not np.isfinite(hessian).all() or not np.isfinite(gradient).all():
+            return float("nan")
+        try:
+            step = np.linalg.solve(hessian, gradient)
+        except np.linalg.LinAlgError:
+            return float("nan")
+        if not np.isfinite(step).all():
+            return float("nan")
+        beta += step
+        if not np.isfinite(beta).all() or np.max(np.abs(beta)) > 1e6:
+            # Divergence indicates separation, for which no finite MLE exists.
+            return float("nan")
+        if np.max(np.abs(step)) <= 1e-10:
+            return float(beta[1]) if np.isfinite(beta[1]) else float("nan")
+    return float("nan")
+
+
 def compute_metrics(
     y_true: Sequence[int] | np.ndarray,
     probability: Sequence[float] | np.ndarray,
@@ -104,15 +196,19 @@ def compute_metrics(
     # sklearn's zero_division=0 gives a defined F1 for an all-negative
     # prevalence prediction while Sens/Spec/PPV/NPV retain their statistical
     # undefined state where a denominator is absent.
+    brier = _safe_brier(y, p)
     values = {
         "AUC": _safe_auc(y, p),
         "AP": _safe_ap(y, p),
-        "Brier": _safe_brier(y, p),
+        "Brier": brier,
         "Sens": sensitivity,
         "Spec": specificity,
         "F1": float(f1_score(y, pred, zero_division=0)),
         "PPV": ppv,
         "NPV": npv,
+        "BrierSkill": _safe_brier_skill(y, p, brier),
+        "calibration_intercept": _safe_calibration_intercept(y, p),
+        "calibration_slope": _safe_calibration_slope(y, p),
     }
     return values
 
@@ -142,6 +238,9 @@ def metric_aliases(values: Mapping[str, Any]) -> dict[str, Any]:
         "f1": "F1",
         "ppv": "PPV",
         "npv": "NPV",
+        "brier_skill": "BrierSkill",
+        "calibration_intercept": "calibration_intercept",
+        "calibration_slope": "calibration_slope",
     }
     result = dict(values)
     for alias, source in aliases.items():
