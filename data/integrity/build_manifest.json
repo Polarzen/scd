@@ -77,6 +77,11 @@
       "sha256": "aa84eb2def396763661871539a0369d6670ae6b119c2bd53244205d3d056ca82"
     },
     {
+      "bytes": 11038,
+      "path": ".github/workflows/model-optimization.yml",
+      "sha256": "8c64c60582424305913369fd46174d5580d14211b075c7a7aa23e2f2ac745b6f"
+    },
+    {
       "bytes": 3135,
       "path": ".github/workflows/model-validation.yml",
       "sha256": "cfa8b7333b8fdc3fd9a089a8228d0584c1296c9f36795fe6bfeafd7333a6f32f"
@@ -8892,9 +8897,9 @@
       "sha256": "c168bfce899db92454cd91133cf7a92586cafefc0a65da35f27b012d98512af9"
     },
     {
-      "bytes": 16499,
+      "bytes": 26652,
       "path": "src/cli.py",
-      "sha256": "258438e78b06b8a2dfc2242a303dc9ca6fffa9422d076148515b27ed3471221a"
+      "sha256": "d56cb57ffe352dd7184603ee2ce6e36c6477e55ea7ee5564c24c57bcc8653331"
     },
     {
       "bytes": 3597,
@@ -8912,9 +8917,9 @@
       "sha256": "e7ee4a694c5eaad478cee984d209c1ebaeed340828e6c4a648f7e5667aa76a4c"
     },
     {
-      "bytes": 18430,
+      "bytes": 22913,
       "path": "src/full_model.py",
-      "sha256": "64889a4bc4b333e0e733993909c1892832cfd536de43c49b28975cbe0624ae46"
+      "sha256": "5b6baa9afcbd26d81bc61dd84f452fa6a96ed807951e3680fb229e110a93c453"
     },
     {
       "bytes": 6926,
@@ -8932,19 +8937,34 @@
       "sha256": "75a8a0ad40cf7c097c41c3491f2cbe16f53a49680390f3c4fb41cf30eca847e0"
     },
     {
-      "bytes": 9961,
+      "bytes": 13843,
       "path": "src/metrics.py",
-      "sha256": "b0a3386d0d5cfbb5f619b75bfcba07e364817fffc84073a05709c9365cb061c1"
+      "sha256": "b1467125149c454507e765aec9eccdb5b6127e76d30b89a6ff8c2c1d39646203"
     },
     {
-      "bytes": 16166,
+      "bytes": 33801,
+      "path": "src/model_optimization.py",
+      "sha256": "8f2c2be3323048110c31a3ee46bb4d8d51be43cdcd1d3f9ba34fd57e04a89178"
+    },
+    {
+      "bytes": 18790,
       "path": "src/nested_cv.py",
-      "sha256": "c2b929da99e4d1293820320febcc25159f39729f12e0ad1dddf85daee8fc7f0a"
+      "sha256": "f3849b66b87d91c74d6df00ede7e5b7d9e1ef979d86e506d3d7789f97cb9267e"
+    },
+    {
+      "bytes": 56124,
+      "path": "src/optimization_reporting.py",
+      "sha256": "0d9472ed727632501893024b468f9b4f9d101c800d5ba966edf2993ca416bbf4"
     },
     {
       "bytes": 11371,
       "path": "src/repeated_cv.py",
       "sha256": "b021728862d613e73ba86f446fd22d31fcf287247ac5a6ed2678375e60da484c"
+    },
+    {
+      "bytes": 1493,
+      "path": "tests/test_af_population.py",
+      "sha256": "81376ce936f168a89b09bc0f2af7a774a1b46af288200e4e0665a4f72532c9c6"
     },
     {
       "bytes": 2189,
@@ -8970,6 +8990,16 @@
       "bytes": 2672,
       "path": "tests/test_endpoints.py",
       "sha256": "5ad8f46a7b0f16d5e35a1254051c4bee7e58a7167e4293b291100592a4f8255c"
+    },
+    {
+      "bytes": 2445,
+      "path": "tests/test_feature_profiles.py",
+      "sha256": "a5b7583f609e6bfbe8860058961a377acb8a3eee5e0c8db491342c67b80ba903"
+    },
+    {
+      "bytes": 2178,
+      "path": "tests/test_fold_local_preprocessing.py",
+      "sha256": "1415126ed3bee95f58e9b3cc1c5167dd250cf641cde469a97a5f1013c41d6234"
     },
     {
       "bytes": 1265,
@@ -9022,9 +9052,29 @@
       "sha256": "819b322b790e7111bc6d2f072dca8751c44a835613368f8e39b50a281652ffd2"
     },
     {
+      "bytes": 5457,
+      "path": "tests/test_model_optimization_pipelines.py",
+      "sha256": "8137f56b716f16cb3fc4cd3b83dc2819b3a1b40eca8364b6e31863697a295279"
+    },
+    {
       "bytes": 1285,
       "path": "tests/test_nested_cv.py",
       "sha256": "e91ca1c4f732dcec0e24adf9a34e750f7ba086fcd02f7c53de7ba041da5db7fb"
+    },
+    {
+      "bytes": 2003,
+      "path": "tests/test_no_patient_leakage.py",
+      "sha256": "6124feabdb27b91b21afe153939ee9e5a5543ae2de6d49bf9070e2c78d0d6241"
+    },
+    {
+      "bytes": 2055,
+      "path": "tests/test_oof_integrity.py",
+      "sha256": "bd4492a9b71057b2d185e1efd69cacf87037e31d40aebd67378f00df1c8fb53b"
+    },
+    {
+      "bytes": 2611,
+      "path": "tests/test_optimization_reporting.py",
+      "sha256": "b443fe37471c6082b94479b164a30f40780843b7c2f3873824d27b4d96d7f0b8"
     },
     {
       "bytes": 1718,
@@ -9035,6 +9085,11 @@
       "bytes": 2478,
       "path": "tests/test_phase2_freeze_anomalies.py",
       "sha256": "d21abff1ef4ad57278fa337f6eff381fae2023e94676a811eaf3077d39734efc"
+    },
+    {
+      "bytes": 2187,
+      "path": "tests/test_pvc_features.py",
+      "sha256": "44d34940083c6e1d4904d8bf46b4c7a59884b0d7b39362bcd3cbbf43cae0e751"
     },
     {
       "bytes": 244,
@@ -9052,6 +9107,11 @@
       "sha256": "8de0545b08c5c5860fb70f38009d5bb9e191db3acaf4a3f01dc78b1b000b8c79"
     },
     {
+      "bytes": 2374,
+      "path": "tests/test_repeated_seed_integrity.py",
+      "sha256": "6917a0d41ce04f67fe8f067faa57c2b898ad069ff4881be1db2767d6b3056df1"
+    },
+    {
       "bytes": 348,
       "path": "tests/test_source_integrity.py",
       "sha256": "b818e0e9c5d32002b46f96de165671846f87f72086c767d895a6d5e733801946"
@@ -9062,12 +9122,13 @@
       "sha256": "a1e8537d2b5e8f207f316b6a9ba9fe242f5e3c33add6bb531da6bc5a47cbd343"
     }
   ],
-  "generated_at_utc": "2026-08-28T04:15:35+00:00",
+  "generated_at_utc": "2026-08-28T11:51:50+00:00",
   "hashes": {
     ".gitattributes": "3bbbf428dc1d8c9c5c9adf97ae2e6d92020b23f8f789c3ef9f10ecf1fe536e91",
     ".github/workflows/ci.yml": "29e405b7e8db27d6133cd08218c116d0ecb87c55769c64cea850db1a553d76a9",
     ".github/workflows/endpoint-sensitivity.yml": "f92ee1dc2660814bfa8e4d5806348185bfe3b5c1ba36476a8911203ee8c69610",
     ".github/workflows/formal-statistical-validation.yml": "aa84eb2def396763661871539a0369d6670ae6b119c2bd53244205d3d056ca82",
+    ".github/workflows/model-optimization.yml": "8c64c60582424305913369fd46174d5580d14211b075c7a7aa23e2f2ac745b6f",
     ".github/workflows/model-validation.yml": "cfa8b7333b8fdc3fd9a089a8228d0584c1296c9f36795fe6bfeafd7333a6f32f",
     ".github/workflows/repair-integrity.yml": "0154d9ec0d0f5915390e85096d940f9c8bf4728e8f1d8cf5b6a9d03864807b85",
     ".github/workflows/repeated-cv.yml": "ddc3298650d67a5ab4f0a7123556efa92a6659a613b88ec65257bea79d1abbc0",
@@ -10831,22 +10892,27 @@
     "scripts/verify_all.py": "8a4d17f005c29dcce6f04fb81f82d5ca47f8687c028f14704b1bdd4bde07bb1d",
     "src/__init__.py": "09e9baa6baa0f55ebf285773b6bc4f0a67a465917a08d489a8c34b4f178f69a6",
     "src/analysis_profiles.py": "c168bfce899db92454cd91133cf7a92586cafefc0a65da35f27b012d98512af9",
-    "src/cli.py": "258438e78b06b8a2dfc2242a303dc9ca6fffa9422d076148515b27ed3471221a",
+    "src/cli.py": "d56cb57ffe352dd7184603ee2ce6e36c6477e55ea7ee5564c24c57bcc8653331",
     "src/endpoints.py": "0c5d9ee0a26a9d9f01938e368d73f4252ac12016a3516af807b034b96146a1cb",
     "src/full_aggregation.py": "c92eaaeb7897af15c8f16d4fc0563ac7e7ff0769a86a23ba6c45f41e5ebeb0ba",
     "src/full_features.py": "e7ee4a694c5eaad478cee984d209c1ebaeed340828e6c4a648f7e5667aa76a4c",
-    "src/full_model.py": "64889a4bc4b333e0e733993909c1892832cfd536de43c49b28975cbe0624ae46",
+    "src/full_model.py": "5b6baa9afcbd26d81bc61dd84f452fa6a96ed807951e3680fb229e110a93c453",
     "src/legacy_aggregation.py": "1566f68786f9d8e0fc10142a24e782b38a5461555db7ab14e381b6800b33658e",
     "src/legacy_features.py": "5e0ff08f028ee63a98b1915adbda1bef72e745c912bf76137caf1a83b47d1663",
     "src/legacy_model.py": "75a8a0ad40cf7c097c41c3491f2cbe16f53a49680390f3c4fb41cf30eca847e0",
-    "src/metrics.py": "b0a3386d0d5cfbb5f619b75bfcba07e364817fffc84073a05709c9365cb061c1",
-    "src/nested_cv.py": "c2b929da99e4d1293820320febcc25159f39729f12e0ad1dddf85daee8fc7f0a",
+    "src/metrics.py": "b1467125149c454507e765aec9eccdb5b6127e76d30b89a6ff8c2c1d39646203",
+    "src/model_optimization.py": "8f2c2be3323048110c31a3ee46bb4d8d51be43cdcd1d3f9ba34fd57e04a89178",
+    "src/nested_cv.py": "f3849b66b87d91c74d6df00ede7e5b7d9e1ef979d86e506d3d7789f97cb9267e",
+    "src/optimization_reporting.py": "0d9472ed727632501893024b468f9b4f9d101c800d5ba966edf2993ca416bbf4",
     "src/repeated_cv.py": "b021728862d613e73ba86f446fd22d31fcf287247ac5a6ed2678375e60da484c",
+    "tests/test_af_population.py": "81376ce936f168a89b09bc0f2af7a774a1b46af288200e4e0665a4f72532c9c6",
     "tests/test_analysis_profiles.py": "5be9a5b4034f990e98d466aef09b2fc09e853b4374eb31c6b359136433ce9590",
     "tests/test_cli.py": "c573b6d823d23d8dcf716439d7ea498be78a7820d134262486548dd90caaf7a1",
     "tests/test_data_audit.py": "bbaaed2bf9652a9ca8e016656cbfd9abce580c045ce5effc515f3aff340d7f96",
     "tests/test_data_contract.py": "dfb6f8031f9fed81409aba104e2f1f641a9dcb72e49aa7e210dca6d135b0b7f8",
     "tests/test_endpoints.py": "5ad8f46a7b0f16d5e35a1254051c4bee7e58a7167e4293b291100592a4f8255c",
+    "tests/test_feature_profiles.py": "a5b7583f609e6bfbe8860058961a377acb8a3eee5e0c8db491342c67b80ba903",
+    "tests/test_fold_local_preprocessing.py": "1415126ed3bee95f58e9b3cc1c5167dd250cf641cde469a97a5f1013c41d6234",
     "tests/test_full_endpoints.py": "35c927ddb8609ceb3018e07256db7d69bbc7767e5b848cf6e31f2a45c42218d2",
     "tests/test_full_features.py": "93c44f3abb87a55081712610b843cc7fbc2da4a2f458ff2e5ce107506126c9c0",
     "tests/test_full_qc.py": "ffc052262cff426b64b068e363dfe0aa98563d8769aa9a2897d53b4ef6fe291e",
@@ -10857,12 +10923,18 @@
     "tests/test_legacy_features.py": "868c3c7286290f5a7e8483fb473fb530da2a0dbd091bca54b99d5f19ac6faf82",
     "tests/test_legacy_model.py": "65ff9a62d3d99a1f6646f64cecf660d60491c63930a142039d98204c5d24a06f",
     "tests/test_legacy_windows.py": "819b322b790e7111bc6d2f072dca8751c44a835613368f8e39b50a281652ffd2",
+    "tests/test_model_optimization_pipelines.py": "8137f56b716f16cb3fc4cd3b83dc2819b3a1b40eca8364b6e31863697a295279",
     "tests/test_nested_cv.py": "e91ca1c4f732dcec0e24adf9a34e750f7ba086fcd02f7c53de7ba041da5db7fb",
+    "tests/test_no_patient_leakage.py": "6124feabdb27b91b21afe153939ee9e5a5543ae2de6d49bf9070e2c78d0d6241",
+    "tests/test_oof_integrity.py": "bd4492a9b71057b2d185e1efd69cacf87037e31d40aebd67378f00df1c8fb53b",
+    "tests/test_optimization_reporting.py": "b443fe37471c6082b94479b164a30f40780843b7c2f3873824d27b4d96d7f0b8",
     "tests/test_patient_aggregation.py": "3b46e43c1810752a0d5bf0395069093d0a6c9b3a60e472302e528e49a876adec",
     "tests/test_phase2_freeze_anomalies.py": "d21abff1ef4ad57278fa337f6eff381fae2023e94676a811eaf3077d39734efc",
+    "tests/test_pvc_features.py": "44d34940083c6e1d4904d8bf46b4c7a59884b0d7b39362bcd3cbbf43cae0e751",
     "tests/test_records.py": "275717dddef93ba3eda8ea09774894b28b82a6e0863e68808f73e7e788833794",
     "tests/test_referential_integrity.py": "5d56041d579cf2f7e8f4b6933bac0909d71819d207a82d1a4d2dbed8ade20500",
     "tests/test_repeated_cv.py": "8de0545b08c5c5860fb70f38009d5bb9e191db3acaf4a3f01dc78b1b000b8c79",
+    "tests/test_repeated_seed_integrity.py": "6917a0d41ce04f67fe8f067faa57c2b898ad069ff4881be1db2767d6b3056df1",
     "tests/test_source_integrity.py": "b818e0e9c5d32002b46f96de165671846f87f72086c767d895a6d5e733801946",
     "tests/test_subjects.py": "a1e8537d2b5e8f207f316b6a9ba9fe242f5e3c33add6bb531da6bc5a47cbd343"
   },
@@ -10951,7 +11023,7 @@
   "schema_version": 1,
   "size_report": {
     "maximum_data_file_bytes": 5884780,
-    "repository_data_bytes": 46640595
+    "repository_data_bytes": 46645102
   },
   "software_platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
   "source": {
