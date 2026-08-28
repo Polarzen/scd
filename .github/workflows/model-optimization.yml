@@ -10,7 +10,7 @@ on:
         type: choice
         required: true
         default: smoke
-        options: [population, smoke, seed42, screening10, formal100, endpoints, full]
+        options: [population, smoke, seed42, screening10, formal100, formal_aggregate, endpoints, full]
       candidate:
         description: "all, one candidate, or a comma-separated screened set"
         type: string
@@ -18,6 +18,11 @@ on:
         default: all
       model_override:
         description: "Optional common P1/P2 model: elasticnet or extratrees_regularized"
+        type: string
+        required: false
+        default: ""
+      source_run_id:
+        description: "Required only for formal_aggregate recovery"
         type: string
         required: false
         default: ""
@@ -43,6 +48,7 @@ jobs:
       endpoint_candidate: ${{ steps.matrix.outputs.endpoint_candidate }}
       stage: ${{ steps.matrix.outputs.stage }}
       model_override: ${{ steps.matrix.outputs.model_override }}
+      source_run_id: ${{ steps.matrix.outputs.source_run_id }}
     steps:
       - uses: actions/checkout@v4
       - id: matrix
@@ -51,6 +57,7 @@ jobs:
           DISPATCH_STAGE: ${{ inputs.stage }}
           DISPATCH_REQUESTED: ${{ inputs.candidate }}
           DISPATCH_MODEL_OVERRIDE: ${{ inputs.model_override }}
+          DISPATCH_SOURCE_RUN_ID: ${{ inputs.source_run_id }}
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           python - <<'PY'
@@ -59,14 +66,15 @@ jobs:
               message=os.environ.get('COMMIT_MESSAGE','').splitlines()[0].strip()
               prefix='model-optimization-run:'
               if not message.startswith(prefix):
-                  stage,requested,model_override='none','all',''
+                  stage,requested,model_override,source_run_id='none','all','',''
               else:
-                  parts=(message[len(prefix):]+'::').split(':')
-                  stage,requested,model_override=parts[0],parts[1] or 'all',parts[2]
+                  parts=(message[len(prefix):]+':::').split(':')
+                  stage,requested,model_override,source_run_id=parts[0],parts[1] or 'all',parts[2],parts[3]
           else:
               stage=os.environ['DISPATCH_STAGE']
               requested=os.environ['DISPATCH_REQUESTED'].strip()
               model_override=os.environ['DISPATCH_MODEL_OVERRIDE'].strip()
+              source_run_id=os.environ['DISPATCH_SOURCE_RUN_ID'].strip()
           if stage == 'none':
               candidates=[]
           elif requested.lower() != 'all':
@@ -75,7 +83,7 @@ jobs:
               candidates=['B0','M1','M2','M3','M4','A1','A2','P1','P2']
           elif stage == 'screening10':
               candidates=['B0','M2','A1']
-          elif stage in {'formal100','full'}:
+          elif stage in {'formal100','formal_aggregate','full'}:
               candidates=['B0','M1','P2']
           elif stage == 'endpoints':
               candidates=['P2']
@@ -85,7 +93,7 @@ jobs:
               seeds=[42]
           elif stage == 'screening10':
               seeds=list(range(10))
-          elif stage in {'formal100','full'}:
+          elif stage in {'formal100','formal_aggregate','full'}:
               seeds=list(range(100))
           else:
               seeds=[]
@@ -94,13 +102,18 @@ jobs:
               raise SystemExit(f'unknown candidates: {sorted(set(candidates)-allowed)}')
           if stage == 'screening10' and len(candidates) > 3:
               raise SystemExit('screening10 permits at most three candidates')
-          if stage in {'formal100','full'}:
+          if stage in {'formal100','formal_aggregate','full'}:
               if 'B0' not in candidates:
-                  raise SystemExit('formal100/full requires B0 among expected candidates')
+                  raise SystemExit('formal stages require B0 among expected candidates')
               if len([c for c in candidates if c!='B0']) > 2:
                   raise SystemExit('formal100 permits baseline plus at most two finalists')
           expected_candidates=list(candidates)
-          run_candidates=[c for c in candidates if not (stage in {'formal100','full'} and c == 'B0')]
+          if stage == 'formal_aggregate':
+              if not source_run_id.isdigit() or int(source_run_id) <= 0:
+                  raise SystemExit('formal_aggregate requires a positive source_run_id')
+              run_candidates=[]
+          else:
+              run_candidates=[c for c in candidates if not (stage in {'formal100','full'} and c == 'B0')]
           endpoint='P2' if 'P2' in candidates else next((c for c in candidates if c!='B0'), 'A1')
           values={
               'candidates':json.dumps(run_candidates,separators=(',',':')),
@@ -111,6 +124,7 @@ jobs:
               'endpoint_candidate':endpoint,
               'stage':stage,
               'model_override':model_override,
+              'source_run_id':source_run_id,
           }
           with open(os.environ['GITHUB_OUTPUT'],'a',encoding='utf-8') as out:
               for key,value in values.items(): out.write(f'{key}={value}\n')
@@ -208,7 +222,7 @@ jobs:
           if-no-files-found: error
 
   aggregate:
-    if: ${{ needs.configure.outputs.run_candidates == 'true' }}
+    if: ${{ always() && needs.configure.result == 'success' && (needs.candidate_runs.result == 'success' || needs.candidate_runs.result == 'skipped') && (needs.configure.outputs.run_candidates == 'true' || needs.configure.outputs.stage == 'formal_aggregate') }}
     needs: [configure, candidate_runs]
     runs-on: ubuntu-latest
     steps:
@@ -220,25 +234,34 @@ jobs:
           cache-dependency-path: requirements-lock.txt
       - run: python -m pip install --requirement requirements-lock.txt
       - uses: actions/download-artifact@v4
+        if: ${{ needs.configure.outputs.stage != 'formal100' && needs.configure.outputs.stage != 'formal_aggregate' && needs.configure.outputs.stage != 'full' }}
         with:
           pattern: optimization-*-seed-*
           path: artifacts/optimization/downloaded
+      - name: Download all formal finalist artifacts without first-page truncation
+        if: ${{ needs.configure.outputs.stage == 'formal100' || needs.configure.outputs.stage == 'formal_aggregate' || needs.configure.outputs.stage == 'full' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SOURCE_RUN_ID: ${{ needs.configure.outputs.source_run_id }}
+          STAGE: ${{ needs.configure.outputs.stage }}
+        run: |
+          run_id="$GITHUB_RUN_ID"
+          if [[ "$STAGE" == "formal_aggregate" ]]; then run_id="$SOURCE_RUN_ID"; fi
+          gh run download "$run_id" --repo "$GITHUB_REPOSITORY" --pattern 'optimization-*-seed-*' --dir artifacts/optimization/downloaded
+      - name: Download all immutable B0 artifacts without first-page truncation
+        if: ${{ needs.configure.outputs.stage == 'formal100' || needs.configure.outputs.stage == 'formal_aggregate' || needs.configure.outputs.stage == 'full' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh run download 33141323899 --repo "$GITHUB_REPOSITORY" --pattern 'formal-repeated-all20-seed-*' --dir artifacts/optimization/legacy
       - uses: actions/download-artifact@v4
-        if: ${{ needs.configure.outputs.stage == 'formal100' || needs.configure.outputs.stage == 'full' }}
-        with:
-          run-id: 33141323899
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: formal-repeated-all20-seed-*
-          path: artifacts/optimization/legacy
-      - uses: actions/download-artifact@v4
-        if: ${{ needs.configure.outputs.stage == 'formal100' || needs.configure.outputs.stage == 'full' }}
+        if: ${{ needs.configure.outputs.stage == 'formal100' || needs.configure.outputs.stage == 'formal_aggregate' || needs.configure.outputs.stage == 'full' }}
         with:
           name: optimization-population-audit
           path: artifacts/optimization/population
       - name: Import immutable formal B0 baseline
-        if: ${{ needs.configure.outputs.stage == 'formal100' || needs.configure.outputs.stage == 'full' }}
+        if: ${{ needs.configure.outputs.stage == 'formal100' || needs.configure.outputs.stage == 'formal_aggregate' || needs.configure.outputs.stage == 'full' }}
         run: |
-          python scripts/import_formal_baseline.py \
+          python -m scripts.import_formal_baseline \
             --legacy-root artifacts/optimization/legacy \
             --output-dir artifacts/optimization/downloaded \
             --manifest artifacts/optimization/population/b0_population_manifest.csv \
@@ -250,7 +273,7 @@ jobs:
           STAGE: ${{ needs.configure.outputs.stage }}
         run: |
           formal=()
-          if [[ "$STAGE" == "formal100" || "$STAGE" == "full" ]]; then formal+=(--formal); fi
+          if [[ "$STAGE" == "formal100" || "$STAGE" == "formal_aggregate" || "$STAGE" == "full" ]]; then formal+=(--formal); fi
           python -m src.cli optimization-aggregate --artifact-dir artifacts/optimization/downloaded --output-dir artifacts/optimization/aggregate --expected-candidates "$CANDIDATES" --expected-seeds "$SEEDS" --baseline-candidate B0 "${formal[@]}"
       - uses: actions/upload-artifact@v4
         with:
@@ -315,7 +338,7 @@ jobs:
           path: artifacts/optimization/population
       - name: Import immutable formal B0 baseline
         run: |
-          python scripts/import_formal_baseline.py \
+          python -m scripts.import_formal_baseline \
             --legacy-root artifacts/optimization/legacy \
             --output-dir artifacts/optimization/downloaded \
             --manifest artifacts/optimization/population/b0_population_manifest.csv \
