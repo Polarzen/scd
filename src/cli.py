@@ -25,9 +25,12 @@ from .full_model import (
     DEFAULT_TARGET_SPECIFICITY,
     canonical_model_name,
     get_model_feature_columns,
+    get_param_distributions,
     prepare_model_frame,
 )
 from .nested_cv import NestedCVResult, run_nested_cv
+from .model_optimization import CANDIDATES, prepare_optimization_bundle
+from .optimization_reporting import aggregate_optimization_artifacts
 from .repeated_cv import RepeatedCVResult, normalize_seeds, run_repeated_cv
 
 
@@ -138,6 +141,32 @@ def build_parser() -> argparse.ArgumentParser:
     sensitivity.add_argument("--profile", default="all20", choices=["all20", "physiology_only"])
     sensitivity.add_argument("--model", default="extratrees", choices=["extratrees", "logistic", "dummy"])
     sensitivity.add_argument("--seed", type=int, default=DEFAULT_RANDOM_STATE)
+
+    optimize = subparsers.add_parser("optimize", help="run one MODEL OPTIMIZATION V1 candidate")
+    _add_common_data_args(optimize)
+    _add_cv_args(optimize)
+    optimize.add_argument("--endpoint", "--horizon-days", dest="horizon_days", type=int, default=365)
+    optimize.add_argument("--candidate", required=True, choices=sorted(CANDIDATES))
+    optimize.add_argument("--seed", type=int, default=DEFAULT_RANDOM_STATE)
+    optimize.add_argument(
+        "--model-override",
+        choices=["elasticnet", "elasticnet_selected", "extratrees_regularized"],
+        default=None,
+        help="use only to keep P1/P2 on the same screened model family",
+    )
+
+    audit = subparsers.add_parser("optimization-audit", help="write population, AF, PVC, and profile audits")
+    _add_common_data_args(audit)
+    audit.add_argument("--endpoint", "--horizon-days", dest="horizon_days", type=int, default=365)
+
+    aggregate = subparsers.add_parser("optimization-aggregate", help="strictly aggregate optimization seed artifacts")
+    aggregate.add_argument("--artifact-dir", type=Path, required=True)
+    aggregate.add_argument("--output-dir", type=Path, required=True)
+    aggregate.add_argument("--expected-candidates", required=True, help="comma-separated candidate IDs")
+    aggregate.add_argument("--expected-seeds", required=True, help="comma-separated seeds or START:STOP")
+    aggregate.add_argument("--baseline-candidate", default="B0")
+    aggregate.add_argument("--formal", action="store_true")
+    aggregate.add_argument("--write-report", action="store_true")
     return parser
 
 
@@ -353,6 +382,178 @@ def _cmd_sensitivity(args: argparse.Namespace) -> int:
     return 0
 
 
+def _optimization_bundle(args: argparse.Namespace, candidate: str):
+    return prepare_optimization_bundle(
+        _path(args.feature_path, DEFAULT_FEATURE_PATH),
+        _path(args.subjects_path, DEFAULT_SUBJECTS_PATH),
+        candidate=candidate,
+        horizon_days=int(args.horizon_days),
+    )
+
+
+def _manifest_json(bundle: Any) -> dict[str, Any]:
+    manifest = bundle.population_manifest
+    return {
+        "candidate": manifest.get("candidate"),
+        "profile": manifest.get("profile"),
+        "model": manifest.get("model"),
+        "selected_population": manifest.get("selected_population"),
+        "selected_ids": manifest.get("selected_ids", []),
+        "counts": manifest.get("counts", {}),
+        "baseline_positive_ids": manifest.get("baseline", {}).get("positive_ids", []),
+        "baseline_excluded_positive_ids": manifest.get("baseline", {}).get("excluded_positive_ids", []),
+        "rhythm_safe_positive_ids": manifest.get("rhythm_safe", {}).get("positive_ids", []),
+        "recovered_af_positive_ids": manifest.get("rhythm_safe", {}).get("recovered_af_positive_ids", []),
+    }
+
+
+def _cmd_optimize(args: argparse.Namespace) -> int:
+    bundle = _optimization_bundle(args, args.candidate)
+    model = bundle.model if args.model_override is None else canonical_model_name(args.model_override)
+    if args.model_override is not None and bundle.candidate not in {"P1", "P2"}:
+        raise ValueError("--model-override is reserved for the paired P1/P2 experiment")
+    search_space = None
+    if args.smoke:
+        full_space = get_param_distributions(model)
+        search_space = {key: [values[0]] for key, values in full_space.items()}
+        if "pre__select__k" in search_space:
+            search_space["pre__select__k"] = [min(8, len(bundle.feature_cols))]
+    result = run_nested_cv(
+        bundle.frame,
+        model=model,
+        profile=bundle.profile,
+        feature_cols=bundle.feature_cols,
+        seed=int(args.seed),
+        param_distributions=search_space,
+        **_cv_values(args),
+    )
+    result.summary.update(
+        {
+            "candidate": bundle.candidate,
+            "population": bundle.population_manifest.get("selected_population"),
+            "af_included_count": int(bundle.frame.get("af_flag", pd.Series(False, index=bundle.frame.index)).fillna(False).astype(bool).sum()),
+            "af_positive_included_count": int(
+                (bundle.frame.get("af_flag", pd.Series(False, index=bundle.frame.index)).fillna(False).astype(bool)
+                 & bundle.frame["label"].eq(1)).sum()
+            ),
+            "pvc_fields": [column for column in bundle.feature_cols if "pvc" in column.lower()],
+        }
+    )
+    result.oof.insert(0, "candidate", bundle.candidate)
+    result.folds.insert(0, "candidate", bundle.candidate)
+    output_dir = _output_dir(args)
+    prefix = f"optimization_{bundle.candidate}_{args.horizon_days}d_seed{int(args.seed):03d}"
+    paths = _write_nested_outputs(result, output_dir, prefix=prefix)
+    audit_path = output_dir / "population_audit.json"
+    manifest_path = output_dir / "population_manifest.json"
+    manifest_csv = output_dir / "population_manifest.csv"
+    _write_json(audit_path, bundle.audit)
+    _write_json(manifest_path, _manifest_json(bundle))
+    _write_frame(manifest_csv, bundle.population_manifest_table)
+    paths.update(
+        {
+            "population_audit_json": str(audit_path),
+            "population_manifest_json": str(manifest_path),
+            "population_manifest_csv": str(manifest_csv),
+        }
+    )
+    print(json.dumps(_jsonable({"summary": result.summary, "outputs": paths}), ensure_ascii=False, indent=2, allow_nan=False))
+    return 0
+
+
+def _cmd_optimization_audit(args: argparse.Namespace) -> int:
+    bundles = {candidate: _optimization_bundle(args, candidate) for candidate in sorted(CANDIDATES)}
+    reference = bundles["B0"]
+    audit_table = reference.population_manifest_table
+    positive = audit_table["endpoint_state"].astype("string").eq("POSITIVE")
+    pvc_fields: list[dict[str, Any]] = []
+    for column in [name for name in audit_table.columns if "pvc" in name.lower()]:
+        series = audit_table[column]
+        numeric = pd.to_numeric(series, errors="coerce").astype("float64")
+        record: dict[str, Any] = {
+            "field_name": column,
+            "dtype": str(series.dtype),
+            "non_null_count": int(series.notna().sum()),
+            "patient_coverage": float(series.notna().mean()),
+            "positive_patient_coverage_count": int((series.notna() & positive).sum()),
+        }
+        if numeric.notna().any():
+            record["distribution"] = {
+                "min": float(numeric.min()),
+                "p25": float(numeric.quantile(0.25)),
+                "median": float(numeric.median()),
+                "p75": float(numeric.quantile(0.75)),
+                "max": float(numeric.max()),
+            }
+        else:
+            record["distribution"] = series.astype("string").value_counts(dropna=False).head(20).to_dict()
+        pvc_fields.append(record)
+    payload = {
+        "endpoint_horizon_days": int(args.horizon_days),
+        "baseline": reference.audit.get("baseline_365"),
+        "baseline_365_invariant_pass": reference.audit.get("baseline_365_invariant_pass"),
+        "af_audit": reference.audit.get("rhythm_safe_recovery"),
+        "pvc_availability_audit": reference.audit.get("pvc"),
+        "pvc_fields": pvc_fields,
+        "PVC_CONTINUOUS_UNAVAILABLE": True,
+        "candidates": {
+            candidate: {
+                "profile": bundle.profile,
+                "model": bundle.model,
+                "population": bundle.population_manifest.get("selected_population"),
+                "patient_count": int(len(bundle.frame)),
+                "positive_count": int(bundle.frame["label"].sum()),
+                "negative_count": int(bundle.frame["label"].eq(0).sum()),
+                "feature_count": int(len(bundle.feature_cols)),
+                "af_included_count": int(bundle.frame.get("af_flag", pd.Series(False, index=bundle.frame.index)).fillna(False).astype(bool).sum()),
+                "af_positive_included_count": int((bundle.frame.get("af_flag", pd.Series(False, index=bundle.frame.index)).fillna(False).astype(bool) & bundle.frame["label"].eq(1)).sum()),
+                "pvc_fields": [column for column in bundle.feature_cols if "pvc" in column.lower()],
+            }
+            for candidate, bundle in bundles.items()
+        },
+    }
+    output_dir = _output_dir(args)
+    path = output_dir / "population_audit.json"
+    _write_json(path, payload)
+    print(json.dumps(_jsonable({"audit": payload, "output": str(path)}), ensure_ascii=False, indent=2, allow_nan=False))
+    return 0
+
+
+def _expected_seeds(value: str) -> list[int]:
+    if ":" in str(value):
+        parsed = _range_value(value)
+        if parsed is None:
+            return []
+        start, stop = parsed[0], parsed[1]
+        step = parsed[2] if len(parsed) == 3 else 1
+        return list(range(start, stop + (1 if step > 0 else -1), step))
+    return _csv_values(value)
+
+
+def _cmd_optimization_aggregate(args: argparse.Namespace) -> int:
+    candidates = [value.strip().upper() for value in str(args.expected_candidates).split(",") if value.strip()]
+    seeds = _expected_seeds(args.expected_seeds)
+    report_inputs = None
+    if args.write_report:
+        report_inputs = {
+            "objective": (
+                "Evaluate dimensionality reduction, AF-compatible coverage, PVC increment, calibration, "
+                "and patient-split sensitivity under repeated patient-level nested CV."
+            )
+        }
+    result = aggregate_optimization_artifacts(
+        artifact_dir=args.artifact_dir,
+        target_dir=args.output_dir,
+        formal=bool(args.formal),
+        expected_seeds=seeds,
+        expected_candidates=candidates,
+        baseline_candidate=str(args.baseline_candidate).upper(),
+        report_inputs=report_inputs,
+    )
+    print(json.dumps(_jsonable({"integrity": result["integrity"], "outputs": result["output_paths"]}), ensure_ascii=False, indent=2, allow_nan=False))
+    return 0
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     values = list(sys.argv[1:] if argv is None else argv)
@@ -373,6 +574,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _cmd_repeated(args)
     if args.command == "endpoint-sensitivity":
         return _cmd_sensitivity(args)
+    if args.command == "optimize":
+        return _cmd_optimize(args)
+    if args.command == "optimization-audit":
+        return _cmd_optimization_audit(args)
+    if args.command == "optimization-aggregate":
+        return _cmd_optimization_aggregate(args)
     parser.error(f"unknown command: {args.command}")
     return 2
 

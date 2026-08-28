@@ -1,0 +1,267 @@
+name: Model optimization V1
+
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "Independent optimization stage"
+        type: choice
+        required: true
+        default: smoke
+        options: [population, smoke, seed42, screening10, formal100, endpoints, full]
+      candidate:
+        description: "all, one candidate, or a comma-separated screened set"
+        type: string
+        required: true
+        default: all
+      model_override:
+        description: "Optional common P1/P2 model: elasticnet or extratrees_regularized"
+        type: string
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: model-optimization-v1-${{ github.ref }}-${{ inputs.stage }}
+  cancel-in-progress: false
+
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+    outputs:
+      candidates: ${{ steps.matrix.outputs.candidates }}
+      seeds: ${{ steps.matrix.outputs.seeds }}
+      expected_candidates: ${{ steps.matrix.outputs.expected_candidates }}
+      expected_seeds: ${{ steps.matrix.outputs.expected_seeds }}
+      run_candidates: ${{ steps.matrix.outputs.run_candidates }}
+      endpoint_candidate: ${{ steps.matrix.outputs.endpoint_candidate }}
+    steps:
+      - id: matrix
+        env:
+          STAGE: ${{ inputs.stage }}
+          REQUESTED: ${{ inputs.candidate }}
+        run: |
+          python - <<'PY'
+          import json, os
+          stage=os.environ['STAGE']
+          requested=os.environ['REQUESTED'].strip()
+          if requested.lower() != 'all':
+              candidates=[x.strip().upper() for x in requested.split(',') if x.strip()]
+          elif stage in {'smoke','seed42'}:
+              candidates=['B0','M1','M2','M3','M4','A1','A2','P1','P2']
+          elif stage in {'screening10','formal100','full'}:
+              candidates=['B0','M2','A1']
+          elif stage == 'endpoints':
+              candidates=['A1']
+          else:
+              candidates=[]
+          if stage in {'smoke','seed42'}:
+              seeds=[42]
+          elif stage == 'screening10':
+              seeds=list(range(10))
+          elif stage in {'formal100','full'}:
+              seeds=list(range(100))
+          else:
+              seeds=[]
+          allowed={'B0','M1','M2','M3','M4','A1','A2','P1','P2'}
+          if not set(candidates) <= allowed:
+              raise SystemExit(f'unknown candidates: {sorted(set(candidates)-allowed)}')
+          if stage == 'screening10' and len(candidates) > 3:
+              raise SystemExit('screening10 permits at most three candidates')
+          if stage in {'formal100','full'} and len([c for c in candidates if c!='B0']) > 2:
+              raise SystemExit('formal100 permits baseline plus at most two finalists')
+          endpoint=next((c for c in candidates if c!='B0'), 'A1')
+          values={
+              'candidates':json.dumps(candidates,separators=(',',':')),
+              'seeds':json.dumps(seeds,separators=(',',':')),
+              'expected_candidates':','.join(candidates),
+              'expected_seeds':','.join(map(str,seeds)),
+              'run_candidates':str(bool(candidates and seeds)).lower(),
+              'endpoint_candidate':endpoint,
+          }
+          with open(os.environ['GITHUB_OUTPUT'],'a',encoding='utf-8') as out:
+              for key,value in values.items(): out.write(f'{key}={value}\n')
+          PY
+
+  engineering_verify:
+    needs: configure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - run: python -m pip install --requirement requirements-lock.txt
+      - name: Engineering gates
+        run: |
+          python scripts/verify_all.py
+          python -m pytest -q
+          python -m src.cli verify
+
+  population_audit:
+    needs: [configure, engineering_verify]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - run: python -m pip install --requirement requirements-lock.txt
+      - run: python -m src.cli optimization-audit --endpoint 365 --output-dir artifacts/optimization/population
+      - uses: actions/upload-artifact@v4
+        with:
+          name: optimization-population-audit
+          path: artifacts/optimization/population
+          if-no-files-found: error
+
+  candidate_runs:
+    if: ${{ needs.configure.outputs.run_candidates == 'true' }}
+    needs: [configure, population_audit]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 15
+      matrix:
+        candidate: ${{ fromJSON(needs.configure.outputs.candidates) }}
+        seed: ${{ fromJSON(needs.configure.outputs.seeds) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - run: python -m pip install --requirement requirements-lock.txt
+      - name: Run one patient-level nested-CV candidate/seed
+        env:
+          CANDIDATE: ${{ matrix.candidate }}
+          SEED: ${{ matrix.seed }}
+          STAGE: ${{ inputs.stage }}
+          MODEL_OVERRIDE: ${{ inputs.model_override }}
+        run: |
+          extra=()
+          if [[ "$STAGE" == "smoke" ]]; then extra+=(--smoke --bootstrap-resamples 0); else extra+=(--outer-folds 5 --inner-folds 3 --bootstrap-resamples 0); fi
+          if [[ -n "$MODEL_OVERRIDE" && ( "$CANDIDATE" == "P1" || "$CANDIDATE" == "P2" ) ]]; then extra+=(--model-override "$MODEL_OVERRIDE"); fi
+          python -m src.cli optimize --endpoint 365 --candidate "$CANDIDATE" --seed "$SEED" --n-jobs 2 "${extra[@]}" --output-dir "artifacts/optimization/runs/$CANDIDATE/seed-$SEED"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: optimization-${{ matrix.candidate }}-seed-${{ matrix.seed }}
+          path: artifacts/optimization/runs/${{ matrix.candidate }}/seed-${{ matrix.seed }}
+          if-no-files-found: error
+
+  aggregate:
+    if: ${{ needs.configure.outputs.run_candidates == 'true' }}
+    needs: [configure, candidate_runs]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - run: python -m pip install --requirement requirements-lock.txt
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: optimization-*-seed-*
+          path: artifacts/optimization/downloaded
+      - name: Strict aggregate
+        env:
+          CANDIDATES: ${{ needs.configure.outputs.expected_candidates }}
+          SEEDS: ${{ needs.configure.outputs.expected_seeds }}
+          STAGE: ${{ inputs.stage }}
+        run: |
+          formal=()
+          if [[ "$STAGE" == "formal100" || "$STAGE" == "full" ]]; then formal+=(--formal); fi
+          python -m src.cli optimization-aggregate --artifact-dir artifacts/optimization/downloaded --output-dir artifacts/optimization/aggregate --expected-candidates "$CANDIDATES" --expected-seeds "$SEEDS" --baseline-candidate B0 "${formal[@]}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: optimization-${{ inputs.stage }}
+          path: artifacts/optimization/aggregate
+          if-no-files-found: error
+
+  endpoints:
+    if: ${{ inputs.stage == 'endpoints' || inputs.stage == 'full' }}
+    needs: [configure, population_audit]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        endpoint: [90, 180, 365, 730]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - run: python -m pip install --requirement requirements-lock.txt
+      - name: Seed42 endpoint sensitivity
+        env:
+          CANDIDATE: ${{ needs.configure.outputs.endpoint_candidate }}
+          ENDPOINT: ${{ matrix.endpoint }}
+        run: |
+          python -m src.cli optimize --endpoint "$ENDPOINT" --candidate "$CANDIDATE" --seed 42 --outer-folds 5 --inner-folds 3 --bootstrap-resamples 0 --n-jobs 2 --output-dir "artifacts/optimization/endpoints/${ENDPOINT}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: optimization-endpoint-${{ matrix.endpoint }}d
+          path: artifacts/optimization/endpoints/${{ matrix.endpoint }}
+          if-no-files-found: error
+
+  final_report:
+    if: ${{ inputs.stage == 'full' }}
+    needs: [configure, aggregate, endpoints]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - run: python -m pip install --requirement requirements-lock.txt
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: optimization-*-seed-*
+          path: artifacts/optimization/downloaded
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: optimization-endpoint-*d
+          path: artifacts/optimization/final/endpoints
+      - uses: actions/download-artifact@v4
+        with:
+          name: optimization-population-audit
+          path: artifacts/optimization/final/population
+      - name: Generate strict final artifact
+        env:
+          CANDIDATES: ${{ needs.configure.outputs.expected_candidates }}
+          SEEDS: ${{ needs.configure.outputs.expected_seeds }}
+        run: |
+          python -m src.cli optimization-aggregate --artifact-dir artifacts/optimization/downloaded --output-dir artifacts/optimization/final --expected-candidates "$CANDIDATES" --expected-seeds "$SEEDS" --baseline-candidate B0 --formal --write-report
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import pandas as pd
+          root=Path('artifacts/optimization/final')
+          endpoints=[]
+          for path in sorted((root/'endpoints').rglob('*_summary.json')):
+              row=json.loads(path.read_text())
+              endpoints.append({k:row.get(k) for k in ('endpoint_horizon_days','candidate','model','profile','patient_count','positive_count','negative_count','AUC','AP','Brier','BrierSkill')})
+          pd.DataFrame(endpoints).to_csv(root/'endpoint_sensitivity.csv',index=False)
+          json.loads((root/'reports'/'model_optimization.json').read_text())
+          for name in ('runs.csv','summary.csv','calibration_summary.csv','endpoint_sensitivity.csv'):
+              pd.read_csv(root/name)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: optimization-final
+          path: artifacts/optimization/final
+          if-no-files-found: error
