@@ -4,6 +4,10 @@ on:
   push:
     paths:
       - ".github/workflows/**"
+      - "src/**"
+      - "scripts/**"
+      - "tests/**"
+      - "config/**"
   workflow_dispatch:
 
 permissions:

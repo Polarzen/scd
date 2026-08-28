@@ -24,6 +24,8 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import average_precision_score, brier_score_loss, roc_auc_score
 
+from .metrics import compute_metrics
+
 
 FORMAL_SEEDS: frozenset[int] = frozenset(range(100))
 SUMMARY_STATISTICS: tuple[str, ...] = (
@@ -545,27 +547,21 @@ def _calibration_values(y: np.ndarray, p: np.ndarray, n_bins: int = 10) -> dict[
 def _run_metric_row(group: pd.DataFrame, summary: Mapping[str, Any], n_bins: int) -> dict[str, Any]:
     y = group["y_true"].to_numpy(dtype=int)
     p = group["probability"].to_numpy(dtype=float)
-    metrics = {
-        "AUC": _safe_auc(y, p),
-        "AP": _safe_ap(y, p),
-        "Brier": float(brier_score_loss(y, p)),
-    }
-    # Explicit run summaries are authoritative, while OOF recomputation fills
-    # summaries that only carry metadata.
-    for name in PAIR_METRICS:
-        if name in summary and not _is_missing(summary[name]):
-            metrics[name] = _finite_number(summary[name], label=f"{name} summary")
-    prevalence = float(np.mean(y))
-    null_brier = prevalence * (1.0 - prevalence)
-    metrics["BrierSkill"] = float(1.0 - metrics["Brier"] / null_brier) if null_brier > 0 else float("nan")
-    metrics.update(_calibration_values(y, p, n_bins=n_bins))
     threshold_values = group["threshold"].to_numpy(dtype=float) if "threshold" in group else np.asarray([], dtype=float)
     if threshold_values.size:
         threshold = float(np.median(threshold_values))
     elif "threshold" in summary and not _is_missing(summary["threshold"]):
         threshold = _finite_number(summary["threshold"], label="threshold", lower=0.0, upper=1.0)
     else:
-        threshold = float("nan")
+        threshold = 0.5
+    prediction = group["prediction"].to_numpy(dtype=int) if "prediction" in group else (p >= threshold).astype(int)
+    metrics = compute_metrics(y, p, prediction)
+    # Explicit run summaries are authoritative, while OOF recomputation fills
+    # summaries that only carry metadata.
+    for name in PAIR_METRICS:
+        if name in summary and not _is_missing(summary[name]):
+            metrics[name] = _finite_number(summary[name], label=f"{name} summary")
+    metrics.update(_calibration_values(y, p, n_bins=n_bins))
     endpoint = summary.get("endpoint_horizon")
     return {
         "candidate": str(summary["candidate"]),
@@ -577,6 +573,10 @@ def _run_metric_row(group: pd.DataFrame, summary: Mapping[str, Any], n_bins: int
         "patient_count": int(len(group)),
         "positive_count": int(y.sum()),
         "negative_count": int(len(y) - y.sum()),
+        "feature_count": int(summary.get("feature_count", 0)),
+        "af_included_count": int(summary.get("af_included_count", 0)),
+        "af_positive_included_count": int(summary.get("af_positive_included_count", 0)),
+        "pvc_fields": json.dumps(summary.get("pvc_fields", []), sort_keys=True),
         "threshold": threshold,
         **metrics,
     }
@@ -589,7 +589,7 @@ def _distribution(values: Sequence[Any]) -> dict[str, float | None]:
     quantiles = np.percentile(array, [2.5, 25, 50, 75, 97.5])
     return {
         "mean": float(np.mean(array)),
-        "std": float(np.std(array, ddof=0)),
+        "std": float(np.std(array, ddof=1)) if array.size > 1 else 0.0,
         "min": float(np.min(array)),
         "p2.5": float(quantiles[0]),
         "p25": float(quantiles[1]),
@@ -601,7 +601,21 @@ def _distribution(values: Sequence[Any]) -> dict[str, float | None]:
 
 
 def _build_summary(run_rows: pd.DataFrame, integrity: Mapping[str, Any]) -> tuple[pd.DataFrame, dict[str, Any]]:
-    distribution_metrics = (*PAIR_METRICS, "BrierSkill", "calibration", "calibration_ece", "calibration_mce", "calibration_slope", "calibration_intercept", "threshold")
+    distribution_metrics = (
+        *PAIR_METRICS,
+        "BrierSkill",
+        "Sens",
+        "Spec",
+        "F1",
+        "PPV",
+        "NPV",
+        "calibration",
+        "calibration_ece",
+        "calibration_mce",
+        "calibration_slope",
+        "calibration_intercept",
+        "threshold",
+    )
     output_rows: list[dict[str, Any]] = []
     structured: dict[str, Any] = {
         "formal": bool(integrity["formal"]),
@@ -617,6 +631,13 @@ def _build_summary(run_rows: pd.DataFrame, integrity: Mapping[str, Any]) -> tupl
             "model": first["model"],
             "endpoint_horizon": first.get("endpoint_horizon"),
             "seed_count": int(len(group)),
+            "patient_count": int(first.get("patient_count", 0)),
+            "positive_count": int(first.get("positive_count", 0)),
+            "negative_count": int(first.get("negative_count", 0)),
+            "feature_count": int(first.get("feature_count", 0)),
+            "af_included_count": int(first.get("af_included_count", 0)),
+            "af_positive_included_count": int(first.get("af_positive_included_count", 0)),
+            "pvc_fields": first.get("pvc_fields", "[]"),
         }
         candidate_json: dict[str, Any] = {
             "candidate": candidate,
@@ -624,6 +645,13 @@ def _build_summary(run_rows: pd.DataFrame, integrity: Mapping[str, Any]) -> tupl
             "model": first["model"],
             "endpoint_horizon": first.get("endpoint_horizon"),
             "seed_count": int(len(group)),
+            "patient_count": int(first.get("patient_count", 0)),
+            "positive_count": int(first.get("positive_count", 0)),
+            "negative_count": int(first.get("negative_count", 0)),
+            "feature_count": int(first.get("feature_count", 0)),
+            "af_included_count": int(first.get("af_included_count", 0)),
+            "af_positive_included_count": int(first.get("af_positive_included_count", 0)),
+            "pvc_fields": first.get("pvc_fields", "[]"),
             "metrics": {},
         }
         for metric in distribution_metrics:
@@ -631,6 +659,11 @@ def _build_summary(run_rows: pd.DataFrame, integrity: Mapping[str, Any]) -> tupl
             candidate_json["metrics"][metric] = distribution
             for statistic, value in distribution.items():
                 row[f"{metric}_{statistic}"] = value
+        auc_values = pd.to_numeric(group["AUC"], errors="coerce")
+        row["AUC_gt_0.5_fraction"] = float(auc_values.gt(0.5).mean())
+        row["AUC_gt_0.55_fraction"] = float(auc_values.gt(0.55).mean())
+        candidate_json["AUC_gt_0.5_fraction"] = row["AUC_gt_0.5_fraction"]
+        candidate_json["AUC_gt_0.55_fraction"] = row["AUC_gt_0.55_fraction"]
         for count_name in ("patient_count", "positive_count", "negative_count"):
             row[f"{count_name}_mean"] = float(np.mean(group[count_name]))
             candidate_json[count_name] = int(round(float(np.mean(group[count_name]))))
