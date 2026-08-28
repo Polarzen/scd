@@ -3,11 +3,11 @@
   "category_bytes": {
     "analysis": 977013,
     "cohort": 496783,
-    "integrity": 786662,
+    "integrity": 774294,
     "phase3_legacy": 496877,
-    "phase4_full_5min": 40983616,
+    "phase4_full_5min": 40983503,
     "source_exact": 842126,
-    "validation": 2086226
+    "validation": 2069567
   },
   "counts": {
     "analysis_population_365_rows": 703,
@@ -82,7 +82,7 @@
       "path": "data/features/full_5min/features/part-00006.parquet"
     },
     {
-      "bytes": 2771,
+      "bytes": 2658,
       "path": "data/features/full_5min/manifest.json"
     },
     {
@@ -130,15 +130,15 @@
       "path": "data/features/legacy_120s/windows.parquet"
     },
     {
-      "bytes": 571891,
+      "bytes": 561246,
       "path": "data/integrity/build_manifest.json"
     },
     {
-      "bytes": 211719,
+      "bytes": 210024,
       "path": "data/integrity/compact_sha256.txt"
     },
     {
-      "bytes": 3052,
+      "bytes": 3024,
       "path": "data/integrity/data_contract.yaml"
     },
     {
@@ -6658,11 +6658,11 @@
       "path": "data/source_exact/subject-info_definitions.csv"
     },
     {
-      "bytes": 762,
+      "bytes": 757,
       "path": "data/validation/endpoint_sensitivity/endpoint_sensitivity.csv"
     },
     {
-      "bytes": 1534,
+      "bytes": 1476,
       "path": "data/validation/endpoint_sensitivity/endpoint_sensitivity.json"
     },
     {
@@ -6670,7 +6670,7 @@
       "path": "data/validation/endpoint_sensitivity/endpoint_sensitivity.parquet"
     },
     {
-      "bytes": 3195,
+      "bytes": 3189,
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_180d_seed42_folds.csv"
     },
     {
@@ -6678,7 +6678,7 @@
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_180d_seed42_folds.parquet"
     },
     {
-      "bytes": 111762,
+      "bytes": 111038,
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_180d_seed42_oof.csv"
     },
     {
@@ -6686,11 +6686,11 @@
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_180d_seed42_oof.parquet"
     },
     {
-      "bytes": 4931,
+      "bytes": 4720,
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_180d_seed42_summary.json"
     },
     {
-      "bytes": 3118,
+      "bytes": 3112,
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_365d_seed42_folds.csv"
     },
     {
@@ -6698,7 +6698,7 @@
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_365d_seed42_folds.parquet"
     },
     {
-      "bytes": 107915,
+      "bytes": 107211,
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_365d_seed42_oof.csv"
     },
     {
@@ -6706,11 +6706,11 @@
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_365d_seed42_oof.parquet"
     },
     {
-      "bytes": 4913,
+      "bytes": 4702,
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_365d_seed42_summary.json"
     },
     {
-      "bytes": 3071,
+      "bytes": 3065,
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_730d_seed42_folds.csv"
     },
     {
@@ -6718,7 +6718,7 @@
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_730d_seed42_folds.parquet"
     },
     {
-      "bytes": 102514,
+      "bytes": 101845,
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_730d_seed42_oof.csv"
     },
     {
@@ -6726,11 +6726,11 @@
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_730d_seed42_oof.parquet"
     },
     {
-      "bytes": 4833,
+      "bytes": 4622,
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_730d_seed42_summary.json"
     },
     {
-      "bytes": 2984,
+      "bytes": 2978,
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_90d_seed42_folds.csv"
     },
     {
@@ -6738,7 +6738,7 @@
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_90d_seed42_folds.parquet"
     },
     {
-      "bytes": 111929,
+      "bytes": 111188,
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_90d_seed42_oof.csv"
     },
     {
@@ -6746,11 +6746,11 @@
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_90d_seed42_oof.parquet"
     },
     {
-      "bytes": 4830,
+      "bytes": 4619,
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_90d_seed42_summary.json"
     },
     {
-      "bytes": 1555,
+      "bytes": 1549,
       "path": "data/validation/full_model/dummy_all20_365d_seed42_folds.csv"
     },
     {
@@ -6758,7 +6758,7 @@
       "path": "data/validation/full_model/dummy_all20_365d_seed42_folds.parquet"
     },
     {
-      "bytes": 105578,
+      "bytes": 104874,
       "path": "data/validation/full_model/dummy_all20_365d_seed42_oof.csv"
     },
     {
@@ -6766,11 +6766,11 @@
       "path": "data/validation/full_model/dummy_all20_365d_seed42_oof.parquet"
     },
     {
-      "bytes": 4541,
+      "bytes": 4330,
       "path": "data/validation/full_model/dummy_all20_365d_seed42_summary.json"
     },
     {
-      "bytes": 3113,
+      "bytes": 3107,
       "path": "data/validation/full_model/extratrees_all20_365d_seed42_folds.csv"
     },
     {
@@ -6778,7 +6778,7 @@
       "path": "data/validation/full_model/extratrees_all20_365d_seed42_folds.parquet"
     },
     {
-      "bytes": 107545,
+      "bytes": 106841,
       "path": "data/validation/full_model/extratrees_all20_365d_seed42_oof.csv"
     },
     {
@@ -6786,11 +6786,11 @@
       "path": "data/validation/full_model/extratrees_all20_365d_seed42_oof.parquet"
     },
     {
-      "bytes": 4912,
+      "bytes": 4701,
       "path": "data/validation/full_model/extratrees_all20_365d_seed42_summary.json"
     },
     {
-      "bytes": 2212,
+      "bytes": 2206,
       "path": "data/validation/full_model/logistic_all20_365d_seed42_folds.csv"
     },
     {
@@ -6798,7 +6798,7 @@
       "path": "data/validation/full_model/logistic_all20_365d_seed42_folds.parquet"
     },
     {
-      "bytes": 108845,
+      "bytes": 108141,
       "path": "data/validation/full_model/logistic_all20_365d_seed42_oof.csv"
     },
     {
@@ -6806,19 +6806,19 @@
       "path": "data/validation/full_model/logistic_all20_365d_seed42_oof.parquet"
     },
     {
-      "bytes": 4861,
+      "bytes": 4650,
       "path": "data/validation/full_model/logistic_all20_365d_seed42_summary.json"
     },
     {
-      "bytes": 330,
+      "bytes": 316,
       "path": "data/validation/full_reference_config.json"
     },
     {
-      "bytes": 3113,
+      "bytes": 3107,
       "path": "data/validation/full_reference_fold_metrics.csv"
     },
     {
-      "bytes": 16535,
+      "bytes": 15897,
       "path": "data/validation/full_reference_metrics.json"
     },
     {
@@ -6826,11 +6826,11 @@
       "path": "data/validation/full_reference_oof.parquet"
     },
     {
-      "bytes": 745789,
+      "bytes": 736988,
       "path": "data/validation/legacy_feature_comparison.csv"
     },
     {
-      "bytes": 1914,
+      "bytes": 1908,
       "path": "data/validation/legacy_model_folds.csv"
     },
     {
@@ -6838,11 +6838,11 @@
       "path": "data/validation/legacy_oof_predictions.parquet"
     },
     {
-      "bytes": 658,
+      "bytes": 632,
       "path": "data/validation/legacy_reproduction_metrics.json"
     },
     {
-      "bytes": 551,
+      "bytes": 528,
       "path": "data/validation/legacy_window_validation.json"
     },
     {
@@ -6850,27 +6850,27 @@
       "path": "data/validation/repeated_smoke/repeated_oof.parquet"
     },
     {
-      "bytes": 2828,
+      "bytes": 2818,
       "path": "data/validation/repeated_smoke/repeated_per_seed.csv"
     },
     {
-      "bytes": 5987,
+      "bytes": 5769,
       "path": "data/validation/repeated_smoke/repeated_per_seed.json"
     },
     {
-      "bytes": 4171,
+      "bytes": 4143,
       "path": "data/validation/repeated_smoke/repeated_summary.csv"
     },
     {
-      "bytes": 8821,
+      "bytes": 8468,
       "path": "data/validation/repeated_smoke/repeated_summary.json"
     },
     {
-      "bytes": 4368,
+      "bytes": 4364,
       "path": "data/validation/repeated_smoke/repeated_summary_wide.csv"
     }
   ],
-  "generated_at_utc": "2026-08-28T00:50:09+00:00",
+  "generated_at_utc": "2026-08-28T02:31:13+00:00",
   "largest_30_files": [
     {
       "bytes": 5884780,
@@ -6909,11 +6909,11 @@
       "path": "data/features/full_5min/patient_features.parquet"
     },
     {
-      "bytes": 745789,
+      "bytes": 736988,
       "path": "data/validation/legacy_feature_comparison.csv"
     },
     {
-      "bytes": 571891,
+      "bytes": 561246,
       "path": "data/integrity/build_manifest.json"
     },
     {
@@ -6957,7 +6957,7 @@
       "path": "data/features/full_5min/windows/part-00006.parquet"
     },
     {
-      "bytes": 211719,
+      "bytes": 210024,
       "path": "data/integrity/compact_sha256.txt"
     },
     {
@@ -6977,11 +6977,11 @@
       "path": "data/cohort/provenance.parquet"
     },
     {
-      "bytes": 111929,
+      "bytes": 111188,
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_90d_seed42_oof.csv"
     },
     {
-      "bytes": 111762,
+      "bytes": 111038,
       "path": "data/validation/endpoint_sensitivity/extratrees_all20_180d_seed42_oof.csv"
     },
     {
@@ -6989,7 +6989,7 @@
       "path": "data/validation/repeated_smoke/repeated_oof.parquet"
     },
     {
-      "bytes": 108845,
+      "bytes": 108141,
       "path": "data/validation/full_model/logistic_all20_365d_seed42_oof.csv"
     }
   ],
@@ -6999,8 +6999,8 @@
   },
   "maximum_data_file_bytes": 5884780,
   "phase": 4,
-  "repository_compact_bytes": 46505801,
-  "repository_data_bytes": 46669303,
+  "repository_compact_bytes": 46486615,
+  "repository_data_bytes": 46640163,
   "schema_version": 1,
   "status": "PASS"
 }
