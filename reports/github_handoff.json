@@ -1,5 +1,6 @@
 {
   "build_status": "COMPLETE",
+  "ci_recheck_trigger": "post-integrity-repair",
   "compact_data_ready": true,
   "compact_hashes": "data/integrity/compact_sha256.txt",
   "counts": {
