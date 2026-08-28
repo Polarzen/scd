@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: formal-statistical-validation
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   seed42:
@@ -144,8 +144,10 @@ jobs:
                   rows.append({'profile':profile,'model':model,'metric':metric,'n':len(v),'mean':v.mean(),'std':v.std(ddof=1),'min':v.min(),'p2_5':v.quantile(.025),'p25':v.quantile(.25),'median':v.median(),'p75':v.quantile(.75),'p97_5':v.quantile(.975),'max':v.max()})
           out=Path('artifacts/formal/repeated-aggregate'); out.mkdir(parents=True,exist_ok=True)
           summary=pd.DataFrame(rows)
-          df.to_csv(out/'runs.csv', index=False); df.to_parquet(out/'runs.parquet', index=False, compression='zstd')
-          summary.to_csv(out/'summary.csv', index=False); summary.to_json(out/'summary.json', orient='records', indent=2)
+          df.to_csv(out/'runs.csv', index=False)
+          df.to_parquet(out/'runs.parquet', index=False, compression='zstd')
+          summary.to_csv(out/'summary.csv', index=False)
+          summary.to_json(out/'summary.json', orient='records', indent=2)
           ext=df[df.model.eq('extratrees')].copy()
           pivot=ext.pivot(index='seed',columns='profile',values='AUC')
           comparison={
@@ -211,11 +213,13 @@ jobs:
           from pathlib import Path
           import pandas as pd
           paths=sorted(Path('artifacts/formal/endpoint-runs').rglob('endpoint_sensitivity.csv'))
-          if len(paths)!=12: raise SystemExit(f'expected 12 endpoint-model tables, found {len(paths)}')
+          if len(paths)!=12:
+              raise SystemExit(f'expected 12 endpoint-model tables, found {len(paths)}')
           df=pd.concat([pd.read_csv(p) for p in paths],ignore_index=True)
           out=Path('artifacts/formal/endpoints-aggregate'); out.mkdir(parents=True,exist_ok=True)
           df=df.sort_values(['endpoint_horizon_days','model'],kind='stable')
-          df.to_csv(out/'endpoint_models.csv',index=False); df.to_json(out/'endpoint_models.json',orient='records',indent=2)
+          df.to_csv(out/'endpoint_models.csv',index=False)
+          df.to_json(out/'endpoint_models.json',orient='records',indent=2)
           PY
       - uses: actions/upload-artifact@v4
         with:
@@ -230,7 +234,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python -m pip install pandas
+      - run: python -m pip install pandas tabulate
       - uses: actions/download-artifact@v4
         with:
           pattern: formal-*
@@ -241,11 +245,12 @@ jobs:
           import json
           from pathlib import Path
           import pandas as pd
+
           root=Path('artifacts/formal/all')
-          brier=json.loads(next(root.rglob('brier_audit.json')).read_text())
-          summary=pd.read_csv(next(root.rglob('repeated-aggregate/summary.csv')))
-          profiles=json.loads(next(root.rglob('profile_comparison.json')).read_text())
-          endpoints=pd.read_csv(next(root.rglob('endpoint_models.csv')))
+          brier=json.loads((root/'formal-seed42'/'brier_audit.json').read_text())
+          summary=pd.read_csv(root/'formal-repeated-aggregate'/'summary.csv')
+          profiles=json.loads((root/'formal-repeated-aggregate'/'profile_comparison.json').read_text())
+          endpoints=pd.read_csv(root/'formal-endpoints-aggregate'/'endpoint_models.csv')
           def metric(profile,model,metric):
               r=summary[(summary.profile==profile)&(summary.model==model)&(summary.metric==metric)].iloc[0]
               return {k:float(r[k]) for k in ['mean','std','p2_5','p25','median','p75','p97_5','min','max']}
