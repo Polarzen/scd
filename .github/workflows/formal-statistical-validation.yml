@@ -35,11 +35,11 @@ jobs:
         run: |
           mkdir -p artifacts/formal/seed42
           for model in extratrees logistic dummy; do
-            python -m src.cli validate --endpoint 365 --profile all20 --model "$model" --seed 42 --n-jobs 1 --output-dir "artifacts/formal/seed42/$model"
+            python -m src.cli validate --endpoint 365 --profile all20 --model "$model" --seed 42 --n-jobs 2 --output-dir "artifacts/formal/seed42/$model"
           done
       - name: Seed 42 repeated-path consistency check
         run: |
-          python -m src.cli repeated-cv --endpoint 365 --profile all20 --models extratrees --seed-start 42 --seed-stop 42 --n-jobs 1 --output-dir artifacts/formal/seed42/repeated
+          python -m src.cli repeated-cv --endpoint 365 --profile all20 --models extratrees --seed-start 42 --seed-stop 42 --bootstrap-resamples 0 --n-jobs 2 --output-dir artifacts/formal/seed42/repeated
           python - <<'PY'
           import json
           from pathlib import Path
@@ -81,10 +81,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      max-parallel: 5
+      max-parallel: 20
       matrix:
         profile: [all20, physiology_only]
-        batch: [0,1,2,3,4,5,6,7,8,9]
+        seed: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -94,25 +94,22 @@ jobs:
           cache-dependency-path: requirements-lock.txt
       - run: python -m pip install --requirement requirements-lock.txt
       - run: python scripts/verify_all.py
-      - name: Run ten seeds
+      - name: Run one strict nested-CV seed
         env:
           PROFILE: ${{ matrix.profile }}
-          BATCH: ${{ matrix.batch }}
+          SEED: ${{ matrix.seed }}
         run: |
-          start=$((BATCH*10))
-          stop=$((start+9))
-          python -m src.cli repeated-cv --endpoint 365 --profile "$PROFILE" --models extratrees,logistic,dummy --seed-start "$start" --seed-stop "$stop" --n-jobs 1 --output-dir "artifacts/formal/repeated/$PROFILE/batch-$BATCH"
+          python -m src.cli repeated-cv --endpoint 365 --profile "$PROFILE" --models extratrees --seed-start "$SEED" --seed-stop "$SEED" --bootstrap-resamples 0 --n-jobs 2 --output-dir "artifacts/formal/repeated/$PROFILE/seed-$SEED"
       - uses: actions/upload-artifact@v4
         with:
-          name: formal-repeated-${{ matrix.profile }}-batch-${{ matrix.batch }}
-          path: artifacts/formal/repeated/${{ matrix.profile }}/batch-${{ matrix.batch }}
+          name: formal-repeated-${{ matrix.profile }}-seed-${{ matrix.seed }}
+          path: artifacts/formal/repeated/${{ matrix.profile }}/seed-${{ matrix.seed }}
           if-no-files-found: error
 
   repeated_aggregate:
     needs: repeated100
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -120,7 +117,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           pattern: formal-repeated-*
-          path: artifacts/formal/repeated-batches
+          path: artifacts/formal/repeated-runs
       - name: Aggregate 100-seed distributions
         run: |
           python - <<'PY'
@@ -128,14 +125,18 @@ jobs:
           from pathlib import Path
           import pandas as pd
 
-          paths = sorted(Path('artifacts/formal/repeated-batches').rglob('repeated_per_seed.csv'))
-          if len(paths) != 20:
-              raise SystemExit(f'expected 20 batch tables, found {len(paths)}')
+          paths = sorted(Path('artifacts/formal/repeated-runs').rglob('repeated_per_seed.csv'))
+          if len(paths) != 200:
+              raise SystemExit(f'expected 200 seed tables, found {len(paths)}')
           df = pd.concat([pd.read_csv(p) for p in paths], ignore_index=True)
-          if len(df) != 600:
-              raise SystemExit(f'expected 600 profile-model-seed rows, found {len(df)}')
-          if set(df.seed) != set(range(100)):
-              raise SystemExit('seed coverage is not exactly 0..99')
+          if len(df) != 200:
+              raise SystemExit(f'expected 200 profile-seed rows, found {len(df)}')
+          for profile in ['all20','physiology_only']:
+              seeds=set(df.loc[df.profile.eq(profile),'seed'].astype(int))
+              if seeds != set(range(100)):
+                  raise SystemExit(f'{profile} seed coverage is not exactly 0..99')
+          if set(df.model) != {'extratrees'}:
+              raise SystemExit(f'unexpected repeated models: {sorted(set(df.model))}')
           metrics = ['AUC','AP','Brier','Sens','Spec','F1','PPV','NPV']
           rows=[]
           for (profile,model), g in df.groupby(['profile','model'], sort=True):
@@ -148,13 +149,16 @@ jobs:
           df.to_parquet(out/'runs.parquet', index=False, compression='zstd')
           summary.to_csv(out/'summary.csv', index=False)
           summary.to_json(out/'summary.json', orient='records', indent=2)
-          ext=df[df.model.eq('extratrees')].copy()
-          pivot=ext.pivot(index='seed',columns='profile',values='AUC')
+          pivot=df.pivot(index='seed',columns='profile',values='AUC')
+          delta=pivot['all20']-pivot['physiology_only']
           comparison={
             'seed_count': int(len(pivot)),
-            'all20_auc_greater_fraction': float((pivot['all20']>pivot['physiology_only']).mean()),
-            'median_auc_difference_all20_minus_physiology': float((pivot['all20']-pivot['physiology_only']).median()),
-            'mean_auc_difference_all20_minus_physiology': float((pivot['all20']-pivot['physiology_only']).mean()),
+            'all20_auc_greater_fraction': float((delta>0).mean()),
+            'equal_auc_fraction': float((delta==0).mean()),
+            'median_auc_difference_all20_minus_physiology': float(delta.median()),
+            'mean_auc_difference_all20_minus_physiology': float(delta.mean()),
+            'p2_5_auc_difference': float(delta.quantile(.025)),
+            'p97_5_auc_difference': float(delta.quantile(.975)),
           }
           (out/'profile_comparison.json').write_text(json.dumps(comparison,indent=2)+'\n')
           PY
@@ -186,7 +190,7 @@ jobs:
           ENDPOINT: ${{ matrix.endpoint }}
         run: |
           for model in extratrees logistic dummy; do
-            python -m src.cli endpoint-sensitivity --horizons "$ENDPOINT" --profile all20 --model "$model" --seed 42 --n-jobs 1 --output-dir "artifacts/formal/endpoints/${ENDPOINT}/$model"
+            python -m src.cli endpoint-sensitivity --horizons "$ENDPOINT" --profile all20 --model "$model" --seed 42 --bootstrap-resamples 0 --n-jobs 2 --output-dir "artifacts/formal/endpoints/${ENDPOINT}/$model"
           done
       - uses: actions/upload-artifact@v4
         with:
@@ -198,7 +202,6 @@ jobs:
     needs: endpoints
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -215,7 +218,13 @@ jobs:
           paths=sorted(Path('artifacts/formal/endpoint-runs').rglob('endpoint_sensitivity.csv'))
           if len(paths)!=12:
               raise SystemExit(f'expected 12 endpoint-model tables, found {len(paths)}')
-          df=pd.concat([pd.read_csv(p) for p in paths],ignore_index=True)
+          frames=[]
+          for path in paths:
+              frame=pd.read_csv(path)
+              if 'model' not in frame.columns:
+                  frame.insert(1,'model',path.parent.name)
+              frames.append(frame)
+          df=pd.concat(frames,ignore_index=True)
           out=Path('artifacts/formal/endpoints-aggregate'); out.mkdir(parents=True,exist_ok=True)
           df=df.sort_values(['endpoint_horizon_days','model'],kind='stable')
           df.to_csv(out/'endpoint_models.csv',index=False)
@@ -251,30 +260,28 @@ jobs:
           summary=pd.read_csv(root/'formal-repeated-aggregate'/'summary.csv')
           profiles=json.loads((root/'formal-repeated-aggregate'/'profile_comparison.json').read_text())
           endpoints=pd.read_csv(root/'formal-endpoints-aggregate'/'endpoint_models.csv')
-          def metric(profile,model,metric):
-              r=summary[(summary.profile==profile)&(summary.model==model)&(summary.metric==metric)].iloc[0]
+          def metric(profile,metric):
+              r=summary[(summary.profile==profile)&(summary.model=='extratrees')&(summary.metric==metric)].iloc[0]
               return {k:float(r[k]) for k in ['mean','std','p2_5','p25','median','p75','p97_5','min','max']}
+          repeated={p:{x:metric(p,x) for x in ['AUC','AP','Brier','Sens','Spec','F1','PPV','NPV']} for p in ['all20','physiology_only']}
           result={
             'seed42': brier,
-            'repeated_100_seed_365d': {
-              p:{m:{x:metric(p,m,x) for x in ['AUC','AP','Brier','Sens','Spec','F1']} for m in ['extratrees','logistic','dummy']}
-              for p in ['all20','physiology_only']
-            },
+            'repeated_100_seed_365d_extratrees': repeated,
             'profile_comparison': profiles,
             'endpoint_sensitivity_seed42_all20': endpoints.to_dict('records'),
             'interpretation_flags': {
               'seed42_pipeline_consistent': bool(brier['single_vs_repeated_consistent']),
-              'extratrees_auc_median_above_random_all20': metric('all20','extratrees','AUC')['median']>0.5,
+              'extratrees_auc_median_above_random_all20': repeated['all20']['AUC']['median']>0.5,
               'extratrees_brier_skill_positive_seed42': (brier['brier_skill_score_vs_dummy'] or 0)>0,
             }
           }
           out=Path('artifacts/formal/final');out.mkdir(parents=True,exist_ok=True)
           (out/'formal_statistical_validation.json').write_text(json.dumps(result,indent=2,allow_nan=False)+'\n')
-          lines=['# Formal statistical validation','',f"Seed42 pipeline consistent: **{result['interpretation_flags']['seed42_pipeline_consistent']}**",'', '## 100-seed 365d AUC']
+          lines=['# Formal statistical validation','',f"Seed42 pipeline consistent: **{result['interpretation_flags']['seed42_pipeline_consistent']}**",'', '## 100-seed 365d ExtraTrees']
           for p in ['all20','physiology_only']:
-              a=result['repeated_100_seed_365d'][p]['extratrees']['AUC']
-              lines.append(f"- {p}: median {a['median']:.6f}, IQR {a['p25']:.6f}-{a['p75']:.6f}, 2.5-97.5% {a['p2_5']:.6f}-{a['p97_5']:.6f}")
-          lines += ['', '## Endpoint sensitivity (seed42, all20)', endpoints.to_markdown(index=False)]
+              a=repeated[p]['AUC']; ap=repeated[p]['AP']; br=repeated[p]['Brier']
+              lines.append(f"- {p}: AUC median {a['median']:.6f} (2.5-97.5% {a['p2_5']:.6f}-{a['p97_5']:.6f}); AP median {ap['median']:.6f}; Brier median {br['median']:.6f}")
+          lines += ['', '## all20 vs physiology_only', json.dumps(profiles, indent=2), '', '## Endpoint sensitivity (seed42, all20)', endpoints.to_markdown(index=False)]
           (out/'formal_statistical_validation.md').write_text('\n'.join(lines)+'\n')
           PY
       - uses: actions/upload-artifact@v4
