@@ -8862,9 +8862,9 @@
       "sha256": "11b866325135f64ad482bbf407c8a2f6ff0fb2210198d223ad6af2c5a016e204"
     },
     {
-      "bytes": 26309,
+      "bytes": 26635,
       "path": "scripts/import_formal_baseline.py",
-      "sha256": "13baf843e0ad5d33032fb9fec256833aced1f2d1f71e4465dd45e3a616655fef"
+      "sha256": "8374426e2a8199f7f4022af982b52ba410e5cd129bb13a8f9b548f8f22ba2600"
     },
     {
       "bytes": 315,
@@ -9007,9 +9007,9 @@
       "sha256": "1415126ed3bee95f58e9b3cc1c5167dd250cf641cde469a97a5f1013c41d6234"
     },
     {
-      "bytes": 6599,
+      "bytes": 6737,
       "path": "tests/test_formal_baseline_import.py",
-      "sha256": "3179b2cf06dc2800d17006964ee67e9e844f24f7402d12af0793e524c5fb65e3"
+      "sha256": "67b6d71b123f2a55bd761e1823edf7dd0ec733316c6c585b76175e93ac55fcba"
     },
     {
       "bytes": 1265,
@@ -9132,7 +9132,7 @@
       "sha256": "a1e8537d2b5e8f207f316b6a9ba9fe242f5e3c33add6bb531da6bc5a47cbd343"
     }
   ],
-  "generated_at_utc": "2026-08-28T16:46:42+00:00",
+  "generated_at_utc": "2026-08-28T16:55:18+00:00",
   "hashes": {
     ".gitattributes": "3bbbf428dc1d8c9c5c9adf97ae2e6d92020b23f8f789c3ef9f10ecf1fe536e91",
     ".github/workflows/ci.yml": "29e405b7e8db27d6133cd08218c116d0ecb87c55769c64cea850db1a553d76a9",
@@ -10895,7 +10895,7 @@
     "scripts/build_phase2.py": "d7f95abb8c1bc7941bb6a30f4cb94812f59dc373a73c03db222516ac9a4bbe4b",
     "scripts/endpoint_sensitivity.py": "b3ffb972b52039a78a57e075d581810e6173287e995c2fff480a965e96bfc68b",
     "scripts/finalize_phase4.py": "11b866325135f64ad482bbf407c8a2f6ff0fb2210198d223ad6af2c5a016e204",
-    "scripts/import_formal_baseline.py": "13baf843e0ad5d33032fb9fec256833aced1f2d1f71e4465dd45e3a616655fef",
+    "scripts/import_formal_baseline.py": "8374426e2a8199f7f4022af982b52ba410e5cd129bb13a8f9b548f8f22ba2600",
     "scripts/model_validation.py": "e0a482cfa6a7be577b7b3e58d9a03f470f824f4d26dfd70541c61314f5d420ea",
     "scripts/promote_full_reference.py": "6613372a91acbf21068b9e7407840dadcb76ca4ddb7804bea027fee8d6ed1469",
     "scripts/repeated_cv.py": "3f0934e2c33a6053f14ad8bacc1ae68f77488b5ef2537909864b72d6e44a08ae",
@@ -10924,7 +10924,7 @@
     "tests/test_endpoints.py": "5ad8f46a7b0f16d5e35a1254051c4bee7e58a7167e4293b291100592a4f8255c",
     "tests/test_feature_profiles.py": "a5b7583f609e6bfbe8860058961a377acb8a3eee5e0c8db491342c67b80ba903",
     "tests/test_fold_local_preprocessing.py": "1415126ed3bee95f58e9b3cc1c5167dd250cf641cde469a97a5f1013c41d6234",
-    "tests/test_formal_baseline_import.py": "3179b2cf06dc2800d17006964ee67e9e844f24f7402d12af0793e524c5fb65e3",
+    "tests/test_formal_baseline_import.py": "67b6d71b123f2a55bd761e1823edf7dd0ec733316c6c585b76175e93ac55fcba",
     "tests/test_full_endpoints.py": "35c927ddb8609ceb3018e07256db7d69bbc7767e5b848cf6e31f2a45c42218d2",
     "tests/test_full_features.py": "93c44f3abb87a55081712610b843cc7fbc2da4a2f458ff2e5ce107506126c9c0",
     "tests/test_full_qc.py": "ffc052262cff426b64b068e363dfe0aa98563d8769aa9a2897d53b4ef6fe291e",
