@@ -3,7 +3,7 @@ name: Repair compact integrity
 on:
   push:
     paths:
-      - ".github/workflows/repair-integrity.yml"
+      - ".github/workflows/**"
   workflow_dispatch:
 
 permissions:
