@@ -260,6 +260,7 @@ jobs:
           summary=pd.read_csv(root/'formal-repeated-aggregate'/'summary.csv')
           profiles=json.loads((root/'formal-repeated-aggregate'/'profile_comparison.json').read_text())
           endpoints=pd.read_csv(root/'formal-endpoints-aggregate'/'endpoint_models.csv')
+          endpoint_records=json.loads(endpoints.to_json(orient='records'))
           def metric(profile,metric):
               r=summary[(summary.profile==profile)&(summary.model=='extratrees')&(summary.metric==metric)].iloc[0]
               return {k:float(r[k]) for k in ['mean','std','p2_5','p25','median','p75','p97_5','min','max']}
@@ -268,7 +269,7 @@ jobs:
             'seed42': brier,
             'repeated_100_seed_365d_extratrees': repeated,
             'profile_comparison': profiles,
-            'endpoint_sensitivity_seed42_all20': endpoints.to_dict('records'),
+            'endpoint_sensitivity_seed42_all20': endpoint_records,
             'interpretation_flags': {
               'seed42_pipeline_consistent': bool(brier['single_vs_repeated_consistent']),
               'extratrees_auc_median_above_random_all20': repeated['all20']['AUC']['median']>0.5,
@@ -277,11 +278,12 @@ jobs:
           }
           out=Path('artifacts/formal/final');out.mkdir(parents=True,exist_ok=True)
           (out/'formal_statistical_validation.json').write_text(json.dumps(result,indent=2,allow_nan=False)+'\n')
+          json.loads((out/'formal_statistical_validation.json').read_text())
           lines=['# Formal statistical validation','',f"Seed42 pipeline consistent: **{result['interpretation_flags']['seed42_pipeline_consistent']}**",'', '## 100-seed 365d ExtraTrees']
           for p in ['all20','physiology_only']:
               a=repeated[p]['AUC']; ap=repeated[p]['AP']; br=repeated[p]['Brier']
               lines.append(f"- {p}: AUC median {a['median']:.6f} (2.5-97.5% {a['p2_5']:.6f}-{a['p97_5']:.6f}); AP median {ap['median']:.6f}; Brier median {br['median']:.6f}")
-          lines += ['', '## all20 vs physiology_only', json.dumps(profiles, indent=2), '', '## Endpoint sensitivity (seed42, all20)', endpoints.to_markdown(index=False)]
+          lines += ['', '## all20 vs physiology_only', json.dumps(profiles, indent=2), '', '## Endpoint sensitivity (seed42, all20)', endpoints.to_string(index=False)]
           (out/'formal_statistical_validation.md').write_text('\n'.join(lines)+'\n')
           PY
       - uses: actions/upload-artifact@v4
