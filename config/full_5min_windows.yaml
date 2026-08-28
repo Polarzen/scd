@@ -1,0 +1,22 @@
+schema_version: 1
+table: full_5min_windows
+window:
+  length_sec: 300
+  stride_sec: 300
+  first_start_sec: 60
+  start_formula: "60 + 300*k"
+  overlap: false
+  unlimited: true
+  complete_only: true
+  tail_policy: "retain tail seconds at patient/status level; do not create an incomplete window"
+reader:
+  library: wfdb
+  function: rdrecord
+  channels: [0]
+  exact_segment_only: true
+  padding: false
+  full_record_reads: false
+identity:
+  label_available_to_window_generation: false
+  outcome_available_to_window_generation: false
+  retain_theoretical_complete_window_rows: true

@@ -1,0 +1,113 @@
+{
+  "compression": "zstd",
+  "feature_dtype": "float64",
+  "feature_shards": [
+    {
+      "bytes": 5658647,
+      "path": "features/part-00000.parquet",
+      "patient_first": "P0001",
+      "patient_last": "P0149",
+      "rows": 39975
+    },
+    {
+      "bytes": 5750592,
+      "path": "features/part-00001.parquet",
+      "patient_first": "P0150",
+      "patient_last": "P0299",
+      "rows": 39745
+    },
+    {
+      "bytes": 5884780,
+      "path": "features/part-00002.parquet",
+      "patient_first": "P0301",
+      "patient_last": "P0463",
+      "rows": 39757
+    },
+    {
+      "bytes": 5627912,
+      "path": "features/part-00003.parquet",
+      "patient_first": "P0464",
+      "patient_last": "P0618",
+      "rows": 39830
+    },
+    {
+      "bytes": 5745114,
+      "path": "features/part-00004.parquet",
+      "patient_first": "P0619",
+      "patient_last": "P0770",
+      "rows": 39769
+    },
+    {
+      "bytes": 5647908,
+      "path": "features/part-00005.parquet",
+      "patient_first": "P0771",
+      "patient_last": "P0931",
+      "rows": 39837
+    },
+    {
+      "bytes": 2650574,
+      "path": "features/part-00006.parquet",
+      "patient_first": "P0932",
+      "patient_last": "P1073",
+      "rows": 19303
+    }
+  ],
+  "feature_table": "features/part-*.parquet",
+  "max_shard_bytes": 26214400,
+  "patient_sorted_contiguous": true,
+  "raw_waveform_or_cache_in_data": false,
+  "schema_version": 1,
+  "window_row_count": 258216,
+  "window_shards": [
+    {
+      "bytes": 483742,
+      "path": "windows/part-00000.parquet",
+      "patient_first": "P0001",
+      "patient_last": "P0149",
+      "rows": 39975
+    },
+    {
+      "bytes": 479399,
+      "path": "windows/part-00001.parquet",
+      "patient_first": "P0150",
+      "patient_last": "P0299",
+      "rows": 39745
+    },
+    {
+      "bytes": 484222,
+      "path": "windows/part-00002.parquet",
+      "patient_first": "P0301",
+      "patient_last": "P0463",
+      "rows": 39757
+    },
+    {
+      "bytes": 476957,
+      "path": "windows/part-00003.parquet",
+      "patient_first": "P0464",
+      "patient_last": "P0618",
+      "rows": 39830
+    },
+    {
+      "bytes": 484746,
+      "path": "windows/part-00004.parquet",
+      "patient_first": "P0619",
+      "patient_last": "P0770",
+      "rows": 39769
+    },
+    {
+      "bytes": 489227,
+      "path": "windows/part-00005.parquet",
+      "patient_first": "P0771",
+      "patient_last": "P0931",
+      "rows": 39837
+    },
+    {
+      "bytes": 265850,
+      "path": "windows/part-00006.parquet",
+      "patient_first": "P0932",
+      "patient_last": "P1073",
+      "rows": 19303
+    }
+  ],
+  "window_table": "windows/part-*.parquet"
+}

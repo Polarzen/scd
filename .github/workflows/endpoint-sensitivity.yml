@@ -1,0 +1,136 @@
+name: Endpoint sensitivity
+
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: Frozen feature profile
+        required: true
+        type: choice
+        default: all20
+        options:
+          - all20
+          - physiology_only
+      model:
+        description: Model to validate
+        required: true
+        type: choice
+        default: extratrees
+        options:
+          - extratrees
+          - logistic
+          - dummy
+      seed:
+        description: Deterministic random seed
+        required: true
+        type: string
+        default: "42"
+
+permissions:
+  contents: read
+
+jobs:
+  horizons:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        endpoint: [90, 180, 365, 730]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+
+      - name: Install locked dependencies
+        run: python -m pip install --requirement requirements-lock.txt
+
+      - name: Verify compact inputs
+        run: python scripts/verify_all.py
+
+      - name: Run selected endpoint
+        env:
+          ENDPOINT: ${{ matrix.endpoint }}
+          PROFILE: ${{ inputs.profile }}
+          MODEL: ${{ inputs.model }}
+          SEED: ${{ inputs.seed }}
+        run: |
+          set -euo pipefail
+          python -m src.cli endpoint-sensitivity \
+            --horizons "$ENDPOINT" \
+            --profile "$PROFILE" \
+            --model "$MODEL" \
+            --seed "$SEED" \
+            --n-jobs 1 \
+            --output-dir "artifacts/endpoint-sensitivity/endpoint-${ENDPOINT}"
+
+      - name: Upload endpoint result
+        uses: actions/upload-artifact@v4
+        with:
+          name: endpoint-sensitivity-${{ matrix.endpoint }}d
+          path: artifacts/endpoint-sensitivity/endpoint-${{ matrix.endpoint }}
+          if-no-files-found: error
+
+  aggregate:
+    needs: horizons
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+
+      - name: Install locked dependencies
+        run: python -m pip install --requirement requirements-lock.txt
+
+      - name: Collect endpoint artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: endpoint-sensitivity-*d
+          path: artifacts/endpoint-sensitivity/runs
+
+      - name: Aggregate endpoint table
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/endpoint-sensitivity/aggregate/config
+          cp config/*.yaml artifacts/endpoint-sensitivity/aggregate/config/
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          import pandas as pd
+
+          root = Path("artifacts/endpoint-sensitivity")
+          output = root / "aggregate"
+          paths = sorted((root / "runs").rglob("endpoint_sensitivity.csv"))
+          if len(paths) != 4:
+              raise SystemExit(f"expected four endpoint tables, found {len(paths)}")
+          table = pd.concat((pd.read_csv(path) for path in paths), ignore_index=True)
+          table = table.sort_values("endpoint_horizon_days", kind="stable").reset_index(drop=True)
+          if table["endpoint_horizon_days"].tolist() != [90, 180, 365, 730]:
+              raise SystemExit("endpoint matrix is incomplete")
+          table.to_csv(output / "endpoint_sensitivity.csv", index=False)
+          table.to_json(output / "endpoint_sensitivity.json", orient="records", indent=2)
+          (output / "endpoint_sensitivity_metadata.json").write_text(
+              json.dumps({"endpoint_count": int(len(table)), "unit": "patient"}, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Upload aggregate endpoint table
+        uses: actions/upload-artifact@v4
+        with:
+          name: endpoint-sensitivity-aggregate
+          path: artifacts/endpoint-sensitivity/aggregate
+          if-no-files-found: error

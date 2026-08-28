@@ -1,0 +1,33 @@
+schema_version: 2
+feature_schema_version: full_5min_v2
+feature_count: 20
+requires_nn_feature_ids: [feature_08, feature_09, feature_10, feature_11, feature_12, feature_13, feature_14, feature_15, feature_16]
+frequency_feature_ids: [feature_17, feature_18, feature_19, feature_20]
+frequency_method: ecg_fft
+welch: false
+spline: false
+features:
+  - {feature_id: feature_01, feature_name: sig_mean, category: MORPHOLOGY, unit: normalized_ecg, implementation_source: "legacy filter/detector/signal feature; mean"}
+  - {feature_id: feature_02, feature_name: sig_std, category: MORPHOLOGY, unit: normalized_ecg, implementation_source: "legacy filter/detector/signal feature; population std"}
+  - {feature_id: feature_03, feature_name: sig_p2p, category: MORPHOLOGY, unit: normalized_ecg, implementation_source: "legacy filter/detector/signal feature; max-min"}
+  - {feature_id: feature_04, feature_name: sig_skew, category: SIGNAL_QUALITY, unit: dimensionless, implementation_source: "legacy filter/detector/signal feature; pandas skew"}
+  - {feature_id: feature_05, feature_name: sig_kurt, category: SIGNAL_QUALITY, unit: dimensionless, implementation_source: "legacy filter/detector/signal feature; pandas excess kurtosis"}
+  - {feature_id: feature_06, feature_name: beats, category: HR_DYNAMICS, unit: count, implementation_source: "legacy detector; detected R peaks"}
+  - {feature_id: feature_07, feature_name: beats_per_min, category: HR_DYNAMICS, unit: bpm, implementation_source: "legacy detector; detected R peaks"}
+  - {feature_id: feature_08, feature_name: mean_rr, category: TIME, unit: seconds, implementation_source: "raw RR with Phase 4 NN mask"}
+  - {feature_id: feature_09, feature_name: sdnn, category: TIME, unit: seconds, implementation_source: "raw RR with Phase 4 NN mask; sample std"}
+  - {feature_id: feature_10, feature_name: rmssd, category: TIME, unit: seconds, implementation_source: "raw RR with Phase 4 NN mask"}
+  - {feature_id: feature_11, feature_name: pnn50, category: TIME, unit: percent, implementation_source: "raw RR with Phase 4 NN mask"}
+  - {feature_id: feature_12, feature_name: mean_hr, category: HR_DYNAMICS, unit: bpm, implementation_source: "raw RR with Phase 4 NN mask"}
+  - {feature_id: feature_13, feature_name: rr_cv, category: HR_DYNAMICS, unit: dimensionless, implementation_source: "raw RR with Phase 4 NN mask"}
+  - {feature_id: feature_14, feature_name: rr_sampen, category: NONLINEAR, unit: dimensionless, implementation_source: "legacy exact sample entropy on valid NN RR"}
+  - {feature_id: feature_15, feature_name: rr_apen, category: NONLINEAR, unit: dimensionless, implementation_source: "legacy exact approximate entropy on valid NN RR"}
+  - {feature_id: feature_16, feature_name: rr_dfa_alpha, category: NONLINEAR, unit: dimensionless, implementation_source: "legacy DFA on valid NN RR"}
+  - {feature_id: feature_17, feature_name: pow_lf, category: FREQUENCY, unit: normalized_fraction, implementation_source: "ECG FFT power; 0.5<=f<4Hz"}
+  - {feature_id: feature_18, feature_name: pow_mf, category: FREQUENCY, unit: normalized_fraction, implementation_source: "ECG FFT power; 4<=f<15Hz"}
+  - {feature_id: feature_19, feature_name: pow_hf, category: FREQUENCY, unit: normalized_fraction, implementation_source: "ECG FFT power; 15<=f<40Hz"}
+  - {feature_id: feature_20, feature_name: pow_hf_ratio, category: FREQUENCY, unit: dimensionless, implementation_source: "ECG FFT high/(low+mid) power"}
+notes:
+  - "Feature names and order are unchanged from config/legacy_features.yaml."
+  - "AF rows retain non-HRV values and set requires_nn feature IDs 08-16 to null."
+  - "Frequency features 17-20 are ECG FFT signal bands, not NN-HRV bands; no Welch or spline is used."

@@ -1,6 +1,8 @@
 /music-sudden-cardiac-death-in-chronic-heart-failure-1.0.1/
 /.tmp/
 /build_cache/
+*.tmp
+*.tmp.parquet
 __pycache__/
 *.py[cod]
 .pytest_cache/

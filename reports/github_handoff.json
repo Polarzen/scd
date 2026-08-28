@@ -1,0 +1,114 @@
+{
+  "build_status": "COMPLETE",
+  "compact_data_ready": true,
+  "compact_hashes": "data/integrity/compact_sha256.txt",
+  "counts": {
+    "analysis_population_365_rows": 703,
+    "completed_holter": 936,
+    "feature_extraction_success_rows": 258216,
+    "feature_shard_count": 7,
+    "full_window_rows": 258216,
+    "high_resolution_records": 687,
+    "holter_records": 936,
+    "official_subjects": 992,
+    "patient_feature_rows": 992,
+    "patient_features": 992,
+    "patient_status": 992,
+    "patient_status_rows": 992,
+    "qc_valid_rows": 136682,
+    "record_count": 1623,
+    "records": 1623,
+    "subjects": 992,
+    "survival_ready": 992,
+    "survival_ready_rows": 992,
+    "theoretical_window_count": 258216,
+    "window_shard_count": 7
+  },
+  "default_endpoint": 365,
+  "default_model": "extratrees",
+  "default_profile": "all20",
+  "default_seed": 42,
+  "endpoint_state_counts": {
+    "180": {
+      "CENSORED": 7,
+      "COMPETING_EVENT": 19,
+      "NEGATIVE": 947,
+      "POSITIVE": 19
+    },
+    "365": {
+      "CENSORED": 15,
+      "COMPETING_EVENT": 45,
+      "NEGATIVE": 894,
+      "POSITIVE": 38
+    },
+    "730": {
+      "CENSORED": 25,
+      "COMPETING_EVENT": 87,
+      "NEGATIVE": 816,
+      "POSITIVE": 64
+    },
+    "90": {
+      "COMPETING_EVENT": 3,
+      "NEGATIVE": 978,
+      "POSITIVE": 11
+    }
+  },
+  "generated_at_utc": "2026-08-28T00:50:09+00:00",
+  "integrity_manifest": "data/integrity/build_manifest.json",
+  "known_limitations": [
+    "Raw ECG waveforms are not included; signal preprocessing changes require a local full rebuild.",
+    "The 5-minute records are baseline Holter windows, not ECG immediately preceding SCD.",
+    "Binary models exclude censored, competing-event, unknown-endpoint, and primary sinus-HRV-ineligible patients without removing them from the cohort facts."
+  ],
+  "latest_build_manifest": "data/integrity/build_manifest.json",
+  "lineage": {
+    "phase2_commit": "b6ab167f6eb7873d8a7d024f9ab996aa4a0acf8a",
+    "phase3_commit": "c991cebdec6605a31d2c8c110cc8947a9cd08396",
+    "phase4_commit": "PENDING"
+  },
+  "music_version": "1.0.1",
+  "phase": "P4-D",
+  "phase2_base_commit": "b6ab167f6eb7873d8a7d024f9ab996aa4a0acf8a",
+  "phase2_commit": "b6ab167f6eb7873d8a7d024f9ab996aa4a0acf8a",
+  "phase3_base_commit": "c991cebdec6605a31d2c8c110cc8947a9cd08396",
+  "phase3_commit": "c991cebdec6605a31d2c8c110cc8947a9cd08396",
+  "phase4_commit": "PENDING",
+  "phases": {
+    "phase2": {
+      "commit": "b6ab167f6eb7873d8a7d024f9ab996aa4a0acf8a"
+    },
+    "phase3": {
+      "commit": "c991cebdec6605a31d2c8c110cc8947a9cd08396"
+    },
+    "phase4": {
+      "commit": "PENDING"
+    }
+  },
+  "raw_music_required_for_normal_ci": false,
+  "raw_waveform_required_for_github_validation": false,
+  "repository_ready": true,
+  "schema_version": 1,
+  "size_report": "reports/PHASE4_SIZE_REPORT.json",
+  "source": {
+    "dataset_name": "MUSIC (Sudden Cardiac Death in Chronic Heart Failure)",
+    "doi": "10.13026/z3m7-rf58",
+    "music_version": "1.0.1",
+    "source_doi": "10.13026/z3m7-rf58"
+  },
+  "source_doi": "10.13026/z3m7-rf58",
+  "source_of_truth_files": [
+    "data/cohort/subjects.parquet",
+    "data/cohort/records.parquet",
+    "data/cohort/provenance.parquet",
+    "data/features/full_5min/",
+    "config/",
+    "src/"
+  ],
+  "status": "READY",
+  "workflow_files": [
+    ".github/workflows/ci.yml",
+    ".github/workflows/model-validation.yml",
+    ".github/workflows/repeated-cv.yml",
+    ".github/workflows/endpoint-sensitivity.yml"
+  ]
+}

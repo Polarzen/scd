@@ -1,0 +1,54 @@
+schema_version: 1
+source: existing_project_code_with_phase4_nn_qc
+window:
+  length_sec: 300
+  first_start_sec: 60
+  stride_sec: 300
+  filter_padding_sec: 0
+channel:
+  index: 0
+  rule: first_available_channel
+filter:
+  type: butterworth_bandpass
+  order: 3
+  low_cutoff_hz: 0.5
+  high_cutoff_hz: 40.0
+  phase: zero_phase_filtfilt
+standardization:
+  method: median_center_then_population_std
+qrs:
+  input: standardized_filtered_ecg
+  detector: scipy_find_peaks_on_squared_signal
+  minimum_peak_distance_sec: 0.25
+  height_percentile: 93
+rr_nn:
+  raw_definition: "diff(r_peaks)/sampling_frequency"
+  physiological_min_sec: 0.30
+  physiological_max_sec: 2.00
+  local_median_window: 5
+  local_median_relative_tolerance: 0.20
+  valid_definition: "physiological mask AND abs(rr-local_median)/local_median <= 0.20"
+  ectopic_handling: reject_invalid_intervals
+  interpolation_type: none
+  spline: false
+  resampling_hz: null
+spectral:
+  method: raw_fft_periodogram_of_ecg
+  frequency_features_are_ecg_fft: true
+  welch: false
+  welch_nperseg: null
+  welch_noverlap: null
+  hrv_lf_band_hz: null
+  hrv_hf_band_hz: null
+  legacy_signal_bands_hz:
+    low: [0.5, 4.0]
+    mid: [4.0, 15.0]
+    high: [15.0, 40.0]
+qc:
+  min_valid_nn: 10
+  max_invalid_rr_ratio: 0.20
+  qc_valid_definition: "read/extract success, non-AF, validNN >= 10, invalid RR ratio <= 0.20"
+  af_hrv_feature_policy: "features 08-16 are null and invalid; non-HRV features are retained"
+notes:
+  - "No spline interpolation or Welch HRV is used; frozen frequency features 17-20 are ECG FFT bands."
+  - "Only complete windows are read. A record tail shorter than 300 seconds is recorded as tail_seconds."

@@ -1,0 +1,29 @@
+schema_version: 1
+profiles:
+  primary_sinus_hrv:
+    description: "Primary sinus-rhythm HRV analysis population"
+    requires_processed_holter: true
+    requires_qc_valid_window: true
+    minimum_qc_valid_windows: 1
+    exclude_af: true
+    exclude_high_pvc: true
+    pvc_burden_threshold: 0.20
+    physiology_only: false
+    exclusion_reason_codes: [NO_HOLTER, PROCESSING_FAILED, NO_QC_VALID_WINDOWS, AF, HIGH_PVC_BURDEN, ELIGIBLE]
+  physiology_only:
+    description: "All eligible source rows with SIGNAL_QUALITY features removed"
+    drop_categories: [SIGNAL_QUALITY]
+    feature_schema: full_5min_v2
+  full_20_feature:
+    description: "All 20 frozen features and per-feature validity counts"
+    feature_schema: full_5min_v2
+aggregation:
+  statistics: [mean, std, p10, p50, p90]
+  standard_deviation: sample
+  finite_values_only: true
+  feature_validity_counts: true
+  physiology_only_drops_categories: [SIGNAL_QUALITY]
+endpoints:
+  source: src.endpoints.build_endpoint
+  horizons_from_source: true
+  allowed_horizons: [90, 180, 365, 730]

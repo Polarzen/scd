@@ -28,3 +28,108 @@ missing_value_policy: Use null; never coerce missing values to 0, -1, or a senti
   string.
 phase: 2
 waveform_content_included: false
+
+# Phase 4 finalization template.  These fields describe the completed compact
+# package; they do not imply that a degraded/interrupted build is publishable.
+phase4:
+  source:
+    dataset_name: MUSIC (Sudden Cardiac Death in Chronic Heart Failure)
+    music_version: 1.0.1
+    source_doi: 10.13026/z3m7-rf58
+    official_subject_count: 992
+    record_count: 1623
+    holter_record_count: 936
+    high_resolution_record_count: 687
+    no_holter_subject_count: 56
+  keys:
+    subjects: patient_id
+    records:
+    - record_type
+    - record_id
+    provenance:
+    - record_type
+    - record_id
+    windows:
+    - patient_id
+    - window_id
+    features:
+    - patient_id
+    - window_id
+    patient_aggregation: patient_id
+    patient_status: patient_id
+    survival_ready: patient_id
+  endpoint_states:
+  - POSITIVE
+  - NEGATIVE
+  - CENSORED
+  - COMPETING_EVENT
+  - UNKNOWN
+  windows:
+    length_sec: 300
+    stride_sec: 300
+    first_start_sec: 60
+    start_formula: 60 + 300*k
+    complete_formula: 60 + 300*k + 300 <= sample_count / fs
+    sample_start_formula: (60 + 300*k) * fs
+    source_duration_formula: sample_count / fs
+    complete_only: true
+    tail_policy: retain tail seconds; never create an incomplete window
+  sharding:
+    deterministic: true
+    patient_sorted: true
+    contiguous_patient_ranges: true
+    max_file_bytes: 26214400
+    compression: zstd
+  features:
+    base_feature_count: 20
+    aggregate_suffixes:
+    - mean
+    - std
+    - p10
+    - p50
+    - p90
+    aggregate_feature_count: 100
+    dtype: float64
+    validity_columns: one boolean column per base feature
+    qc_columns:
+    - qc_valid
+    - qc_status
+    - qc_reason
+  missing_and_qc:
+    missing_value: null
+    processing_status:
+    - COMPLETE
+    - FAILED
+    - NOT_APPLICABLE
+    eligibility_reasons:
+    - NO_HOLTER
+    - PROCESSING_FAILED
+    - AF
+    - HIGH_PVC_BURDEN
+    - NO_QC_VALID_WINDOWS
+    - ELIGIBLE
+    qc_status:
+    - PASS
+    - FAIL
+    qc_reasons:
+    - AF_INCOMPATIBLE_HRV
+    - INSUFFICIENT_VALID_NN
+    - INVALID_RR_RATIO
+    - READ_ERROR
+    - EMPTY_SIGNAL
+    - SHORT_READ
+    - FEATURE_ERROR
+    - OUTSIDE_RECORD
+  raw_excluded:
+    waveform_content: true
+    raw_waveform_cache: true
+    candidate_suffixes:
+    - .dat
+    - .mat
+    - .wav
+    - .wfdb
+    - .npy
+    - .npz
+    - .zip
+    - .tar
+    - .gz

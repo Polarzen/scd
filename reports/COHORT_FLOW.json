@@ -1,0 +1,39 @@
+{
+  "endpoint_states": {
+    "180": {
+      "CENSORED": 7,
+      "COMPETING_EVENT": 19,
+      "NEGATIVE": 947,
+      "POSITIVE": 19
+    },
+    "365": {
+      "CENSORED": 15,
+      "COMPETING_EVENT": 45,
+      "NEGATIVE": 894,
+      "POSITIVE": 38
+    },
+    "730": {
+      "CENSORED": 25,
+      "COMPETING_EVENT": 87,
+      "NEGATIVE": 816,
+      "POSITIVE": 64
+    },
+    "90": {
+      "COMPETING_EVENT": 3,
+      "NEGATIVE": 978,
+      "POSITIVE": 11
+    }
+  },
+  "generated_at_utc": "2026-08-28T00:39:20+00:00",
+  "holter_records": 936,
+  "official_subjects": 992,
+  "primary_sinus_hrv_reason_counts": {
+    "AF": 185,
+    "ELIGIBLE": 740,
+    "HIGH_PVC_BURDEN": 5,
+    "NO_HOLTER": 56,
+    "NO_QC_VALID_WINDOWS": 6
+  },
+  "processed_holter": 936,
+  "processing_failures": 0
+}

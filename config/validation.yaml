@@ -1,0 +1,35 @@
+schema_version: 1
+purpose: P4-C strict patient-level nested validation
+data:
+  feature_path: data/features/full_5min/patient_features.parquet
+  subjects_path: data/cohort/subjects.parquet
+  feature_config_path: config/features_v2.yaml
+  unit: patient
+  raw_music_used: false
+endpoint:
+  default_horizon_days: 365
+  supported_horizons_days: [90, 180, 365, 730]
+  source_states: [POSITIVE, NEGATIVE]
+  excluded_states: [CENSORED, COMPETING_EVENT, UNKNOWN]
+features:
+  profile_default: all20
+  all20_base_feature_count: 20
+  aggregate_suffixes: [mean, std, p10, p50, p90]
+  all20_feature_count: 100
+  physiology_only_excludes_category: SIGNAL_QUALITY
+  endpoint_as_feature: false
+cv:
+  outer_folds: 5
+  inner_folds: 3
+  seed: 42
+  scoring: average_precision
+threshold:
+  method: target-specificity
+  target_specificity: 0.70
+bootstrap:
+  level: 0.95
+  n_resamples: 2000
+  seed: 42
+outputs:
+  default_dir: data/validation/full_model
+  formats: [json, csv, parquet]

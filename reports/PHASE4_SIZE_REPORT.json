@@ -1,0 +1,7006 @@
+{
+  "build_status": "COMPLETE",
+  "category_bytes": {
+    "analysis": 977013,
+    "cohort": 496783,
+    "integrity": 786662,
+    "phase3_legacy": 496877,
+    "phase4_full_5min": 40983616,
+    "source_exact": 842126,
+    "validation": 2086226
+  },
+  "counts": {
+    "analysis_population_365_rows": 703,
+    "completed_holter": 936,
+    "feature_extraction_success_rows": 258216,
+    "feature_shard_count": 7,
+    "full_window_rows": 258216,
+    "high_resolution_records": 687,
+    "holter_records": 936,
+    "official_subjects": 992,
+    "patient_feature_rows": 992,
+    "patient_features": 992,
+    "patient_status": 992,
+    "patient_status_rows": 992,
+    "qc_valid_rows": 136682,
+    "record_count": 1623,
+    "records": 1623,
+    "subjects": 992,
+    "survival_ready": 992,
+    "survival_ready_rows": 992,
+    "theoretical_window_count": 258216,
+    "window_shard_count": 7
+  },
+  "data_file_count": 1709,
+  "files": [
+    {
+      "bytes": 78380,
+      "path": "data/analysis/patient_analysis_status.parquet"
+    },
+    {
+      "bytes": 898633,
+      "path": "data/analysis/survival_ready.parquet"
+    },
+    {
+      "bytes": 141897,
+      "path": "data/cohort/provenance.parquet"
+    },
+    {
+      "bytes": 151842,
+      "path": "data/cohort/records.parquet"
+    },
+    {
+      "bytes": 203044,
+      "path": "data/cohort/subjects.parquet"
+    },
+    {
+      "bytes": 5658647,
+      "path": "data/features/full_5min/features/part-00000.parquet"
+    },
+    {
+      "bytes": 5750592,
+      "path": "data/features/full_5min/features/part-00001.parquet"
+    },
+    {
+      "bytes": 5884780,
+      "path": "data/features/full_5min/features/part-00002.parquet"
+    },
+    {
+      "bytes": 5627912,
+      "path": "data/features/full_5min/features/part-00003.parquet"
+    },
+    {
+      "bytes": 5745114,
+      "path": "data/features/full_5min/features/part-00004.parquet"
+    },
+    {
+      "bytes": 5647908,
+      "path": "data/features/full_5min/features/part-00005.parquet"
+    },
+    {
+      "bytes": 2650574,
+      "path": "data/features/full_5min/features/part-00006.parquet"
+    },
+    {
+      "bytes": 2771,
+      "path": "data/features/full_5min/manifest.json"
+    },
+    {
+      "bytes": 851175,
+      "path": "data/features/full_5min/patient_features.parquet"
+    },
+    {
+      "bytes": 483742,
+      "path": "data/features/full_5min/windows/part-00000.parquet"
+    },
+    {
+      "bytes": 479399,
+      "path": "data/features/full_5min/windows/part-00001.parquet"
+    },
+    {
+      "bytes": 484222,
+      "path": "data/features/full_5min/windows/part-00002.parquet"
+    },
+    {
+      "bytes": 476957,
+      "path": "data/features/full_5min/windows/part-00003.parquet"
+    },
+    {
+      "bytes": 484746,
+      "path": "data/features/full_5min/windows/part-00004.parquet"
+    },
+    {
+      "bytes": 489227,
+      "path": "data/features/full_5min/windows/part-00005.parquet"
+    },
+    {
+      "bytes": 265850,
+      "path": "data/features/full_5min/windows/part-00006.parquet"
+    },
+    {
+      "bytes": 331160,
+      "path": "data/features/legacy_120s/features.parquet"
+    },
+    {
+      "bytes": 143168,
+      "path": "data/features/legacy_120s/patient_features.parquet"
+    },
+    {
+      "bytes": 22549,
+      "path": "data/features/legacy_120s/windows.parquet"
+    },
+    {
+      "bytes": 571891,
+      "path": "data/integrity/build_manifest.json"
+    },
+    {
+      "bytes": 211719,
+      "path": "data/integrity/compact_sha256.txt"
+    },
+    {
+      "bytes": 3052,
+      "path": "data/integrity/data_contract.yaml"
+    },
+    {
+      "bytes": 25815,
+      "path": "data/source_exact/LICENSE.txt"
+    },
+    {
+      "bytes": 35148,
+      "path": "data/source_exact/RECORDS"
+    },
+    {
+      "bytes": 294684,
+      "path": "data/source_exact/SHA256SUMS.txt"
+    },
+    {
+      "bytes": 114,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0001_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0002_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0003_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0004_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0005_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0006_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0007_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0008_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0009_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0010_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0011_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0012_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0013_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0014_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0015_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0016_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0017_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0018_H.hea"
+    },
+    {
+      "bytes": 111,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0019_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0020_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0021_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0022_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0023_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0024_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0025_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0026_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0027_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0028_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0029_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0030_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0031_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0032_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0033_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0034_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0035_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0036_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0037_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0038_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0039_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0040_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0041_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0042_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0043_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0044_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0045_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0046_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0047_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0048_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0049_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0050_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0051_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0052_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0053_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0054_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0055_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0056_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0057_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0058_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0059_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0060_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0061_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0062_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0063_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0064_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0065_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0066_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0067_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0068_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0070_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0071_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0072_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0073_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0074_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0075_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0076_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0077_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0078_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0079_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0080_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0081_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0082_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0083_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0084_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0085_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0086_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0087_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0088_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0089_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0090_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0091_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0092_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0093_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0094_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0095_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0096_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0097_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0098_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0099_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0100_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0101_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0102_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0103_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0105_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0106_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0107_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0108_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0111_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0113_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0114_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0115_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0116_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0118_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0119_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0120_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0121_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0122_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0124_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0125_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0126_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0127_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0128_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0129_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0130_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0132_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0133_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0134_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0135_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0136_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0137_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0138_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0139_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0140_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0141_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0142_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0143_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0145_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0146_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0147_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0148_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0149_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0150_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0151_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0152_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0153_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0154_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0155_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0156_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0157_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0158_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0159_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0160_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0161_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0162_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0163_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0164_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0165_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0166_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0168_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0169_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0170_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0171_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0172_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0173_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0176_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0177_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0178_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0179_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0181_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0182_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0183_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0184_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0186_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0187_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0188_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0189_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0190_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0191_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0192_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0193_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0194_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0195_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0196_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0197_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0198_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0199_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0200_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0201_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0202_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0203_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0204_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0205_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0206_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0207_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0208_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0209_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0210_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0211_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0212_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0213_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0214_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0215_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0216_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0217_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0218_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0219_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0220_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0221_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0222_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0223_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0224_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0225_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0226_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0227_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0228_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0229_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0230_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0231_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0232_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0233_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0234_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0235_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0236_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0237_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0238_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0239_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0240_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0241_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0242_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0243_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0244_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0247_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0248_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0249_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0252_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0253_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0254_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0255_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0256_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0257_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0258_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0259_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0260_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0261_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0262_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0263_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0264_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0265_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0266_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0267_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0268_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0269_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0270_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0271_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0272_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0273_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0274_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0275_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0276_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0277_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0278_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0279_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0280_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0281_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0282_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0283_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0284_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0285_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0286_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0287_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0288_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0289_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0290_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0291_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0292_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0294_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0296_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0297_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0298_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0299_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0301_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0302_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0303_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0305_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0306_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0307_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0309_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0310_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0311_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0312_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0314_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0315_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0316_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0317_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0318_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0319_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0320_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0321_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0322_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0323_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0324_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0325_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0326_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0327_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0328_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0329_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0330_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0331_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0332_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0333_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0334_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0335_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0336_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0337_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0338_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0339_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0340_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0341_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0342_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0343_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0344_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0346_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0347_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0348_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0349_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0350_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0351_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0352_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0353_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0354_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0355_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0356_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0357_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0358_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0359_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0360_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0361_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0362_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0363_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0364_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0365_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0366_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0367_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0371_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0372_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0373_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0374_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0375_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0376_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0377_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0378_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0379_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0380_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0381_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0382_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0384_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0386_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0387_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0388_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0389_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0390_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0391_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0392_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0394_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0395_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0398_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0399_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0400_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0401_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0402_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0404_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0405_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0406_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0407_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0408_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0409_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0411_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0412_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0413_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0416_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0417_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0418_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0419_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0421_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0422_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0424_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0425_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0427_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0428_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0435_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0437_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0441_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0442_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0450_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0451_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0452_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0453_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0454_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0455_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0456_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0457_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0458_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0463_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0465_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0466_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0467_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0468_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0469_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0470_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0471_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0472_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0473_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0474_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0475_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0476_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0478_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0480_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0481_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0482_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0484_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0485_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0486_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0487_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0488_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0489_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0496_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0497_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0498_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0499_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0500_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0501_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0502_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0503_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0504_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0505_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0506_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0507_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0508_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0509_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0510_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0511_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0512_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0513_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0514_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0515_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0516_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0517_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0518_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0519_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0520_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0521_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0522_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0523_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0524_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0525_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0526_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0527_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0528_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0529_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0530_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0531_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0532_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0533_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0535_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0536_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0537_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0538_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0539_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0540_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0541_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0542_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0543_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0544_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0545_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0547_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0548_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0549_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0550_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0551_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0554_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0555_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0556_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0557_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0558_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0559_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0560_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0561_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0567_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0568_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0571_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0572_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0573_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0574_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0576_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0578_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0579_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0580_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0581_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0582_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0583_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0585_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0587_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0588_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0589_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0590_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0591_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0592_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0593_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0594_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0595_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0596_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0597_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0598_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0599_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0600_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0602_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0607_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0608_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0610_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0611_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0612_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0613_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0614_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0615_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0616_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0617_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0618_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0619_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0620_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0621_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0622_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0623_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0624_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0625_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0626_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0627_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0629_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0630_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0631_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0632_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0633_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0634_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0635_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0636_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0637_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0638_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0639_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0640_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0641_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0642_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0643_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0644_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0645_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0646_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0647_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0648_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0649_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0650_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0651_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0652_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0653_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0654_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0655_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0656_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0657_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0658_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0659_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0660_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0661_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0662_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0663_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0664_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0665_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0666_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0668_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0669_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0671_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0672_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0673_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0674_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0675_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0676_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0677_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0679_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0681_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0682_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0683_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0684_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0685_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0686_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0687_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0688_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0691_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0692_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0693_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0694_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0695_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0696_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0697_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0698_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0699_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0700_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0704_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0705_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0706_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0707_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0708_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0709_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0710_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0711_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0712_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0713_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0714_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0715_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0716_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0719_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0720_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0721_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0723_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0726_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0727_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0728_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0729_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0730_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0732_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0733_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0736_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0737_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0741_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0743_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0744_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0745_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0746_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0751_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0752_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0753_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0754_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0755_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0756_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0757_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0758_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0759_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0760_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0761_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0762_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0763_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0764_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0765_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0766_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0770_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0776_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0777_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0778_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0779_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0780_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0781_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0782_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0783_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0784_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0785_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0786_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0787_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0788_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0789_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0797_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0798_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0799_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0800_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0801_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0802_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0803_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0804_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0805_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0807_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0808_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0816_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0824_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0834_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0835_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0836_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0837_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0838_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0839_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0840_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0893_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0894_H.hea"
+    },
+    {
+      "bytes": 113,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0895_H.hea"
+    },
+    {
+      "bytes": 112,
+      "path": "data/source_exact/headers/High-resolution_ECG/P0898_H.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0001.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0002.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0003.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0004.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0005.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0006.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0007.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0008.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0009.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0010.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0011.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0012.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0013.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0014.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0015.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0016.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0017.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0018.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0019.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0020.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0021.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0022.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0023.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0024.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0025.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0026.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0027.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0028.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0029.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0030.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0031.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0032.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0033.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0034.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0035.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0036.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0037.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0038.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0039.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0040.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0041.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0042.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0043.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0044.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0045.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0046.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0047.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0048.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0049.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0050.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0051.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0052.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0053.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0054.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0055.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0056.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0057.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0058.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0059.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0060.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0061.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0062.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0063.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0064.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0065.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0066.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0067.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0068.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0069.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0070.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0071.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0072.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0073.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0074.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0075.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0076.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0077.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0078.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0079.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0080.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0081.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0082.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0083.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0084.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0085.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0086.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0087.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0088.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0089.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0090.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0091.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0092.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0093.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0094.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0095.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0096.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0097.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0098.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0099.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0100.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0101.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0102.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0103.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0104.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0105.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0106.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0107.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0108.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0110.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0111.hea"
+    },
+    {
+      "bytes": 159,
+      "path": "data/source_exact/headers/Holter_ECG/P0112.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0113.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0114.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0115.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0116.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0118.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0119.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0120.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0121.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0122.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0124.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0125.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0126.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0127.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0128.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0129.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0130.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0131.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0132.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0133.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0134.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0135.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0136.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0137.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0138.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0139.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0140.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0141.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0142.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0143.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0145.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0146.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0147.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0148.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0149.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0150.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0151.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0152.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0153.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0154.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0155.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0156.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0157.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0158.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0159.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0160.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0161.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0162.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0163.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0164.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0165.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0166.hea"
+    },
+    {
+      "bytes": 104,
+      "path": "data/source_exact/headers/Holter_ECG/P0167.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0168.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0169.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0170.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0171.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0172.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0173.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0174.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0175.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0176.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0177.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0178.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0179.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0181.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0182.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0183.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0184.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0186.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0187.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0188.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0189.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0190.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0191.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0192.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0193.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0194.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0195.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0196.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0197.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0198.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0199.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0200.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0201.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0202.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0203.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0204.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0205.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0206.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0207.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0208.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0209.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0210.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0211.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0212.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0213.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0214.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0215.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0216.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0217.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0218.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0219.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0220.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0221.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0222.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0223.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0224.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0225.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0226.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0227.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0228.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0229.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0230.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0231.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0232.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0233.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0234.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0235.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0236.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0237.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0238.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0239.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0240.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0241.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0242.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0243.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0244.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0247.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0248.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0249.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0252.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0253.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0254.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0255.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0256.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0257.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0258.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0259.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0260.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0261.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0262.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0263.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0264.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0265.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0266.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0267.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0268.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0269.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0270.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0271.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0272.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0273.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0274.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0275.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0276.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0277.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0278.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0279.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0280.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0281.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0282.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0283.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0284.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0285.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0286.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0287.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0288.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0289.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0290.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0291.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0292.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0293.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0294.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0295.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0296.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0297.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0298.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0299.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0301.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0302.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0303.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0304.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0305.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0306.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0307.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0309.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0310.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0311.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0312.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0314.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0315.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0316.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0317.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0318.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0319.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0320.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0321.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0322.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0323.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0324.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0325.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0326.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0327.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0328.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0329.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0330.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0331.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0332.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0333.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0334.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0335.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0336.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0337.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0338.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0339.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0340.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0341.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0342.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0343.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0344.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0345.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0346.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0347.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0348.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0349.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0350.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0351.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0352.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0353.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0354.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0355.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0356.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0357.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0358.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0359.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0360.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0361.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0362.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0363.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0364.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0365.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0366.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0367.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0371.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0372.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0373.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0374.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0375.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0376.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0377.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0378.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0379.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0380.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0381.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0382.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0384.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0386.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0387.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0388.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0389.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0390.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0391.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0392.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0394.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0395.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0398.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0399.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0400.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0401.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0402.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0403.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0404.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0405.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0406.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0407.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0408.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0409.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0411.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0412.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0413.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0414.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0415.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0416.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0417.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0418.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0419.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0420.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0421.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0422.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0423.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0424.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0425.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0426.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0427.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0428.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0430.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0435.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0436.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0437.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0438.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0441.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0442.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0443.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0444.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0447.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0448.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0449.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0450.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0451.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0452.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0453.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0454.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0455.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0456.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0457.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0458.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0459.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0460.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0461.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0462.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0463.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0464.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0465.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0466.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0467.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0468.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0469.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0470.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0471.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0472.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0473.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0474.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0475.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0476.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0478.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0479.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0480.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0481.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0482.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0484.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0485.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0486.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0487.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0488.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0489.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0490.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0492.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0493.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0494.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0495.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0496.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0497.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0498.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0499.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0500.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0501.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0502.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0503.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0504.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0505.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0506.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0507.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0508.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0509.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0510.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0511.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0512.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0513.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0514.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0515.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0516.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0517.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0518.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0519.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0520.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0521.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0522.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0523.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0524.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0525.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0526.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0527.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0528.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0529.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0530.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0531.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0532.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0533.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0534.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0535.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0536.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0537.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0538.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0539.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0540.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0541.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0542.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0543.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0544.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0545.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0546.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0547.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0548.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0549.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0550.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0551.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0552.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0554.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0555.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0556.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0557.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0558.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0559.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0560.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0561.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0562.hea"
+    },
+    {
+      "bytes": 104,
+      "path": "data/source_exact/headers/Holter_ECG/P0564.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0566.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0567.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0568.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0569.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0571.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0572.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0573.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0574.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0575.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0577.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0578.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0579.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0580.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0581.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0582.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0583.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0585.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0586.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0587.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0588.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0589.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0590.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0591.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0592.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0593.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0594.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0595.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0596.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0597.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0598.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0599.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0600.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0601.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0602.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0603.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0604.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0606.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0607.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0608.hea"
+    },
+    {
+      "bytes": 104,
+      "path": "data/source_exact/headers/Holter_ECG/P0609.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0610.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0611.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0612.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0613.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0614.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0615.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0616.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0617.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0618.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0619.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0620.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0621.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0622.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0623.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0624.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0625.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0626.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0627.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0628.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0629.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0630.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0631.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0632.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0633.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0634.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0635.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0636.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0637.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0638.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0639.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0640.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0641.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0642.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0643.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0644.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0645.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0646.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0647.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0648.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0649.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0650.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0651.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0652.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0653.hea"
+    },
+    {
+      "bytes": 104,
+      "path": "data/source_exact/headers/Holter_ECG/P0654.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0655.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0656.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0657.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0658.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0659.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0660.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0661.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0662.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0663.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0664.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0665.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0666.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0667.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0668.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0669.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0670.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0671.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0672.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0673.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0674.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0675.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0676.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0677.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0678.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0679.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0680.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0681.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0682.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0683.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0684.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0685.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0686.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0687.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0688.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0691.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0692.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0693.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0694.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0695.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0696.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0697.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0698.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0699.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0700.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0701.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0702.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0704.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0705.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0706.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0707.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0708.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0709.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0710.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0711.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0712.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0713.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0714.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0715.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0716.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0719.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0720.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0721.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0723.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0724.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0725.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0726.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0727.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0728.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0729.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0730.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0731.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0732.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0733.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0734.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0735.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0736.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0737.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0738.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0739.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0740.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0741.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0743.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0744.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0745.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0746.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0747.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0748.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0749.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0750.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0751.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0752.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0753.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0754.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0755.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0756.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0757.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0758.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0759.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0760.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0761.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0762.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0763.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0764.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0765.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0766.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0767.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0768.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0769.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0770.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0771.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0772.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0773.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0774.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0775.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0776.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0777.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0778.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0779.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0780.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0781.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0782.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0783.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0784.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0785.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0786.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0787.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0788.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0789.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0790.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0791.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0792.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0795.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0796.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0797.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0798.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0799.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0800.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0801.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0802.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0803.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0804.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0805.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0806.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0807.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0808.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0810.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0811.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0812.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0813.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0814.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0815.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0816.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0817.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0818.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0819.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0820.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0821.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0822.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0823.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0824.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0825.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0826.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0827.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0828.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0829.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0831.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0832.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0833.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0834.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0835.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0836.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0837.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0838.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0839.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0840.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0841.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0842.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0843.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0844.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0845.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0846.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0847.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0848.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0849.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0850.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0852.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0853.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0854.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0855.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0856.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0857.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0859.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0860.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0861.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0862.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0863.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0864.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0865.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0866.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0867.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0868.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0870.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0871.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0872.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0873.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0874.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0875.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0876.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0877.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0878.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0879.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0880.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0882.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0883.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0884.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0885.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0886.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0887.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0888.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0889.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0891.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0892.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0893.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0894.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0895.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0896.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0898.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0900.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0901.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0902.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0903.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0904.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0905.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0906.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0907.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0909.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0910.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0911.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0912.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0913.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0914.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0915.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0922.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0923.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0924.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0925.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0926.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0928.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0930.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0931.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0932.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0933.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0935.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0937.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0938.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0939.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0940.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0941.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0942.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0943.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0945.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0946.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0947.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0949.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0951.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0953.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0954.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0955.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0956.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0957.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0958.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0960.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0961.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P0962.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0964.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0967.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0968.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0969.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0970.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0971.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0972.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0973.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0974.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0976.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0977.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0978.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0980.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0981.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0982.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0983.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0984.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0988.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0991.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0992.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0996.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0997.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0998.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P0999.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1001.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1002.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1011.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1013.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1016.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1017.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1018.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1019.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1020.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1021.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1023.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1026.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1027.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1029.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1030.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1031.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1032.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1054.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1056.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1057.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1058.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1064.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1065.hea"
+    },
+    {
+      "bytes": 105,
+      "path": "data/source_exact/headers/Holter_ECG/P1066.hea"
+    },
+    {
+      "bytes": 77,
+      "path": "data/source_exact/headers/Holter_ECG/P1073.hea"
+    },
+    {
+      "bytes": 308285,
+      "path": "data/source_exact/subject-info.csv"
+    },
+    {
+      "bytes": 2401,
+      "path": "data/source_exact/subject-info_codes.csv"
+    },
+    {
+      "bytes": 917,
+      "path": "data/source_exact/subject-info_definitions.csv"
+    },
+    {
+      "bytes": 762,
+      "path": "data/validation/endpoint_sensitivity/endpoint_sensitivity.csv"
+    },
+    {
+      "bytes": 1534,
+      "path": "data/validation/endpoint_sensitivity/endpoint_sensitivity.json"
+    },
+    {
+      "bytes": 7809,
+      "path": "data/validation/endpoint_sensitivity/endpoint_sensitivity.parquet"
+    },
+    {
+      "bytes": 3195,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_180d_seed42_folds.csv"
+    },
+    {
+      "bytes": 19977,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_180d_seed42_folds.parquet"
+    },
+    {
+      "bytes": 111762,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_180d_seed42_oof.csv"
+    },
+    {
+      "bytes": 29261,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_180d_seed42_oof.parquet"
+    },
+    {
+      "bytes": 4931,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_180d_seed42_summary.json"
+    },
+    {
+      "bytes": 3118,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_365d_seed42_folds.csv"
+    },
+    {
+      "bytes": 19995,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_365d_seed42_folds.parquet"
+    },
+    {
+      "bytes": 107915,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_365d_seed42_oof.csv"
+    },
+    {
+      "bytes": 28870,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_365d_seed42_oof.parquet"
+    },
+    {
+      "bytes": 4913,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_365d_seed42_summary.json"
+    },
+    {
+      "bytes": 3071,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_730d_seed42_folds.csv"
+    },
+    {
+      "bytes": 19996,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_730d_seed42_folds.parquet"
+    },
+    {
+      "bytes": 102514,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_730d_seed42_oof.csv"
+    },
+    {
+      "bytes": 28079,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_730d_seed42_oof.parquet"
+    },
+    {
+      "bytes": 4833,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_730d_seed42_summary.json"
+    },
+    {
+      "bytes": 2984,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_90d_seed42_folds.csv"
+    },
+    {
+      "bytes": 19931,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_90d_seed42_folds.parquet"
+    },
+    {
+      "bytes": 111929,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_90d_seed42_oof.csv"
+    },
+    {
+      "bytes": 28166,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_90d_seed42_oof.parquet"
+    },
+    {
+      "bytes": 4830,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_90d_seed42_summary.json"
+    },
+    {
+      "bytes": 1555,
+      "path": "data/validation/full_model/dummy_all20_365d_seed42_folds.csv"
+    },
+    {
+      "bytes": 18451,
+      "path": "data/validation/full_model/dummy_all20_365d_seed42_folds.parquet"
+    },
+    {
+      "bytes": 105578,
+      "path": "data/validation/full_model/dummy_all20_365d_seed42_oof.csv"
+    },
+    {
+      "bytes": 16194,
+      "path": "data/validation/full_model/dummy_all20_365d_seed42_oof.parquet"
+    },
+    {
+      "bytes": 4541,
+      "path": "data/validation/full_model/dummy_all20_365d_seed42_summary.json"
+    },
+    {
+      "bytes": 3113,
+      "path": "data/validation/full_model/extratrees_all20_365d_seed42_folds.csv"
+    },
+    {
+      "bytes": 19995,
+      "path": "data/validation/full_model/extratrees_all20_365d_seed42_folds.parquet"
+    },
+    {
+      "bytes": 107545,
+      "path": "data/validation/full_model/extratrees_all20_365d_seed42_oof.csv"
+    },
+    {
+      "bytes": 28862,
+      "path": "data/validation/full_model/extratrees_all20_365d_seed42_oof.parquet"
+    },
+    {
+      "bytes": 4912,
+      "path": "data/validation/full_model/extratrees_all20_365d_seed42_summary.json"
+    },
+    {
+      "bytes": 2212,
+      "path": "data/validation/full_model/logistic_all20_365d_seed42_folds.csv"
+    },
+    {
+      "bytes": 19211,
+      "path": "data/validation/full_model/logistic_all20_365d_seed42_folds.parquet"
+    },
+    {
+      "bytes": 108845,
+      "path": "data/validation/full_model/logistic_all20_365d_seed42_oof.csv"
+    },
+    {
+      "bytes": 28898,
+      "path": "data/validation/full_model/logistic_all20_365d_seed42_oof.parquet"
+    },
+    {
+      "bytes": 4861,
+      "path": "data/validation/full_model/logistic_all20_365d_seed42_summary.json"
+    },
+    {
+      "bytes": 330,
+      "path": "data/validation/full_reference_config.json"
+    },
+    {
+      "bytes": 3113,
+      "path": "data/validation/full_reference_fold_metrics.csv"
+    },
+    {
+      "bytes": 16535,
+      "path": "data/validation/full_reference_metrics.json"
+    },
+    {
+      "bytes": 28862,
+      "path": "data/validation/full_reference_oof.parquet"
+    },
+    {
+      "bytes": 745789,
+      "path": "data/validation/legacy_feature_comparison.csv"
+    },
+    {
+      "bytes": 1914,
+      "path": "data/validation/legacy_model_folds.csv"
+    },
+    {
+      "bytes": 6113,
+      "path": "data/validation/legacy_oof_predictions.parquet"
+    },
+    {
+      "bytes": 658,
+      "path": "data/validation/legacy_reproduction_metrics.json"
+    },
+    {
+      "bytes": 551,
+      "path": "data/validation/legacy_window_validation.json"
+    },
+    {
+      "bytes": 111038,
+      "path": "data/validation/repeated_smoke/repeated_oof.parquet"
+    },
+    {
+      "bytes": 2828,
+      "path": "data/validation/repeated_smoke/repeated_per_seed.csv"
+    },
+    {
+      "bytes": 5987,
+      "path": "data/validation/repeated_smoke/repeated_per_seed.json"
+    },
+    {
+      "bytes": 4171,
+      "path": "data/validation/repeated_smoke/repeated_summary.csv"
+    },
+    {
+      "bytes": 8821,
+      "path": "data/validation/repeated_smoke/repeated_summary.json"
+    },
+    {
+      "bytes": 4368,
+      "path": "data/validation/repeated_smoke/repeated_summary_wide.csv"
+    }
+  ],
+  "generated_at_utc": "2026-08-28T00:50:09+00:00",
+  "largest_30_files": [
+    {
+      "bytes": 5884780,
+      "path": "data/features/full_5min/features/part-00002.parquet"
+    },
+    {
+      "bytes": 5750592,
+      "path": "data/features/full_5min/features/part-00001.parquet"
+    },
+    {
+      "bytes": 5745114,
+      "path": "data/features/full_5min/features/part-00004.parquet"
+    },
+    {
+      "bytes": 5658647,
+      "path": "data/features/full_5min/features/part-00000.parquet"
+    },
+    {
+      "bytes": 5647908,
+      "path": "data/features/full_5min/features/part-00005.parquet"
+    },
+    {
+      "bytes": 5627912,
+      "path": "data/features/full_5min/features/part-00003.parquet"
+    },
+    {
+      "bytes": 2650574,
+      "path": "data/features/full_5min/features/part-00006.parquet"
+    },
+    {
+      "bytes": 898633,
+      "path": "data/analysis/survival_ready.parquet"
+    },
+    {
+      "bytes": 851175,
+      "path": "data/features/full_5min/patient_features.parquet"
+    },
+    {
+      "bytes": 745789,
+      "path": "data/validation/legacy_feature_comparison.csv"
+    },
+    {
+      "bytes": 571891,
+      "path": "data/integrity/build_manifest.json"
+    },
+    {
+      "bytes": 489227,
+      "path": "data/features/full_5min/windows/part-00005.parquet"
+    },
+    {
+      "bytes": 484746,
+      "path": "data/features/full_5min/windows/part-00004.parquet"
+    },
+    {
+      "bytes": 484222,
+      "path": "data/features/full_5min/windows/part-00002.parquet"
+    },
+    {
+      "bytes": 483742,
+      "path": "data/features/full_5min/windows/part-00000.parquet"
+    },
+    {
+      "bytes": 479399,
+      "path": "data/features/full_5min/windows/part-00001.parquet"
+    },
+    {
+      "bytes": 476957,
+      "path": "data/features/full_5min/windows/part-00003.parquet"
+    },
+    {
+      "bytes": 331160,
+      "path": "data/features/legacy_120s/features.parquet"
+    },
+    {
+      "bytes": 308285,
+      "path": "data/source_exact/subject-info.csv"
+    },
+    {
+      "bytes": 294684,
+      "path": "data/source_exact/SHA256SUMS.txt"
+    },
+    {
+      "bytes": 265850,
+      "path": "data/features/full_5min/windows/part-00006.parquet"
+    },
+    {
+      "bytes": 211719,
+      "path": "data/integrity/compact_sha256.txt"
+    },
+    {
+      "bytes": 203044,
+      "path": "data/cohort/subjects.parquet"
+    },
+    {
+      "bytes": 151842,
+      "path": "data/cohort/records.parquet"
+    },
+    {
+      "bytes": 143168,
+      "path": "data/features/legacy_120s/patient_features.parquet"
+    },
+    {
+      "bytes": 141897,
+      "path": "data/cohort/provenance.parquet"
+    },
+    {
+      "bytes": 111929,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_90d_seed42_oof.csv"
+    },
+    {
+      "bytes": 111762,
+      "path": "data/validation/endpoint_sensitivity/extratrees_all20_180d_seed42_oof.csv"
+    },
+    {
+      "bytes": 111038,
+      "path": "data/validation/repeated_smoke/repeated_oof.parquet"
+    },
+    {
+      "bytes": 108845,
+      "path": "data/validation/full_model/logistic_all20_365d_seed42_oof.csv"
+    }
+  ],
+  "limits": {
+    "individual_data_file_bytes_lt": 26214400,
+    "repository_data_bytes_lt": 104857600
+  },
+  "maximum_data_file_bytes": 5884780,
+  "phase": 4,
+  "repository_compact_bytes": 46505801,
+  "repository_data_bytes": 46669303,
+  "schema_version": 1,
+  "status": "PASS"
+}

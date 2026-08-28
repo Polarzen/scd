@@ -1,0 +1,14 @@
+{
+  "model_pipeline_version": "full_music_v1",
+  "endpoint": 365,
+  "feature_profile": "all20",
+  "model": "extratrees",
+  "seed": 42,
+  "outer_folds": 5,
+  "inner_folds": 3,
+  "n_iter": 24,
+  "target_specificity": 0.7,
+  "bootstrap_resamples": 2000,
+  "independent_unit": "patient",
+  "raw_music_required": false
+}

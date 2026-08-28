@@ -1,0 +1,178 @@
+name: Repeated patient-level validation
+
+on:
+  workflow_dispatch:
+    inputs:
+      endpoint:
+        description: Endpoint horizon in days
+        required: true
+        type: choice
+        default: "365"
+        options:
+          - "90"
+          - "180"
+          - "365"
+          - "730"
+      profile:
+        description: Frozen feature profile
+        required: true
+        type: choice
+        default: all20
+        options:
+          - all20
+          - physiology_only
+      base_seed:
+        description: First seed; ten consecutive seeds are assigned to each batch
+        required: true
+        type: string
+        default: "1000"
+
+permissions:
+  contents: read
+
+jobs:
+  batches:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        batch: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+
+      - name: Install locked dependencies
+        run: python -m pip install --requirement requirements-lock.txt
+
+      - name: Verify compact inputs
+        run: python scripts/verify_all.py
+
+      - name: Run ten-seed repeated validation batch
+        env:
+          ENDPOINT: ${{ inputs.endpoint }}
+          PROFILE: ${{ inputs.profile }}
+          BASE_SEED: ${{ inputs.base_seed }}
+          BATCH: ${{ matrix.batch }}
+        run: |
+          set -euo pipefail
+          start_seed=$((BASE_SEED + (BATCH - 1) * 10))
+          stop_seed=$((start_seed + 9))
+          python -m src.cli repeated-cv \
+            --endpoint "$ENDPOINT" \
+            --profile "$PROFILE" \
+            --models extratrees,logistic,dummy \
+            --seed-start "$start_seed" \
+            --seed-stop "$stop_seed" \
+            --n-jobs 1 \
+            --output-dir "artifacts/repeated-cv/batch-${BATCH}"
+
+      - name: Upload repeated validation batch
+        uses: actions/upload-artifact@v4
+        with:
+          name: repeated-cv-batch-${{ matrix.batch }}
+          path: artifacts/repeated-cv/batch-${{ matrix.batch }}
+          if-no-files-found: error
+
+  aggregate:
+    needs: batches
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+
+      - name: Install locked dependencies
+        run: python -m pip install --requirement requirements-lock.txt
+
+      - name: Collect batch artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: repeated-cv-batch-*
+          path: artifacts/repeated-cv/batches
+
+      - name: Aggregate seed distribution and plot
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/repeated-cv/aggregate/config
+          cp config/*.yaml artifacts/repeated-cv/aggregate/config/
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          import matplotlib
+          matplotlib.use("Agg")
+          import matplotlib.pyplot as plt
+          import pandas as pd
+
+          root = Path("artifacts/repeated-cv")
+          output = root / "aggregate"
+          paths = sorted((root / "batches").rglob("repeated_per_seed.csv"))
+          if len(paths) != 10:
+              raise SystemExit(f"expected ten batch tables, found {len(paths)}")
+          distribution = pd.concat((pd.read_csv(path) for path in paths), ignore_index=True)
+          if len(distribution) != 300:
+              raise SystemExit(f"expected 300 model-seed rows, found {len(distribution)}")
+          distribution.to_csv(output / "repeated_cv_runs.csv", index=False)
+          distribution.to_parquet(output / "repeated_cv_runs.parquet", index=False, compression="zstd")
+          metrics = [name for name in ("AUC", "AP", "Brier", "Sens", "Spec", "F1") if name in distribution]
+          rows = []
+          for model, group in distribution.groupby("model", sort=True):
+              for metric in metrics:
+                  values = group[metric].dropna()
+                  rows.append({
+                      "model": model,
+                      "metric": metric,
+                      "mean": values.mean(),
+                      "std": values.std(ddof=1),
+                      "min": values.min(),
+                      "p2_5": values.quantile(0.025),
+                      "p25": values.quantile(0.25),
+                      "median": values.median(),
+                      "p75": values.quantile(0.75),
+                      "p97_5": values.quantile(0.975),
+                      "max": values.max(),
+                  })
+          summary = pd.DataFrame(rows)
+          summary.to_csv(output / "repeated_cv_summary.csv", index=False)
+          summary.to_json(output / "repeated_cv_summary.json", orient="records", indent=2)
+          metadata = {
+              "batch_count": int(len(paths)),
+              "seeds_per_batch": 10,
+              "model_count": int(distribution["model"].nunique()),
+              "row_count": int(len(distribution)),
+              "unit": "patient",
+          }
+          (output / "repeated_distribution_metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
+
+          for metric in metrics:
+              fig, axis = plt.subplots(figsize=(6, 4), constrained_layout=True)
+              for model, group in distribution.groupby("model", sort=True):
+                  axis.hist(group[metric].dropna(), bins=12, alpha=0.45, label=model)
+              axis.set_title(metric)
+              axis.set_xlabel("score")
+              axis.set_ylabel("seed runs")
+              axis.legend()
+              fig.savefig(output / f"{metric.lower()}_distribution.png", dpi=160)
+              plt.close(fig)
+          PY
+
+      - name: Upload aggregate distribution
+        uses: actions/upload-artifact@v4
+        with:
+          name: repeated-cv-aggregate
+          path: artifacts/repeated-cv/aggregate
+          if-no-files-found: error

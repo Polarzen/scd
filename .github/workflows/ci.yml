@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+
+      - name: Install locked dependencies
+        run: python -m pip install --requirement requirements-lock.txt
+
+      - name: Verify compact hashes
+        run: |
+          python -c "from scripts.verify_all import verify_hashes; import sys; errors=verify_hashes(); [print(error, file=sys.stderr) for error in errors]; raise SystemExit(bool(errors))"
+
+      - name: Verify committed cohort
+        run: python scripts/verify_all.py
+
+      - name: Run tests
+        run: python -m pytest -q
+
+      - name: Run deterministic smoke validation
+        run: |
+          python -m src.cli verify
+          python -m src.cli validate --endpoint 365 --profile all20 --model dummy --seed 42 --smoke --output-dir .tmp/ci-smoke

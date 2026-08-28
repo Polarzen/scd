@@ -1,0 +1,190 @@
+{
+  "analysis_population_365_rows": 703,
+  "checkpoint": {
+    "feature_schema_version": "full_5min_v2",
+    "key_fields": [
+      "patient_id",
+      "official_source_sha256",
+      "official_header_sha256",
+      "preprocessing_hash",
+      "feature_schema_version",
+      "window_hash"
+    ],
+    "preprocessing_hash": "0d896eb71ab6099738d4eaf9010146d882337e3c1fe6fd47b635ef64d594088d",
+    "window_hash": "f451855d2d409d378ea0ee324afbb87739016bc10ff7ad56e3ba53ea7ba68d20"
+  },
+  "cohort_flow_report": {
+    "endpoint_states": {
+      "180": {
+        "CENSORED": 7,
+        "COMPETING_EVENT": 19,
+        "NEGATIVE": 947,
+        "POSITIVE": 19
+      },
+      "365": {
+        "CENSORED": 15,
+        "COMPETING_EVENT": 45,
+        "NEGATIVE": 894,
+        "POSITIVE": 38
+      },
+      "730": {
+        "CENSORED": 25,
+        "COMPETING_EVENT": 87,
+        "NEGATIVE": 816,
+        "POSITIVE": 64
+      },
+      "90": {
+        "COMPETING_EVENT": 3,
+        "NEGATIVE": 978,
+        "POSITIVE": 11
+      }
+    },
+    "generated_at_utc": "2026-08-28T00:39:20+00:00",
+    "holter_records": 936,
+    "official_subjects": 992,
+    "primary_sinus_hrv_reason_counts": {
+      "AF": 185,
+      "ELIGIBLE": 740,
+      "HIGH_PVC_BURDEN": 5,
+      "NO_HOLTER": 56,
+      "NO_QC_VALID_WINDOWS": 6
+    },
+    "processed_holter": 936,
+    "processing_failures": 0
+  },
+  "completed_holter": 936,
+  "contract": {
+    "complete_windows_only": true,
+    "compression": "zstd",
+    "feature_count": 20,
+    "feature_dtype": "float64",
+    "labels_or_outcomes_in_extractor": false,
+    "raw_waveform_or_cache_in_data": false,
+    "reader": "wfdb.rdrecord",
+    "reader_channels": [
+      0
+    ],
+    "reader_padding": false,
+    "stride_sec": 300,
+    "window_length_sec": 300,
+    "window_start_formula": "60 + 300*k"
+  },
+  "failed_holter": 0,
+  "failures": [],
+  "feature_extraction_success_rows": 258216,
+  "feature_shards": [
+    {
+      "bytes": 5658647,
+      "path": "features/part-00000.parquet",
+      "patient_first": "P0001",
+      "patient_last": "P0149",
+      "rows": 39975
+    },
+    {
+      "bytes": 5750592,
+      "path": "features/part-00001.parquet",
+      "patient_first": "P0150",
+      "patient_last": "P0299",
+      "rows": 39745
+    },
+    {
+      "bytes": 5884780,
+      "path": "features/part-00002.parquet",
+      "patient_first": "P0301",
+      "patient_last": "P0463",
+      "rows": 39757
+    },
+    {
+      "bytes": 5627912,
+      "path": "features/part-00003.parquet",
+      "patient_first": "P0464",
+      "patient_last": "P0618",
+      "rows": 39830
+    },
+    {
+      "bytes": 5745114,
+      "path": "features/part-00004.parquet",
+      "patient_first": "P0619",
+      "patient_last": "P0770",
+      "rows": 39769
+    },
+    {
+      "bytes": 5647908,
+      "path": "features/part-00005.parquet",
+      "patient_first": "P0771",
+      "patient_last": "P0931",
+      "rows": 39837
+    },
+    {
+      "bytes": 2650574,
+      "path": "features/part-00006.parquet",
+      "patient_first": "P0932",
+      "patient_last": "P1073",
+      "rows": 19303
+    }
+  ],
+  "generated_at_utc": "2026-08-28T00:39:20+00:00",
+  "generated_data_bytes": 41960629,
+  "holter_records": 936,
+  "maximum_shard_bytes": 5884780,
+  "official_subjects": 992,
+  "patient_feature_rows": 992,
+  "patient_status_rows": 992,
+  "qc_valid_rows": 136682,
+  "reused_checkpoints": 936,
+  "selected_holters": 936,
+  "status": "COMPLETE",
+  "survival_ready_rows": 992,
+  "theoretical_window_count": 258216,
+  "window_shards": [
+    {
+      "bytes": 483742,
+      "path": "windows/part-00000.parquet",
+      "patient_first": "P0001",
+      "patient_last": "P0149",
+      "rows": 39975
+    },
+    {
+      "bytes": 479399,
+      "path": "windows/part-00001.parquet",
+      "patient_first": "P0150",
+      "patient_last": "P0299",
+      "rows": 39745
+    },
+    {
+      "bytes": 484222,
+      "path": "windows/part-00002.parquet",
+      "patient_first": "P0301",
+      "patient_last": "P0463",
+      "rows": 39757
+    },
+    {
+      "bytes": 476957,
+      "path": "windows/part-00003.parquet",
+      "patient_first": "P0464",
+      "patient_last": "P0618",
+      "rows": 39830
+    },
+    {
+      "bytes": 484746,
+      "path": "windows/part-00004.parquet",
+      "patient_first": "P0619",
+      "patient_last": "P0770",
+      "rows": 39769
+    },
+    {
+      "bytes": 489227,
+      "path": "windows/part-00005.parquet",
+      "patient_first": "P0771",
+      "patient_last": "P0931",
+      "rows": 39837
+    },
+    {
+      "bytes": 265850,
+      "path": "windows/part-00006.parquet",
+      "patient_first": "P0932",
+      "patient_last": "P1073",
+      "rows": 19303
+    }
+  ]
+}
