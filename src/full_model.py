@@ -42,6 +42,9 @@ DEFAULT_EXTRA_TREES_N_ITER = 24
 DEFAULT_TARGET_SPECIFICITY = 0.70
 DEFAULT_BOOTSTRAP_RESAMPLES = 2000
 DEFAULT_N_JOBS = 1
+ELASTICNET_SEARCH_EXCLUSIONS: tuple[str, ...] = (
+    "class_weight='balanced' removed after seed42 numerical audit: multiple saga fits failed to converge at max_iter=50000",
+)
 
 MODEL_ALIASES: dict[str, str] = {
     "extra_trees": "extratrees",
@@ -385,14 +388,16 @@ def build_model(
             estimator = LogisticRegression(
                 solver="saga",
                 penalty="elasticnet",
-                max_iter=10000,
+                max_iter=50000,
+                tol=1e-3,
                 random_state=int(seed),
             )
         elif kind == "elasticnet":
             estimator = LogisticRegression(
                 solver="saga",
                 penalty="elasticnet",
-                max_iter=10000,
+                max_iter=50000,
+                tol=1e-3,
                 random_state=int(seed),
             )
         else:
@@ -483,13 +488,13 @@ def get_param_distributions(model: str = "extratrees") -> dict[str, list[Any]]:
         return {
             "clf__C": [0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1, 3],
             "clf__l1_ratio": [0, 0.1, 0.25, 0.5, 0.75, 1],
-            "clf__class_weight": [None, "balanced"],
+            "clf__class_weight": [None],
         }
     if kind == "elasticnet_selected":
         return {
             "clf__C": [0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1, 3],
             "clf__l1_ratio": [0, 0.1, 0.25, 0.5, 0.75, 1],
-            "clf__class_weight": [None, "balanced"],
+            "clf__class_weight": [None],
             "pre__select__k": [8, 12, 20, 30],
         }
     if kind == "extratrees_regularized":
@@ -525,6 +530,7 @@ __all__ = [
     "DEFAULT_TARGET_SPECIFICITY",
     "DEFAULT_BOOTSTRAP_RESAMPLES",
     "DEFAULT_N_JOBS",
+    "ELASTICNET_SEARCH_EXCLUSIONS",
     "MODEL_ALIASES",
     "ALL20_FEATURE_NAMES",
     "ALL_FEATURE_COLUMNS",

@@ -41,7 +41,7 @@ def test_elasticnet_pipeline_and_full_grid_are_fixed():
     assert get_param_distributions("elasticnet") == {
         "clf__C": [0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1, 3],
         "clf__l1_ratio": [0, 0.1, 0.25, 0.5, 0.75, 1],
-        "clf__class_weight": [None, "balanced"],
+        "clf__class_weight": [None],
     }
 
 

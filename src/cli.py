@@ -23,6 +23,7 @@ from .full_model import (
     DEFAULT_RANDOM_STATE,
     DEFAULT_SUBJECTS_PATH,
     DEFAULT_TARGET_SPECIFICITY,
+    ELASTICNET_SEARCH_EXCLUSIONS,
     canonical_model_name,
     get_model_feature_columns,
     get_param_distributions,
@@ -437,6 +438,7 @@ def _cmd_optimize(args: argparse.Namespace) -> int:
                  & bundle.frame["label"].eq(1)).sum()
             ),
             "pvc_fields": [column for column in bundle.feature_cols if "pvc" in column.lower()],
+            "search_exclusions": list(ELASTICNET_SEARCH_EXCLUSIONS) if model.startswith("elasticnet") else [],
         }
     )
     result.oof.insert(0, "candidate", bundle.candidate)
