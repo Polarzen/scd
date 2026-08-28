@@ -3,7 +3,6 @@ name: Model optimization V1
 on:
   push:
     branches: [model-optimization-v1]
-    paths: [config/model_optimization_run.json]
   workflow_dispatch:
     inputs:
       stage:
@@ -33,6 +32,7 @@ concurrency:
 
 jobs:
   configure:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     outputs:
       candidates: ${{ steps.matrix.outputs.candidates }}
@@ -51,19 +51,25 @@ jobs:
           DISPATCH_STAGE: ${{ inputs.stage }}
           DISPATCH_REQUESTED: ${{ inputs.candidate }}
           DISPATCH_MODEL_OVERRIDE: ${{ inputs.model_override }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           python - <<'PY'
           import json, os
           if os.environ['EVENT_NAME'] == 'push':
-              control=json.load(open('config/model_optimization_run.json',encoding='utf-8'))
-              stage=str(control['stage'])
-              requested=str(control.get('candidate','all')).strip()
-              model_override=str(control.get('model_override','')).strip()
+              message=os.environ.get('COMMIT_MESSAGE','').splitlines()[0].strip()
+              prefix='model-optimization-run:'
+              if not message.startswith(prefix):
+                  stage,requested,model_override='none','all',''
+              else:
+                  parts=(message[len(prefix):]+'::').split(':')
+                  stage,requested,model_override=parts[0],parts[1] or 'all',parts[2]
           else:
               stage=os.environ['DISPATCH_STAGE']
               requested=os.environ['DISPATCH_REQUESTED'].strip()
               model_override=os.environ['DISPATCH_MODEL_OVERRIDE'].strip()
-          if requested.lower() != 'all':
+          if stage == 'none':
+              candidates=[]
+          elif requested.lower() != 'all':
               candidates=[x.strip().upper() for x in requested.split(',') if x.strip()]
           elif stage in {'smoke','seed42'}:
               candidates=['B0','M1','M2','M3','M4','A1','A2','P1','P2']
@@ -104,6 +110,7 @@ jobs:
           PY
 
   engineering_verify:
+    if: ${{ needs.configure.outputs.stage != 'none' }}
     needs: configure
     runs-on: ubuntu-latest
     steps:
