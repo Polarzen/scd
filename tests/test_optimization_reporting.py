@@ -1,7 +1,9 @@
 import json
 
+import numpy as np
 import pandas as pd
 
+from src.metrics import compute_metrics
 from src.optimization_reporting import aggregate_optimization_artifacts
 
 
@@ -52,6 +54,16 @@ def test_aggregation_writes_portable_outputs_and_oriented_paired_deltas(tmp_path
     for name in ("runs.csv", "runs.parquet", "summary.csv", "paired_comparison.json", "calibration_summary.csv", "calibration_bins.csv"):
         assert (tmp_path / name).exists()
     assert len(pd.read_csv(tmp_path / "calibration_bins.csv")) == 20
+    selected = oof.loc[oof["candidate"].eq("candidate")]
+    expected_calibration = compute_metrics(selected["y_true"], selected["prediction_probability"])
+    calibration_row = result["calibration_summary"].loc[
+        result["calibration_summary"]["candidate"].eq("candidate")
+    ].iloc[0]
+    for name in ("calibration_slope", "calibration_intercept"):
+        if np.isnan(expected_calibration[name]):
+            assert np.isnan(calibration_row[name])
+        else:
+            assert np.isclose(calibration_row[name], expected_calibration[name])
     report = (tmp_path / "reports" / "MODEL_OPTIMIZATION.md").read_text(encoding="utf-8")
     assert "PROMOTED_CANDIDATE" not in report  # no discrimination gain in this fixture
     assert report.count("## ") == 10

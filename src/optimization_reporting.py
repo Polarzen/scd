@@ -529,12 +529,13 @@ def _calibration_values(y: np.ndarray, p: np.ndarray, n_bins: int = 10) -> dict[
         error = abs(float(np.mean(p[selected])) - float(np.mean(y[selected])))
         ece += float(selected.mean()) * error
         mce = max(mce, error)
-    if np.unique(y).size == 2 and np.ptp(p) > 0:
-        clipped = np.clip(p, 1e-6, 1 - 1e-6)
-        x = np.log(clipped / (1 - clipped))
-        slope, intercept = np.polyfit(x, y, 1)
-    else:
-        slope = intercept = float("nan")
+    # Calibration intercept/slope are logistic calibration coefficients, not
+    # ordinary least-squares coefficients of the binary outcome.  Reuse the
+    # deterministic MLE implementation in the frozen metric layer so the
+    # per-run summaries and pooled calibration audit have one definition.
+    calibration_metrics = compute_metrics(y, p)
+    slope = calibration_metrics["calibration_slope"]
+    intercept = calibration_metrics["calibration_intercept"]
     return {
         "calibration": float(ece),
         "calibration_ece": float(ece),
