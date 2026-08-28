@@ -364,8 +364,9 @@ def _adapt_oof(path: Path, *, metadata: Mapping[str, Any], manifest: pd.DataFram
     else:
         prediction = work[prediction_column].map(lambda value: _binary(value, label=f"legacy OOF seed {seed} prediction"))
     metrics = compute_metrics(labels.to_numpy(dtype=int), probabilities.to_numpy(dtype=float), prediction.to_numpy(dtype=int))
-    if not all(math.isfinite(float(value)) for value in metrics.values()):
-        raise BaselineImportError(f"legacy OOF seed {seed} produced non-finite metrics")
+    for name in ("AUC", "AP", "Brier", "BrierSkill"):
+        if not math.isfinite(float(metrics[name])):
+            raise BaselineImportError(f"legacy OOF seed {seed} produced non-finite core metric {name}")
     output = pd.DataFrame(
         {
             "candidate": OUTPUT_CANDIDATE,
@@ -395,7 +396,15 @@ def _adapt_oof(path: Path, *, metadata: Mapping[str, Any], manifest: pd.DataFram
 
 
 def _summary(metadata: Mapping[str, Any], metrics: Mapping[str, float]) -> dict[str, Any]:
-    values = dict(metrics)
+    # Calibration MLEs and denominator-dependent classification metrics can
+    # be legitimately undefined (for example, calibration separation in the
+    # immutable B0 seed 90).  Preserve that fact as JSON null; discrimination,
+    # probability loss, probabilities and labels remain fail-closed above.
+    serialized_metrics = {
+        key: float(value) if math.isfinite(float(value)) else None
+        for key, value in metrics.items()
+    }
+    values = dict(serialized_metrics)
     values.update(
         {
             "candidate": OUTPUT_CANDIDATE,
@@ -418,16 +427,16 @@ def _summary(metadata: Mapping[str, Any], metrics: Mapping[str, float]) -> dict[
     )
     values.update(
         {
-            "auc": metrics["AUC"],
-            "average_precision": metrics["AP"],
-            "ap": metrics["AP"],
-            "brier": metrics["Brier"],
-            "sensitivity": metrics["Sens"],
-            "specificity": metrics["Spec"],
-            "f1": metrics["F1"],
-            "ppv": metrics["PPV"],
-            "npv": metrics["NPV"],
-            "metrics": dict(metrics),
+            "auc": serialized_metrics["AUC"],
+            "average_precision": serialized_metrics["AP"],
+            "ap": serialized_metrics["AP"],
+            "brier": serialized_metrics["Brier"],
+            "sensitivity": serialized_metrics["Sens"],
+            "specificity": serialized_metrics["Spec"],
+            "f1": serialized_metrics["F1"],
+            "ppv": serialized_metrics["PPV"],
+            "npv": serialized_metrics["NPV"],
+            "metrics": serialized_metrics,
         }
     )
     return values
@@ -473,7 +482,13 @@ def import_formal_baseline(
             json.dumps(per_seed_manifest, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
             encoding="utf-8",
         )
-        imported.append({"seed": seed, "patient_count": len(oof), **metrics})
+        imported.append(
+            {
+                "seed": seed,
+                "patient_count": len(oof),
+                **{key: float(value) if math.isfinite(float(value)) else None for key, value in metrics.items()},
+            }
+        )
     root_manifest = dict(manifest_payload)
     root_manifest["seed_count"] = len(imported)
     root_manifest["imported_seeds"] = list(EXPECTED_SEEDS)

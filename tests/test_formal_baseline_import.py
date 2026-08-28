@@ -138,3 +138,19 @@ def test_import_rejects_wrong_current_population(tmp_path: Path, monkeypatch: py
     frame.to_csv(manifest, index=False)
     with pytest.raises(adapter.BaselineImportError, match="selected population"):
         adapter.import_formal_baseline(legacy, tmp_path / "wrong_population", manifest)
+
+
+def test_import_records_undefined_calibration_slope_as_null(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    legacy, manifest = _legacy_tree(tmp_path, monkeypatch)
+    path = legacy / "formal-repeated-all20-seed-0" / "repeated_oof.parquet"
+    frame = pd.read_parquet(path)
+    frame["prediction_probability"] = np.where(frame["y_true"].eq(1), 0.08, 0.03)
+    frame["prediction_label"] = frame["prediction_probability"].ge(0.05).astype(int)
+    frame.to_parquet(path, index=False)
+
+    output = tmp_path / "separated"
+    adapter.import_formal_baseline(legacy, output, manifest)
+    summary = json.loads(next((output / "B0" / "seed-0").glob("*_summary.json")).read_text(encoding="utf-8"))
+    assert summary["calibration_slope"] is None
+    assert np.isfinite(summary["AUC"])
+    assert np.isfinite(summary["Brier"])
