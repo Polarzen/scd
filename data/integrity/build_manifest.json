@@ -8957,9 +8957,9 @@
       "sha256": "f3849b66b87d91c74d6df00ede7e5b7d9e1ef979d86e506d3d7789f97cb9267e"
     },
     {
-      "bytes": 57802,
+      "bytes": 58028,
       "path": "src/optimization_reporting.py",
-      "sha256": "22b6b5ac3b0decac657bedb2810a346d40322a3212e064595ad4d590b4c79a9f"
+      "sha256": "6898eaaf5269be36c99d58d5608a4ebc0639890b7c97eeb6eb0a355a3c89f824"
     },
     {
       "bytes": 11371,
@@ -9082,9 +9082,9 @@
       "sha256": "bd4492a9b71057b2d185e1efd69cacf87037e31d40aebd67378f00df1c8fb53b"
     },
     {
-      "bytes": 2611,
+      "bytes": 3223,
       "path": "tests/test_optimization_reporting.py",
-      "sha256": "b443fe37471c6082b94479b164a30f40780843b7c2f3873824d27b4d96d7f0b8"
+      "sha256": "5294c62fb295749712ba1f0993cee3ce869112574b6f095238dcfded8f9c72bd"
     },
     {
       "bytes": 1718,
@@ -9132,7 +9132,7 @@
       "sha256": "a1e8537d2b5e8f207f316b6a9ba9fe242f5e3c33add6bb531da6bc5a47cbd343"
     }
   ],
-  "generated_at_utc": "2026-08-28T16:55:18+00:00",
+  "generated_at_utc": "2026-08-28T17:06:52+00:00",
   "hashes": {
     ".gitattributes": "3bbbf428dc1d8c9c5c9adf97ae2e6d92020b23f8f789c3ef9f10ecf1fe536e91",
     ".github/workflows/ci.yml": "29e405b7e8db27d6133cd08218c116d0ecb87c55769c64cea850db1a553d76a9",
@@ -10914,7 +10914,7 @@
     "src/metrics.py": "b1467125149c454507e765aec9eccdb5b6127e76d30b89a6ff8c2c1d39646203",
     "src/model_optimization.py": "8f2c2be3323048110c31a3ee46bb4d8d51be43cdcd1d3f9ba34fd57e04a89178",
     "src/nested_cv.py": "f3849b66b87d91c74d6df00ede7e5b7d9e1ef979d86e506d3d7789f97cb9267e",
-    "src/optimization_reporting.py": "22b6b5ac3b0decac657bedb2810a346d40322a3212e064595ad4d590b4c79a9f",
+    "src/optimization_reporting.py": "6898eaaf5269be36c99d58d5608a4ebc0639890b7c97eeb6eb0a355a3c89f824",
     "src/repeated_cv.py": "b021728862d613e73ba86f446fd22d31fcf287247ac5a6ed2678375e60da484c",
     "tests/test_af_population.py": "81376ce936f168a89b09bc0f2af7a774a1b46af288200e4e0665a4f72532c9c6",
     "tests/test_analysis_profiles.py": "5be9a5b4034f990e98d466aef09b2fc09e853b4374eb31c6b359136433ce9590",
@@ -10939,7 +10939,7 @@
     "tests/test_nested_cv.py": "e91ca1c4f732dcec0e24adf9a34e750f7ba086fcd02f7c53de7ba041da5db7fb",
     "tests/test_no_patient_leakage.py": "6124feabdb27b91b21afe153939ee9e5a5543ae2de6d49bf9070e2c78d0d6241",
     "tests/test_oof_integrity.py": "bd4492a9b71057b2d185e1efd69cacf87037e31d40aebd67378f00df1c8fb53b",
-    "tests/test_optimization_reporting.py": "b443fe37471c6082b94479b164a30f40780843b7c2f3873824d27b4d96d7f0b8",
+    "tests/test_optimization_reporting.py": "5294c62fb295749712ba1f0993cee3ce869112574b6f095238dcfded8f9c72bd",
     "tests/test_patient_aggregation.py": "3b46e43c1810752a0d5bf0395069093d0a6c9b3a60e472302e528e49a876adec",
     "tests/test_phase2_freeze_anomalies.py": "d21abff1ef4ad57278fa337f6eff381fae2023e94676a811eaf3077d39734efc",
     "tests/test_pvc_features.py": "44d34940083c6e1d4904d8bf46b4c7a59884b0d7b39362bcd3cbbf43cae0e751",
