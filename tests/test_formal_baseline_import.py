@@ -75,6 +75,9 @@ def test_import_formal_baseline_is_aggregate_compatible(tmp_path: Path, monkeypa
     payload = json.loads(summaries[0].read_text(encoding="utf-8"))
     assert payload["profile"] == "all20_100"
     assert payload["legacy_run_id"] == adapter.LEGACY_RUN_ID
+    assert payload["af_included_count"] == 0
+    assert payload["af_positive_included_count"] == 0
+    assert payload["pvc_fields"] == []
 
     aggregate = aggregate_optimization_artifacts(
         artifact_dir=output,

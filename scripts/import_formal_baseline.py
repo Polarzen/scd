@@ -421,6 +421,12 @@ def _summary(metadata: Mapping[str, Any], metrics: Mapping[str, float]) -> dict[
             "outer_folds": EXPECTED_OUTER_FOLDS,
             "inner_folds": EXPECTED_INNER_FOLDS,
             "feature_count": 100,
+            # B0's frozen primary population excludes AF by construction.
+            # Explicit zeros avoid a mixed-candidate DataFrame converting an
+            # absent value to NaN before integer normalization.
+            "af_included_count": 0,
+            "af_positive_included_count": 0,
+            "pvc_fields": [],
             "legacy_run_id": LEGACY_RUN_ID,
             "legacy_head_sha": LEGACY_HEAD_SHA,
         }
