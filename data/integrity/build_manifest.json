@@ -77,9 +77,9 @@
       "sha256": "aa84eb2def396763661871539a0369d6670ae6b119c2bd53244205d3d056ca82"
     },
     {
-      "bytes": 12046,
+      "bytes": 12410,
       "path": ".github/workflows/model-optimization.yml",
-      "sha256": "797b163be46ecbec149d2e885edd652f167c6ca2be2e7e903433ec78e7cec7cd"
+      "sha256": "d7dfff41d932f5f82c290881bc84e78a11d90154a5977b76f6444b09919f44b7"
     },
     {
       "bytes": 3135,
@@ -9122,13 +9122,13 @@
       "sha256": "a1e8537d2b5e8f207f316b6a9ba9fe242f5e3c33add6bb531da6bc5a47cbd343"
     }
   ],
-  "generated_at_utc": "2026-08-28T11:56:57+00:00",
+  "generated_at_utc": "2026-08-28T12:00:00+00:00",
   "hashes": {
     ".gitattributes": "3bbbf428dc1d8c9c5c9adf97ae2e6d92020b23f8f789c3ef9f10ecf1fe536e91",
     ".github/workflows/ci.yml": "29e405b7e8db27d6133cd08218c116d0ecb87c55769c64cea850db1a553d76a9",
     ".github/workflows/endpoint-sensitivity.yml": "f92ee1dc2660814bfa8e4d5806348185bfe3b5c1ba36476a8911203ee8c69610",
     ".github/workflows/formal-statistical-validation.yml": "aa84eb2def396763661871539a0369d6670ae6b119c2bd53244205d3d056ca82",
-    ".github/workflows/model-optimization.yml": "797b163be46ecbec149d2e885edd652f167c6ca2be2e7e903433ec78e7cec7cd",
+    ".github/workflows/model-optimization.yml": "d7dfff41d932f5f82c290881bc84e78a11d90154a5977b76f6444b09919f44b7",
     ".github/workflows/model-validation.yml": "cfa8b7333b8fdc3fd9a089a8228d0584c1296c9f36795fe6bfeafd7333a6f32f",
     ".github/workflows/repair-integrity.yml": "0154d9ec0d0f5915390e85096d940f9c8bf4728e8f1d8cf5b6a9d03864807b85",
     ".github/workflows/repeated-cv.yml": "ddc3298650d67a5ab4f0a7123556efa92a6659a613b88ec65257bea79d1abbc0",
