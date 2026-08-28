@@ -1,6 +1,5 @@
 {
   "build_status": "COMPLETE",
-  "ci_recheck_trigger": "post-integrity-repair",
   "compact_data_ready": true,
   "compact_hashes": "data/integrity/compact_sha256.txt",
   "counts": {
@@ -54,7 +53,7 @@
       "POSITIVE": 11
     }
   },
-  "generated_at_utc": "2026-08-28T02:31:13+00:00",
+  "generated_at_utc": "2026-08-28T02:41:49+00:00",
   "integrity_manifest": "data/integrity/build_manifest.json",
   "known_limitations": [
     "Raw ECG waveforms are not included; signal preprocessing changes require a local full rebuild.",
