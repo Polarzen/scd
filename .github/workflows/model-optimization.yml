@@ -1,6 +1,9 @@
 name: Model optimization V1
 
 on:
+  push:
+    branches: [model-optimization-v1]
+    paths: [config/model_optimization_run.json]
   workflow_dispatch:
     inputs:
       stage:
@@ -38,16 +41,28 @@ jobs:
       expected_seeds: ${{ steps.matrix.outputs.expected_seeds }}
       run_candidates: ${{ steps.matrix.outputs.run_candidates }}
       endpoint_candidate: ${{ steps.matrix.outputs.endpoint_candidate }}
+      stage: ${{ steps.matrix.outputs.stage }}
+      model_override: ${{ steps.matrix.outputs.model_override }}
     steps:
+      - uses: actions/checkout@v4
       - id: matrix
         env:
-          STAGE: ${{ inputs.stage }}
-          REQUESTED: ${{ inputs.candidate }}
+          EVENT_NAME: ${{ github.event_name }}
+          DISPATCH_STAGE: ${{ inputs.stage }}
+          DISPATCH_REQUESTED: ${{ inputs.candidate }}
+          DISPATCH_MODEL_OVERRIDE: ${{ inputs.model_override }}
         run: |
           python - <<'PY'
           import json, os
-          stage=os.environ['STAGE']
-          requested=os.environ['REQUESTED'].strip()
+          if os.environ['EVENT_NAME'] == 'push':
+              control=json.load(open('config/model_optimization_run.json',encoding='utf-8'))
+              stage=str(control['stage'])
+              requested=str(control.get('candidate','all')).strip()
+              model_override=str(control.get('model_override','')).strip()
+          else:
+              stage=os.environ['DISPATCH_STAGE']
+              requested=os.environ['DISPATCH_REQUESTED'].strip()
+              model_override=os.environ['DISPATCH_MODEL_OVERRIDE'].strip()
           if requested.lower() != 'all':
               candidates=[x.strip().upper() for x in requested.split(',') if x.strip()]
           elif stage in {'smoke','seed42'}:
@@ -81,6 +96,8 @@ jobs:
               'expected_seeds':','.join(map(str,seeds)),
               'run_candidates':str(bool(candidates and seeds)).lower(),
               'endpoint_candidate':endpoint,
+              'stage':stage,
+              'model_override':model_override,
           }
           with open(os.environ['GITHUB_OUTPUT'],'a',encoding='utf-8') as out:
               for key,value in values.items(): out.write(f'{key}={value}\n')
@@ -143,8 +160,8 @@ jobs:
         env:
           CANDIDATE: ${{ matrix.candidate }}
           SEED: ${{ matrix.seed }}
-          STAGE: ${{ inputs.stage }}
-          MODEL_OVERRIDE: ${{ inputs.model_override }}
+          STAGE: ${{ needs.configure.outputs.stage }}
+          MODEL_OVERRIDE: ${{ needs.configure.outputs.model_override }}
         run: |
           extra=()
           if [[ "$STAGE" == "smoke" ]]; then extra+=(--smoke --bootstrap-resamples 0); else extra+=(--outer-folds 5 --inner-folds 3 --bootstrap-resamples 0); fi
@@ -176,19 +193,19 @@ jobs:
         env:
           CANDIDATES: ${{ needs.configure.outputs.expected_candidates }}
           SEEDS: ${{ needs.configure.outputs.expected_seeds }}
-          STAGE: ${{ inputs.stage }}
+          STAGE: ${{ needs.configure.outputs.stage }}
         run: |
           formal=()
           if [[ "$STAGE" == "formal100" || "$STAGE" == "full" ]]; then formal+=(--formal); fi
           python -m src.cli optimization-aggregate --artifact-dir artifacts/optimization/downloaded --output-dir artifacts/optimization/aggregate --expected-candidates "$CANDIDATES" --expected-seeds "$SEEDS" --baseline-candidate B0 "${formal[@]}"
       - uses: actions/upload-artifact@v4
         with:
-          name: optimization-${{ inputs.stage }}
+          name: optimization-${{ needs.configure.outputs.stage }}
           path: artifacts/optimization/aggregate
           if-no-files-found: error
 
   endpoints:
-    if: ${{ inputs.stage == 'endpoints' || inputs.stage == 'full' }}
+    if: ${{ needs.configure.outputs.stage == 'endpoints' || needs.configure.outputs.stage == 'full' }}
     needs: [configure, population_audit]
     runs-on: ubuntu-latest
     strategy:
@@ -217,7 +234,7 @@ jobs:
           if-no-files-found: error
 
   final_report:
-    if: ${{ inputs.stage == 'full' }}
+    if: ${{ needs.configure.outputs.stage == 'full' }}
     needs: [configure, aggregate, endpoints]
     runs-on: ubuntu-latest
     steps:
