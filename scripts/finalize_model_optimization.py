@@ -103,6 +103,7 @@ def _validate_formal(formal_dir: Path) -> tuple[pd.DataFrame, pd.DataFrame, dict
     required = (
         "runs.csv", "runs.parquet", "summary.csv", "summary.json",
         "paired_comparison.json", "calibration_summary.csv",
+        "calibration_bins.csv", "af_subgroup.csv", "pvc_subgroup.csv",
     )
     for name in required:
         if not (formal_dir / name).is_file():
@@ -321,7 +322,11 @@ def finalize(
     pvc_subgroup = pd.read_csv(formal_dir / "pvc_subgroup.csv")
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    for name in ("runs.csv", "runs.parquet", "summary.csv", "summary.json", "paired_comparison.json", "calibration_summary.csv", "af_subgroup.csv", "pvc_subgroup.csv"):
+    for name in (
+        "runs.csv", "runs.parquet", "summary.csv", "summary.json",
+        "paired_comparison.json", "calibration_summary.csv", "calibration_bins.csv",
+        "af_subgroup.csv", "pvc_subgroup.csv",
+    ):
         source = formal_dir / name
         if source.is_file():
             shutil.copy2(source, output_dir / name)
