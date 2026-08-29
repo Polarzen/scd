@@ -52,7 +52,9 @@ jobs:
           payload = json.loads(subprocess.check_output([
               'gh', 'api', f"repos/{os.environ['GITHUB_REPOSITORY']}/actions/artifacts/{artifact_id}"
           ], text=True))
-          expected_digest = freeze['finalize_artifact_sha256']
+          expected_digest = str(freeze['finalize_artifact_sha256'])
+          if not expected_digest.startswith('sha256:'):
+              expected_digest = 'sha256:' + expected_digest
           if payload.get('id') != artifact_id:
               raise SystemExit('frozen final artifact id mismatch')
           if payload.get('digest') != expected_digest:
