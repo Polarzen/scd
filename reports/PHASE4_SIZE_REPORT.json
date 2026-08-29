@@ -6870,7 +6870,7 @@
       "path": "data/validation/repeated_smoke/repeated_summary_wide.csv"
     }
   ],
-  "generated_at_utc": "2026-08-29T06:31:29+00:00",
+  "generated_at_utc": "2026-08-29T06:51:35+00:00",
   "largest_30_files": [
     {
       "bytes": 5884780,
@@ -6999,7 +6999,7 @@
   },
   "maximum_data_file_bytes": 5884780,
   "phase": 4,
-  "repository_compact_bytes": 46746817,
+  "repository_compact_bytes": 46748681,
   "repository_data_bytes": 46648172,
   "schema_version": 1,
   "status": "PASS"
