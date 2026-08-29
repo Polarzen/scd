@@ -10,7 +10,7 @@ on:
         type: choice
         required: true
         default: smoke
-        options: [population, smoke, seed42, screening10, formal100, formal_aggregate, endpoints, full]
+        options: [population, smoke, seed42, screening10, formal100, formal_aggregate, endpoints, full, finalize]
       candidate:
         description: "all, one candidate, or a comma-separated screened set"
         type: string
@@ -375,4 +375,77 @@ jobs:
         with:
           name: optimization-final
           path: artifacts/optimization/final
+          if-no-files-found: error
+
+  finalize:
+    if: ${{ needs.configure.outputs.stage == 'finalize' }}
+    needs: [configure, population_audit]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - run: python -m pip install --requirement requirements-lock.txt
+      - name: Download frozen formal aggregate
+        uses: actions/download-artifact@v4
+        with:
+          name: optimization-formal_aggregate
+          run-id: 33193292911
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          path: artifacts/optimization/final/formal
+      - name: Download frozen endpoint sensitivity artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: optimization-endpoint-*d
+          run-id: 33193756146
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          path: artifacts/optimization/final/endpoints
+      - name: Download frozen seed42 aggregate
+        uses: actions/download-artifact@v4
+        with:
+          name: optimization-seed42
+          run-id: 33171483784
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          path: artifacts/optimization/final/seed42
+      - name: Download frozen screening aggregate
+        uses: actions/download-artifact@v4
+        with:
+          name: optimization-screening10
+          run-id: 33187159259
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          path: artifacts/optimization/final/screening
+      - name: Download frozen PVC screening aggregate
+        uses: actions/download-artifact@v4
+        with:
+          name: optimization-screening10
+          run-id: 33187663480
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          path: artifacts/optimization/final/pvc-screening
+      - name: Download current-run population audit
+        uses: actions/download-artifact@v4
+        with:
+          name: optimization-population-audit
+          path: artifacts/optimization/final/population
+      - name: Build final optimization artifact
+        run: |
+          python -m scripts.finalize_model_optimization \
+            --formal-dir artifacts/optimization/final/formal \
+            --population-audit artifacts/optimization/final/population/population_audit.json \
+            --endpoints-root artifacts/optimization/final/endpoints \
+            --seed42-dir artifacts/optimization/final/seed42 \
+            --screening-dir artifacts/optimization/final/screening \
+            --pvc-screening-dir artifacts/optimization/final/pvc-screening \
+            --output-dir artifacts/optimization/final/output
+      - uses: actions/upload-artifact@v4
+        with:
+          name: optimization-final
+          path: artifacts/optimization/final/output
           if-no-files-found: error
