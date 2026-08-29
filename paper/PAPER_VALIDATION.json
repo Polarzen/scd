@@ -1,0 +1,35 @@
+{
+  "paper_revision": "P2-FROZEN-V1",
+  "source_docx": "心源性猝死(1).docx",
+  "source_sha256_before": "8a5bd01d9048a2ab089636aea3e966a8aa6dfd034953b8adb4a372d10a9b3df6",
+  "source_sha256_after": "8a5bd01d9048a2ab089636aea3e966a8aa6dfd034953b8adb4a372d10a9b3df6",
+  "source_unchanged": true,
+  "revised_docx": "心源性猝死_P2模型修订稿.docx",
+  "revised_sha256": "d0739204686bc108a8a7bb09ee6c7aad2dc88ad98965b7dffd75020a003555ef",
+  "frozen_model": {
+    "candidate": "P2",
+    "endpoint_days": 365,
+    "patient_count": 878,
+    "positive_count": 37,
+    "feature_count": 24,
+    "formal_seed_count": 100,
+    "defensive_status": "PASS",
+    "defensive_unique_patient_count": 878,
+    "defensive_artifact_source_run": 33239579770,
+    "freeze_branch": "p2-frozen-v1",
+    "freeze_branch_commit": "64cad38edfe3a1c443ffcaf81268c99b196eaaea"
+  },
+  "notes": [
+    "Original user manuscript was not overwritten.",
+    "Split percentiles are described as split-sensitivity distributions, not population confidence intervals.",
+    "AF subgroup is explicitly exploratory because there are 10 unique AF-positive patients.",
+    "P2-vs-B0 is described as a bundled modeling-strategy comparison; PVC increment uses P1-vs-P2 screening."
+  ],
+  "visual_qa": {
+    "rendered_page_count": 12,
+    "renderer": "/home/oai/skills/docx/render_docx.py",
+    "all_pages_inspected": true,
+    "status": "PASS",
+    "layout_fix": "100-seed comparison table moved to a fresh page and all table rows marked non-splitting"
+  }
+}
