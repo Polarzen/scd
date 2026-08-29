@@ -1,0 +1,80 @@
+name: P2 frozen defensive validation
+
+on:
+  push:
+    branches: [model-optimization-v1]
+    paths:
+      - "config/p2_frozen_v1.json"
+      - "scripts/defensive_validate_p2.py"
+      - "tests/test_p2_freeze_contract.py"
+      - ".github/workflows/p2-defensive-validation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: p2-frozen-defensive-validation-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  defensive_validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - name: Install locked dependencies
+        run: python -m pip install --requirement requirements-lock.txt
+      - name: Verify frozen P2 contract and repository invariants
+        run: |
+          python -m pytest -q tests/test_p2_freeze_contract.py
+          python scripts/verify_all.py
+          python -m src.cli verify
+      - name: Download the immutable 100-seed P2 nested-CV artifacts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p artifacts/p2-frozen/source
+          gh run download 33189047550 \
+            --repo "$GITHUB_REPOSITORY" \
+            --pattern 'optimization-P2-seed-*' \
+            --dir artifacts/p2-frozen/source
+      - name: Run patient-level defensive validation without refitting
+        run: |
+          python scripts/defensive_validate_p2.py \
+            --artifact-root artifacts/p2-frozen/source \
+            --freeze-config config/p2_frozen_v1.json \
+            --output-dir artifacts/p2-frozen/validated
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import pandas as pd
+
+          root = Path('artifacts/p2-frozen/validated')
+          result = json.loads((root/'defensive_validation.json').read_text(encoding='utf-8'))
+          if result['status'] != 'PASS':
+              raise SystemExit('defensive validation did not PASS')
+          if result['seed_count'] != 100 or not result['seed_set_exact_0_99']:
+              raise SystemExit('frozen seed set is incomplete')
+          if result['oof_rows_total'] != 87800 or result['unique_patient_count'] != 878:
+              raise SystemExit('unexpected repeated OOF dimensions')
+          for name in (
+              'unique_patient_metrics.csv',
+              'unique_patient_predictions.csv',
+              'subgroup_metrics_by_seed.csv',
+              'subgroup_seed_distributions.csv',
+          ):
+              frame = pd.read_csv(root/name)
+              if frame.empty:
+                  raise SystemExit(f'{name} is empty')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p2-frozen-defensive-validation-v1
+          path: artifacts/p2-frozen/validated
+          if-no-files-found: error
