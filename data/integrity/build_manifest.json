@@ -77,9 +77,9 @@
       "sha256": "aa84eb2def396763661871539a0369d6670ae6b119c2bd53244205d3d056ca82"
     },
     {
-      "bytes": 17697,
+      "bytes": 20801,
       "path": ".github/workflows/model-optimization.yml",
-      "sha256": "c6a60c67104e0e962b9945cafee949b118dd9e28751d1cc51dedf1f22bfcf13b"
+      "sha256": "aa8b1740336e6f571502f354eddd46ba47454a21422980b9d763b404f5dc59b5"
     },
     {
       "bytes": 3135,
@@ -8857,6 +8857,11 @@
       "sha256": "b3ffb972b52039a78a57e075d581810e6173287e995c2fff480a965e96bfc68b"
     },
     {
+      "bytes": 23512,
+      "path": "scripts/finalize_model_optimization.py",
+      "sha256": "6b9a745c49d6a36704b5cd9fc93f325e48d602aa6e57e089508679232fbe5306"
+    },
+    {
       "bytes": 21662,
       "path": "scripts/finalize_phase4.py",
       "sha256": "11b866325135f64ad482bbf407c8a2f6ff0fb2210198d223ad6af2c5a016e204"
@@ -9002,6 +9007,11 @@
       "sha256": "a5b7583f609e6bfbe8860058961a377acb8a3eee5e0c8db491342c67b80ba903"
     },
     {
+      "bytes": 3416,
+      "path": "tests/test_finalize_model_optimization.py",
+      "sha256": "32b4bdf58ddb3a2be1a8d9ae3d2ac3dc262acb975193386b678b3f7ed0d7f782"
+    },
+    {
       "bytes": 2178,
       "path": "tests/test_fold_local_preprocessing.py",
       "sha256": "1415126ed3bee95f58e9b3cc1c5167dd250cf641cde469a97a5f1013c41d6234"
@@ -9132,13 +9142,13 @@
       "sha256": "a1e8537d2b5e8f207f316b6a9ba9fe242f5e3c33add6bb531da6bc5a47cbd343"
     }
   ],
-  "generated_at_utc": "2026-08-28T17:06:52+00:00",
+  "generated_at_utc": "2026-08-29T05:48:45+00:00",
   "hashes": {
     ".gitattributes": "3bbbf428dc1d8c9c5c9adf97ae2e6d92020b23f8f789c3ef9f10ecf1fe536e91",
     ".github/workflows/ci.yml": "29e405b7e8db27d6133cd08218c116d0ecb87c55769c64cea850db1a553d76a9",
     ".github/workflows/endpoint-sensitivity.yml": "f92ee1dc2660814bfa8e4d5806348185bfe3b5c1ba36476a8911203ee8c69610",
     ".github/workflows/formal-statistical-validation.yml": "aa84eb2def396763661871539a0369d6670ae6b119c2bd53244205d3d056ca82",
-    ".github/workflows/model-optimization.yml": "c6a60c67104e0e962b9945cafee949b118dd9e28751d1cc51dedf1f22bfcf13b",
+    ".github/workflows/model-optimization.yml": "aa8b1740336e6f571502f354eddd46ba47454a21422980b9d763b404f5dc59b5",
     ".github/workflows/model-validation.yml": "cfa8b7333b8fdc3fd9a089a8228d0584c1296c9f36795fe6bfeafd7333a6f32f",
     ".github/workflows/repair-integrity.yml": "3c98ec4721f1f073c628dfa80c94553ee21c89e2711f6d0735483a931fb91b6f",
     ".github/workflows/repeated-cv.yml": "ddc3298650d67a5ab4f0a7123556efa92a6659a613b88ec65257bea79d1abbc0",
@@ -10894,6 +10904,7 @@
     "scripts/build_legacy_features.py": "20cfc72aa2d7384ef7058f1168135290d93d3903343f868d28e1e27170f19db3",
     "scripts/build_phase2.py": "d7f95abb8c1bc7941bb6a30f4cb94812f59dc373a73c03db222516ac9a4bbe4b",
     "scripts/endpoint_sensitivity.py": "b3ffb972b52039a78a57e075d581810e6173287e995c2fff480a965e96bfc68b",
+    "scripts/finalize_model_optimization.py": "6b9a745c49d6a36704b5cd9fc93f325e48d602aa6e57e089508679232fbe5306",
     "scripts/finalize_phase4.py": "11b866325135f64ad482bbf407c8a2f6ff0fb2210198d223ad6af2c5a016e204",
     "scripts/import_formal_baseline.py": "8374426e2a8199f7f4022af982b52ba410e5cd129bb13a8f9b548f8f22ba2600",
     "scripts/model_validation.py": "e0a482cfa6a7be577b7b3e58d9a03f470f824f4d26dfd70541c61314f5d420ea",
@@ -10923,6 +10934,7 @@
     "tests/test_data_contract.py": "dfb6f8031f9fed81409aba104e2f1f641a9dcb72e49aa7e210dca6d135b0b7f8",
     "tests/test_endpoints.py": "5ad8f46a7b0f16d5e35a1254051c4bee7e58a7167e4293b291100592a4f8255c",
     "tests/test_feature_profiles.py": "a5b7583f609e6bfbe8860058961a377acb8a3eee5e0c8db491342c67b80ba903",
+    "tests/test_finalize_model_optimization.py": "32b4bdf58ddb3a2be1a8d9ae3d2ac3dc262acb975193386b678b3f7ed0d7f782",
     "tests/test_fold_local_preprocessing.py": "1415126ed3bee95f58e9b3cc1c5167dd250cf641cde469a97a5f1013c41d6234",
     "tests/test_formal_baseline_import.py": "67b6d71b123f2a55bd761e1823edf7dd0ec733316c6c585b76175e93ac55fcba",
     "tests/test_full_endpoints.py": "35c927ddb8609ceb3018e07256db7d69bbc7767e5b848cf6e31f2a45c42218d2",
@@ -11035,7 +11047,7 @@
   "schema_version": 1,
   "size_report": {
     "maximum_data_file_bytes": 5884780,
-    "repository_data_bytes": 46645866
+    "repository_data_bytes": 46646660
   },
   "software_platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
   "source": {
