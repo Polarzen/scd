@@ -8857,9 +8857,9 @@
       "sha256": "b3ffb972b52039a78a57e075d581810e6173287e995c2fff480a965e96bfc68b"
     },
     {
-      "bytes": 23512,
+      "bytes": 23638,
       "path": "scripts/finalize_model_optimization.py",
-      "sha256": "6b9a745c49d6a36704b5cd9fc93f325e48d602aa6e57e089508679232fbe5306"
+      "sha256": "8a0e3abdf9484c3b1017785b955ba30776c4f45b22604c676f15a628aa196720"
     },
     {
       "bytes": 21662,
@@ -9142,7 +9142,7 @@
       "sha256": "a1e8537d2b5e8f207f316b6a9ba9fe242f5e3c33add6bb531da6bc5a47cbd343"
     }
   ],
-  "generated_at_utc": "2026-08-29T05:48:45+00:00",
+  "generated_at_utc": "2026-08-29T06:05:13+00:00",
   "hashes": {
     ".gitattributes": "3bbbf428dc1d8c9c5c9adf97ae2e6d92020b23f8f789c3ef9f10ecf1fe536e91",
     ".github/workflows/ci.yml": "29e405b7e8db27d6133cd08218c116d0ecb87c55769c64cea850db1a553d76a9",
@@ -10904,7 +10904,7 @@
     "scripts/build_legacy_features.py": "20cfc72aa2d7384ef7058f1168135290d93d3903343f868d28e1e27170f19db3",
     "scripts/build_phase2.py": "d7f95abb8c1bc7941bb6a30f4cb94812f59dc373a73c03db222516ac9a4bbe4b",
     "scripts/endpoint_sensitivity.py": "b3ffb972b52039a78a57e075d581810e6173287e995c2fff480a965e96bfc68b",
-    "scripts/finalize_model_optimization.py": "6b9a745c49d6a36704b5cd9fc93f325e48d602aa6e57e089508679232fbe5306",
+    "scripts/finalize_model_optimization.py": "8a0e3abdf9484c3b1017785b955ba30776c4f45b22604c676f15a628aa196720",
     "scripts/finalize_phase4.py": "11b866325135f64ad482bbf407c8a2f6ff0fb2210198d223ad6af2c5a016e204",
     "scripts/import_formal_baseline.py": "8374426e2a8199f7f4022af982b52ba410e5cd129bb13a8f9b548f8f22ba2600",
     "scripts/model_validation.py": "e0a482cfa6a7be577b7b3e58d9a03f470f824f4d26dfd70541c61314f5d420ea",
