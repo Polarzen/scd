@@ -87,9 +87,9 @@
       "sha256": "cfa8b7333b8fdc3fd9a089a8228d0584c1296c9f36795fe6bfeafd7333a6f32f"
     },
     {
-      "bytes": 4927,
+      "bytes": 5048,
       "path": ".github/workflows/p2-defensive-validation.yml",
-      "sha256": "764b5da294152f44d460e451dd327d0f150e9a16d56a266f7cd09e00073b9389"
+      "sha256": "5b5156df703fe3f02cc1ee6e1987026cb4fdbe245f8fd134c671fcdfdb10c589"
     },
     {
       "bytes": 1507,
@@ -9162,7 +9162,7 @@
       "sha256": "a1e8537d2b5e8f207f316b6a9ba9fe242f5e3c33add6bb531da6bc5a47cbd343"
     }
   ],
-  "generated_at_utc": "2026-08-29T06:51:33+00:00",
+  "generated_at_utc": "2026-08-29T06:54:52+00:00",
   "hashes": {
     ".gitattributes": "3bbbf428dc1d8c9c5c9adf97ae2e6d92020b23f8f789c3ef9f10ecf1fe536e91",
     ".github/workflows/ci.yml": "29e405b7e8db27d6133cd08218c116d0ecb87c55769c64cea850db1a553d76a9",
@@ -9170,7 +9170,7 @@
     ".github/workflows/formal-statistical-validation.yml": "aa84eb2def396763661871539a0369d6670ae6b119c2bd53244205d3d056ca82",
     ".github/workflows/model-optimization.yml": "aa8b1740336e6f571502f354eddd46ba47454a21422980b9d763b404f5dc59b5",
     ".github/workflows/model-validation.yml": "cfa8b7333b8fdc3fd9a089a8228d0584c1296c9f36795fe6bfeafd7333a6f32f",
-    ".github/workflows/p2-defensive-validation.yml": "764b5da294152f44d460e451dd327d0f150e9a16d56a266f7cd09e00073b9389",
+    ".github/workflows/p2-defensive-validation.yml": "5b5156df703fe3f02cc1ee6e1987026cb4fdbe245f8fd134c671fcdfdb10c589",
     ".github/workflows/repair-integrity.yml": "3c98ec4721f1f073c628dfa80c94553ee21c89e2711f6d0735483a931fb91b6f",
     ".github/workflows/repeated-cv.yml": "ddc3298650d67a5ab4f0a7123556efa92a6659a613b88ec65257bea79d1abbc0",
     ".gitignore": "4b99f9100144c956a7f10ccae31ec1c8240ef17db1b4fd3bb139ecce36372fb2",
