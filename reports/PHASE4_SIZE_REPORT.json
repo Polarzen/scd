@@ -3,7 +3,7 @@
   "category_bytes": {
     "analysis": 977013,
     "cohort": 496783,
-    "integrity": 780791,
+    "integrity": 782303,
     "phase3_legacy": 496877,
     "phase4_full_5min": 40983503,
     "source_exact": 842126,
@@ -130,11 +130,11 @@
       "path": "data/features/legacy_120s/windows.parquet"
     },
     {
-      "bytes": 566016,
+      "bytes": 567127,
       "path": "data/integrity/build_manifest.json"
     },
     {
-      "bytes": 211751,
+      "bytes": 212152,
       "path": "data/integrity/compact_sha256.txt"
     },
     {
@@ -6870,7 +6870,7 @@
       "path": "data/validation/repeated_smoke/repeated_summary_wide.csv"
     }
   ],
-  "generated_at_utc": "2026-08-29T06:05:13+00:00",
+  "generated_at_utc": "2026-08-29T06:28:21+00:00",
   "largest_30_files": [
     {
       "bytes": 5884780,
@@ -6913,7 +6913,7 @@
       "path": "data/validation/legacy_feature_comparison.csv"
     },
     {
-      "bytes": 566016,
+      "bytes": 567127,
       "path": "data/integrity/build_manifest.json"
     },
     {
@@ -6957,7 +6957,7 @@
       "path": "data/features/full_5min/windows/part-00006.parquet"
     },
     {
-      "bytes": 211751,
+      "bytes": 212152,
       "path": "data/integrity/compact_sha256.txt"
     },
     {
@@ -6999,8 +6999,8 @@
   },
   "maximum_data_file_bytes": 5884780,
   "phase": 4,
-  "repository_compact_bytes": 46718714,
-  "repository_data_bytes": 46646660,
+  "repository_compact_bytes": 46746691,
+  "repository_data_bytes": 46648172,
   "schema_version": 1,
   "status": "PASS"
 }

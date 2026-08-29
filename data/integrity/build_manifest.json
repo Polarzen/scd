@@ -87,6 +87,11 @@
       "sha256": "cfa8b7333b8fdc3fd9a089a8228d0584c1296c9f36795fe6bfeafd7333a6f32f"
     },
     {
+      "bytes": 2937,
+      "path": ".github/workflows/p2-defensive-validation.yml",
+      "sha256": "05ef6bb293650d89f729daf59e7610343558b708edeea1492ace7ad653c42899"
+    },
+    {
       "bytes": 1507,
       "path": ".github/workflows/repair-integrity.yml",
       "sha256": "3c98ec4721f1f073c628dfa80c94553ee21c89e2711f6d0735483a931fb91b6f"
@@ -155,6 +160,11 @@
       "bytes": 1160,
       "path": "config/models.yaml",
       "sha256": "a645033fab4e41b8a60f5579c75decb78a1ad6b995988a49f31b5a911565c4c2"
+    },
+    {
+      "bytes": 2633,
+      "path": "config/p2_frozen_v1.json",
+      "sha256": "9defbc5f209bcca1b52f6ea338a230edf4511eda5f1bc465fef41bcab4a72073"
     },
     {
       "bytes": 922,
@@ -8852,6 +8862,11 @@
       "sha256": "d7f95abb8c1bc7941bb6a30f4cb94812f59dc373a73c03db222516ac9a4bbe4b"
     },
     {
+      "bytes": 19988,
+      "path": "scripts/defensive_validate_p2.py",
+      "sha256": "700c62e2db81cd7a2e6ca59a31120fd4ef695beee72a32c9a89e5bf64cc0d860"
+    },
+    {
       "bytes": 391,
       "path": "scripts/endpoint_sensitivity.py",
       "sha256": "b3ffb972b52039a78a57e075d581810e6173287e995c2fff480a965e96bfc68b"
@@ -9097,6 +9112,11 @@
       "sha256": "5294c62fb295749712ba1f0993cee3ce869112574b6f095238dcfded8f9c72bd"
     },
     {
+      "bytes": 2419,
+      "path": "tests/test_p2_freeze_contract.py",
+      "sha256": "c59e65d3c0054ee13e2db81c1e0a4949c83a9be2a18517fff45b444271d848ff"
+    },
+    {
       "bytes": 1718,
       "path": "tests/test_patient_aggregation.py",
       "sha256": "3b46e43c1810752a0d5bf0395069093d0a6c9b3a60e472302e528e49a876adec"
@@ -9142,7 +9162,7 @@
       "sha256": "a1e8537d2b5e8f207f316b6a9ba9fe242f5e3c33add6bb531da6bc5a47cbd343"
     }
   ],
-  "generated_at_utc": "2026-08-29T06:05:13+00:00",
+  "generated_at_utc": "2026-08-29T06:28:20+00:00",
   "hashes": {
     ".gitattributes": "3bbbf428dc1d8c9c5c9adf97ae2e6d92020b23f8f789c3ef9f10ecf1fe536e91",
     ".github/workflows/ci.yml": "29e405b7e8db27d6133cd08218c116d0ecb87c55769c64cea850db1a553d76a9",
@@ -9150,6 +9170,7 @@
     ".github/workflows/formal-statistical-validation.yml": "aa84eb2def396763661871539a0369d6670ae6b119c2bd53244205d3d056ca82",
     ".github/workflows/model-optimization.yml": "aa8b1740336e6f571502f354eddd46ba47454a21422980b9d763b404f5dc59b5",
     ".github/workflows/model-validation.yml": "cfa8b7333b8fdc3fd9a089a8228d0584c1296c9f36795fe6bfeafd7333a6f32f",
+    ".github/workflows/p2-defensive-validation.yml": "05ef6bb293650d89f729daf59e7610343558b708edeea1492ace7ad653c42899",
     ".github/workflows/repair-integrity.yml": "3c98ec4721f1f073c628dfa80c94553ee21c89e2711f6d0735483a931fb91b6f",
     ".github/workflows/repeated-cv.yml": "ddc3298650d67a5ab4f0a7123556efa92a6659a613b88ec65257bea79d1abbc0",
     ".gitignore": "4b99f9100144c956a7f10ccae31ec1c8240ef17db1b4fd3bb139ecce36372fb2",
@@ -9164,6 +9185,7 @@
     "config/legacy_features.yaml": "a7a5ea46e7f39fb0b3a13f70c35d549c16b33d50f394f76100c3f54b7a4cd2ed",
     "config/legacy_preprocessing.yaml": "81210937b9850e0dbcb6fa6bd346b2845697092365e9c5523365d9a60cc4908f",
     "config/models.yaml": "a645033fab4e41b8a60f5579c75decb78a1ad6b995988a49f31b5a911565c4c2",
+    "config/p2_frozen_v1.json": "9defbc5f209bcca1b52f6ea338a230edf4511eda5f1bc465fef41bcab4a72073",
     "config/reason_codes.yaml": "b16b06e4293f4726d429e000044861a23820c53a8b6600da02f8e7bd00f216ed",
     "config/validation.yaml": "11853075f8c44ccb8f4be66e98c172dc9a34f6e689dd400580e96f5d38a47df1",
     "data/analysis/patient_analysis_status.parquet": "03410fd9806060ae5a6511af49354d6dffc3f75af0776b6743c4ca026ee0b269",
@@ -10903,6 +10925,7 @@
     "scripts/build_legacy_cohort.py": "216e0d0acd0a7491682b56cb78a411d04d7b9fe52b624889f4f53ef001a94361",
     "scripts/build_legacy_features.py": "20cfc72aa2d7384ef7058f1168135290d93d3903343f868d28e1e27170f19db3",
     "scripts/build_phase2.py": "d7f95abb8c1bc7941bb6a30f4cb94812f59dc373a73c03db222516ac9a4bbe4b",
+    "scripts/defensive_validate_p2.py": "700c62e2db81cd7a2e6ca59a31120fd4ef695beee72a32c9a89e5bf64cc0d860",
     "scripts/endpoint_sensitivity.py": "b3ffb972b52039a78a57e075d581810e6173287e995c2fff480a965e96bfc68b",
     "scripts/finalize_model_optimization.py": "8a0e3abdf9484c3b1017785b955ba30776c4f45b22604c676f15a628aa196720",
     "scripts/finalize_phase4.py": "11b866325135f64ad482bbf407c8a2f6ff0fb2210198d223ad6af2c5a016e204",
@@ -10952,6 +10975,7 @@
     "tests/test_no_patient_leakage.py": "6124feabdb27b91b21afe153939ee9e5a5543ae2de6d49bf9070e2c78d0d6241",
     "tests/test_oof_integrity.py": "bd4492a9b71057b2d185e1efd69cacf87037e31d40aebd67378f00df1c8fb53b",
     "tests/test_optimization_reporting.py": "5294c62fb295749712ba1f0993cee3ce869112574b6f095238dcfded8f9c72bd",
+    "tests/test_p2_freeze_contract.py": "c59e65d3c0054ee13e2db81c1e0a4949c83a9be2a18517fff45b444271d848ff",
     "tests/test_patient_aggregation.py": "3b46e43c1810752a0d5bf0395069093d0a6c9b3a60e472302e528e49a876adec",
     "tests/test_phase2_freeze_anomalies.py": "d21abff1ef4ad57278fa337f6eff381fae2023e94676a811eaf3077d39734efc",
     "tests/test_pvc_features.py": "44d34940083c6e1d4904d8bf46b4c7a59884b0d7b39362bcd3cbbf43cae0e751",
@@ -11047,7 +11071,7 @@
   "schema_version": 1,
   "size_report": {
     "maximum_data_file_bytes": 5884780,
-    "repository_data_bytes": 46646660
+    "repository_data_bytes": 46648172
   },
   "software_platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
   "source": {
