@@ -231,6 +231,28 @@ def screen_entry(entry: dict[str, Any], deep_probe: bool) -> dict[str, Any]:
                 "feature_probe_signal_finite_fraction": None,
             }
         )
+    elif entry.get("probe_mode") == "metadata_only":
+        row.update(
+            {
+                "remote_probe_ok": None,
+                "remote_probe_error": "metadata-only candidate; waveform probe intentionally not applicable",
+                "record_count_observed": None,
+                "sample_record": None,
+                "sample_header_ok": None,
+                "sample_waveform_ok": None,
+                "sample_waveform_error": None,
+                "sample_nsig": None,
+                "sample_fs_hz": None,
+                "sample_duration_sec": None,
+                "current_feature_contract_ok": None,
+                "current_feature_contract_error": "feature probe not applicable to metadata/RR-only screening",
+                "feature_probe_finite_count": None,
+                "feature_probe_total_count": len(FEATURE_NAMES),
+                "feature_probe_valid_rr_count": None,
+                "feature_probe_removed_rr_ratio": None,
+                "feature_probe_signal_finite_fraction": None,
+            }
+        )
     elif entry.get("physionet_dir"):
         row.update(probe_physionet(entry, deep_probe=deep_probe))
     else:
