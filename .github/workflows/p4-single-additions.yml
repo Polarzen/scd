@@ -1,0 +1,116 @@
+name: P4 single-addition screening
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feat/p3-validation
+    paths:
+      - ".github/workflows/p4-single-additions.yml"
+      - "scripts/validate_p4_single_additions.py"
+      - "scripts/validate_compact_candidates.py"
+      - "scripts/validate_p3.py"
+  pull_request:
+    paths:
+      - ".github/workflows/p4-single-additions.yml"
+      - "scripts/validate_p4_single_additions.py"
+      - "scripts/validate_compact_candidates.py"
+      - "scripts/validate_p3.py"
+
+permissions:
+  contents: read
+
+jobs:
+  candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        candidate:
+          - qrs_duration
+          - nsvt
+          - qtc
+          - male
+          - prior_mi
+          - syncope
+          - ventricular_tachycardia
+          - log_pro_bnp
+          - log_creatinine
+          - sodium
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+
+      - name: Install locked dependencies
+        run: python -m pip install --requirement requirements-lock.txt
+
+      - name: Verify committed model inputs
+        run: python -m src.cli verify
+
+      - name: Validate candidate
+        env:
+          CANDIDATE: ${{ matrix.candidate }}
+        run: |
+          python scripts/validate_p4_single_additions.py run \
+            --candidate "$CANDIDATE" \
+            --seed-start 0 \
+            --seed-stop 99 \
+            --output-dir "artifacts/p4/$CANDIDATE"
+
+      - name: Upload candidate output
+        uses: actions/upload-artifact@v4
+        with:
+          name: p4-${{ matrix.candidate }}
+          path: artifacts/p4/${{ matrix.candidate }}
+          if-no-files-found: error
+
+  aggregate:
+    needs: candidate
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+
+      - name: Install locked dependencies
+        run: python -m pip install --requirement requirements-lock.txt
+
+      - name: Download candidate artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: p4-*
+          path: artifacts/p4/runs
+
+      - name: Rank candidates
+        run: |
+          python scripts/validate_p4_single_additions.py summarize \
+            --input-root artifacts/p4/runs \
+            --output-dir artifacts/p4/final
+
+      - name: Publish result
+        run: cat artifacts/p4/final/single_addition_report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload final result
+        uses: actions/upload-artifact@v4
+        with:
+          name: p4-single-additions-complete
+          path: artifacts/p4/final
+          if-no-files-found: error
