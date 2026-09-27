@@ -31,7 +31,9 @@ BASE = "COMPACT23"
 QRS = "COMPACT24_QRS"
 NSVT = "COMPACT24_NSVT"
 BNP = "COMPACT24_LOG_PRO_BNP"
-MODELS = (BASE, QRS, NSVT, BNP)
+BNP_NSVT_NO_AGE = "COMPACT24_BNP_NSVT_NO_AGE"
+BNP_NSVT_NO_AGE_NYHA = "COMPACT23_BNP_NSVT_NO_AGE_NYHA"
+MODELS = (BASE, QRS, NSVT, BNP, BNP_NSVT_NO_AGE, BNP_NSVT_NO_AGE_NYHA)
 
 SUBJECTS_PATH = REPO_ROOT / "data" / "cohort" / "subjects.parquet"
 
@@ -79,11 +81,18 @@ def build_incremental_frame() -> tuple[pd.DataFrame, dict[str, list[str]], dict[
     )
 
     frame = frame.merge(extra, on="patient_id", how="left", validate="one_to_one")
+    no_age = [column for column in base_cols if column != "age"]
+    no_age_nyha = [column for column in no_age if column != "nyha_III"]
+    if len(no_age) != len(base_cols) - 1 or len(no_age_nyha) != len(base_cols) - 2:
+        raise RuntimeError("expected age and nyha_III in COMPACT23 baseline")
+
     model_features = {
         BASE: base_cols,
         QRS: base_cols + ["qrs_ms"],
         NSVT: base_cols + ["nsvt"],
         BNP: base_cols + ["log_pro_bnp"],
+        BNP_NSVT_NO_AGE: no_age + ["log_pro_bnp", "nsvt"],
+        BNP_NSVT_NO_AGE_NYHA: no_age_nyha + ["log_pro_bnp", "nsvt"],
     }
     info = {
         "cohort": {
