@@ -72,9 +72,9 @@
       "sha256": "f92ee1dc2660814bfa8e4d5806348185bfe3b5c1ba36476a8911203ee8c69610"
     },
     {
-      "bytes": 2212,
+      "bytes": 2151,
       "path": ".github/workflows/external-dataset-screening.yml",
-      "sha256": "c1c71a7491ce2d7674d296b2fb9fbb247d3c43c5826d5d4b0afd54c000b6ef74"
+      "sha256": "d6603f303a2b761af07e9099e7e8907454cf1d61eace71790d6fcf92bd33c67b"
     },
     {
       "bytes": 14053,
@@ -8887,9 +8887,9 @@
       "sha256": "dc450b5d926af61154bcab2689196564b8cb8be96eb1572b19a3d9cc71584a7e"
     },
     {
-      "bytes": 9490,
+      "bytes": 14077,
       "path": "scripts/screen_external_datasets.py",
-      "sha256": "72b4514911cdcb254134d9b7d708183f6304c363849e4f47a7b9a288b96ff12c"
+      "sha256": "c813d100c192748e8295695f30a92d303c810b30dc1a2dafc72da396bf1dc383"
     },
     {
       "bytes": 45800,
@@ -9077,12 +9077,12 @@
       "sha256": "a1e8537d2b5e8f207f316b6a9ba9fe242f5e3c33add6bb531da6bc5a47cbd343"
     }
   ],
-  "generated_at_utc": "2026-09-27T08:17:20+00:00",
+  "generated_at_utc": "2026-09-27T08:23:20+00:00",
   "hashes": {
     ".gitattributes": "3bbbf428dc1d8c9c5c9adf97ae2e6d92020b23f8f789c3ef9f10ecf1fe536e91",
     ".github/workflows/ci.yml": "29e405b7e8db27d6133cd08218c116d0ecb87c55769c64cea850db1a553d76a9",
     ".github/workflows/endpoint-sensitivity.yml": "f92ee1dc2660814bfa8e4d5806348185bfe3b5c1ba36476a8911203ee8c69610",
-    ".github/workflows/external-dataset-screening.yml": "c1c71a7491ce2d7674d296b2fb9fbb247d3c43c5826d5d4b0afd54c000b6ef74",
+    ".github/workflows/external-dataset-screening.yml": "d6603f303a2b761af07e9099e7e8907454cf1d61eace71790d6fcf92bd33c67b",
     ".github/workflows/formal-statistical-validation.yml": "aa84eb2def396763661871539a0369d6670ae6b119c2bd53244205d3d056ca82",
     ".github/workflows/model-validation.yml": "cfa8b7333b8fdc3fd9a089a8228d0584c1296c9f36795fe6bfeafd7333a6f32f",
     ".github/workflows/repair-integrity.yml": "0154d9ec0d0f5915390e85096d940f9c8bf4728e8f1d8cf5b6a9d03864807b85",
@@ -10845,7 +10845,7 @@
     "scripts/promote_full_reference.py": "6613372a91acbf21068b9e7407840dadcb76ca4ddb7804bea027fee8d6ed1469",
     "scripts/repeated_cv.py": "3f0934e2c33a6053f14ad8bacc1ae68f77488b5ef2537909864b72d6e44a08ae",
     "scripts/run_legacy_reproduction.py": "dc450b5d926af61154bcab2689196564b8cb8be96eb1572b19a3d9cc71584a7e",
-    "scripts/screen_external_datasets.py": "72b4514911cdcb254134d9b7d708183f6304c363849e4f47a7b9a288b96ff12c",
+    "scripts/screen_external_datasets.py": "c813d100c192748e8295695f30a92d303c810b30dc1a2dafc72da396bf1dc383",
     "scripts/verify_all.py": "8a4d17f005c29dcce6f04fb81f82d5ca47f8687c028f14704b1bdd4bde07bb1d",
     "src/__init__.py": "09e9baa6baa0f55ebf285773b6bc4f0a67a465917a08d489a8c34b4f178f69a6",
     "src/analysis_profiles.py": "c168bfce899db92454cd91133cf7a92586cafefc0a65da35f27b012d98512af9",
@@ -10969,7 +10969,7 @@
   "schema_version": 1,
   "size_report": {
     "maximum_data_file_bytes": 5884780,
-    "repository_data_bytes": 46641765
+    "repository_data_bytes": 46641766
   },
   "software_platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
   "source": {

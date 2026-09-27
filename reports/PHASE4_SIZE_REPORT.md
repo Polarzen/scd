@@ -1,10 +1,10 @@
 # Phase 4 size report
 
 - Status: **PASS**
-- Repository data bytes: **46641765** (limit `< 104857600`)
+- Repository data bytes: **46641766** (limit `< 104857600`)
 - Maximum individual data file: **5884780** bytes (limit `< 26214400`)
 - Data files: **1709**
-- Compact repository surface: **46520493** bytes
+- Compact repository surface: **46525019** bytes
 
 ## Largest 30 files
 
@@ -20,7 +20,7 @@
 | `data/analysis/survival_ready.parquet` | 898633 |
 | `data/features/full_5min/patient_features.parquet` | 851175 |
 | `data/validation/legacy_feature_comparison.csv` | 736988 |
-| `data/integrity/build_manifest.json` | 562417 |
+| `data/integrity/build_manifest.json` | 562418 |
 | `data/features/full_5min/windows/part-00005.parquet` | 489227 |
 | `data/features/full_5min/windows/part-00004.parquet` | 484746 |
 | `data/features/full_5min/windows/part-00002.parquet` | 484222 |
