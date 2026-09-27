@@ -1,0 +1,87 @@
+name: Incremental 24-input validation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feat/p3-validation
+    paths:
+      - ".github/workflows/incremental24-validation.yml"
+      - "scripts/validate_incremental24.py"
+      - "scripts/validate_compact_candidates.py"
+      - "scripts/validate_p3.py"
+
+permissions:
+  contents: read
+
+jobs:
+  repeated:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        include:
+          - { batch: "00-09", seed_start: 0, seed_stop: 9 }
+          - { batch: "10-19", seed_start: 10, seed_stop: 19 }
+          - { batch: "20-29", seed_start: 20, seed_stop: 29 }
+          - { batch: "30-39", seed_start: 30, seed_stop: 39 }
+          - { batch: "40-49", seed_start: 40, seed_stop: 49 }
+          - { batch: "50-59", seed_start: 50, seed_stop: 59 }
+          - { batch: "60-69", seed_start: 60, seed_stop: 69 }
+          - { batch: "70-79", seed_start: 70, seed_stop: 79 }
+          - { batch: "80-89", seed_start: 80, seed_stop: 89 }
+          - { batch: "90-99", seed_start: 90, seed_stop: 99 }
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - run: python -m pip install --requirement requirements-lock.txt
+      - run: python -m src.cli verify
+      - name: Validate 24-input candidates
+        env:
+          SEED_START: ${{ matrix.seed_start }}
+          SEED_STOP: ${{ matrix.seed_stop }}
+          BATCH: ${{ matrix.batch }}
+        run: |
+          python scripts/validate_incremental24.py batch \
+            --seed-start "$SEED_START" \
+            --seed-stop "$SEED_STOP" \
+            --output-dir "artifacts/incremental24/batch-$BATCH"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: incremental24-batch-${{ matrix.batch }}
+          path: artifacts/incremental24/batch-${{ matrix.batch }}
+          if-no-files-found: error
+
+  aggregate:
+    needs: repeated
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - run: python -m pip install --requirement requirements-lock.txt
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: incremental24-batch-*
+          path: artifacts/incremental24/runs
+      - run: |
+          python scripts/validate_incremental24.py aggregate \
+            --input-root artifacts/incremental24/runs \
+            --output-dir artifacts/incremental24/final
+      - run: cat artifacts/incremental24/final/incremental24_report.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: incremental24-complete-validation
+          path: artifacts/incremental24/final
+          if-no-files-found: error
