@@ -1,0 +1,195 @@
+schema_version: 1
+purpose: >
+  Screen candidate external datasets for compatibility with the repository's
+  primary task: baseline 24 h ambulatory-ECG/clinical prediction of 365-day
+  sudden cardiac death in chronic heart failure. A dataset must pass every
+  direct_training_gate before it may be pooled with MUSIC.
+
+direct_training_gates:
+  - baseline_measurement_precedes_outcome
+  - chronic_heart_failure_population
+  - patient_level_365d_scd_endpoint
+  - positive_and_negative_outcomes
+  - censoring_or_competing_events_recoverable
+  - no_event_proximal_label_leakage
+  - patient_level_split_possible
+  - feature_space_harmonizable
+  - redistribution_or_runtime_access_permitted
+
+datasets:
+  - id: music
+    name: MUSIC (Sudden Cardiac Death in Chronic Heart Failure)
+    source: PhysioNet
+    source_url: https://physionet.org/content/music-sudden-cardiac-death/1.0.1/
+    access: open
+    physionet_dir: music-sudden-cardiac-death/1.0.1
+    modality: holter_ecg_plus_clinical
+    subjects: 992
+    population: chronic_heart_failure
+    recording: baseline 24 h Holter, 2-3 leads, 200 Hz
+    endpoint: adjudicated SCD with follow-up; 365-day endpoint derivable
+    probe_mode: repository_reference
+    intended_use: primary_training_and_internal_validation
+    verdict: REFERENCE_DATASET
+    direct_training_eligible: true
+    blocking_reasons: []
+
+  - id: sddb
+    name: Sudden Cardiac Death Holter Database
+    source: PhysioNet
+    source_url: https://physionet.org/content/sddb/1.0.0/
+    access: open
+    physionet_dir: sddb/1.0.0
+    modality: holter_ecg
+    subjects: 23
+    population: mixed_cardiac_disease
+    recording: long-term 2-lead ECG, 250 Hz; SCD/near-SCD occurs during recording
+    endpoint: ventricular tachyarrhythmia/cardiac arrest onset during the recording
+    probe_mode: waveform_sample
+    intended_use: feature_extractor_and_pre_event_signal_robustness_only
+    verdict: AUXILIARY_ONLY
+    direct_training_eligible: false
+    blocking_reasons:
+      - endpoint is imminent/event-time arrhythmia, not baseline 365-day SCD
+      - no compatible prospective negative cohort
+      - event-proximal signal would cause target leakage if pooled with MUSIC
+
+  - id: vfdb
+    name: MIT-BIH Malignant Ventricular Ectopy Database
+    source: PhysioNet
+    source_url: https://physionet.org/content/vfdb/1.0.0/
+    access: open
+    physionet_dir: vfdb/1.0.0
+    modality: ecg
+    subjects: 22
+    population: malignant_ventricular_arrhythmia
+    recording: 22 half-hour ECG recordings with sustained VT/VFL/VF
+    endpoint: rhythm labels within recordings
+    probe_mode: waveform_sample
+    intended_use: arrhythmia_feature_and_detector_validation_only
+    verdict: AUXILIARY_ONLY
+    direct_training_eligible: false
+    blocking_reasons:
+      - no 365-day prognostic endpoint
+      - case-enriched event recordings are not comparable controls/cases for MUSIC
+
+  - id: cudb
+    name: CU Ventricular Tachyarrhythmia Database
+    source: PhysioNet
+    source_url: https://physionet.org/content/cudb/1.0.0/
+    access: open
+    physionet_dir: cudb/1.0.0
+    modality: ecg
+    subjects: 35
+    population: sustained_ventricular_tachyarrhythmia
+    recording: 35 eight-minute ECG recordings with VT/VFL/VF
+    endpoint: rhythm labels within recordings
+    probe_mode: waveform_sample
+    intended_use: arrhythmia_feature_and_detector_validation_only
+    verdict: AUXILIARY_ONLY
+    direct_training_eligible: false
+    blocking_reasons:
+      - no chronic-heart-failure cohort
+      - no 365-day prognostic endpoint
+      - event recordings are strongly label-proximal
+
+  - id: mvtdb
+    name: Spontaneous Ventricular Tachyarrhythmia Database
+    source: PhysioNet
+    source_url: https://physionet.org/content/mvtdb/1.0/
+    access: open
+    physionet_dir: mvtdb/1.0
+    modality: rr_interval_only
+    subjects: 78
+    population: icd_patients_with_vt_vf
+    recording: 135 paired RR-interval series; one VT/VF episode and one intrinsic-rhythm series per pair
+    endpoint: spontaneous VT/VF episode vs intrinsic rhythm
+    probe_mode: metadata_only
+    intended_use: rr_feature_and_event_discrimination_validation_only
+    verdict: AUXILIARY_ONLY
+    direct_training_eligible: false
+    blocking_reasons:
+      - RR intervals only; no waveform harmonization with current ECG feature pipeline
+      - endpoint is VT/VF episode discrimination rather than 365-day SCD risk
+
+  - id: chfdb
+    name: BIDMC Congestive Heart Failure Database
+    source: PhysioNet
+    source_url: https://physionet.org/content/chfdb/1.0.0/
+    access: open
+    physionet_dir: chfdb/1.0.0
+    modality: long_term_ecg
+    subjects: 15
+    population: severe_chronic_heart_failure
+    recording: long-term ECG in NYHA III-IV heart failure
+    endpoint: no compatible prospective 365-day SCD outcome
+    probe_mode: waveform_sample
+    intended_use: heart_failure_signal_domain_and_feature_robustness_only
+    verdict: AUXILIARY_ONLY
+    direct_training_eligible: false
+    blocking_reasons:
+      - no patient-level 365-day SCD endpoint
+      - too small for direct prognostic model training
+
+  - id: cast_rr
+    name: CAST RR Interval Sub-Study Database
+    source: PhysioNet
+    source_url: https://physionet.org/content/crisdb/1.0.0/
+    access: open
+    physionet_dir: crisdb/1.0.0
+    modality: rr_interval_annotations
+    subjects: 809
+    population: post_myocardial_infarction
+    recording: approximately 24 h RR interval series; many subjects have baseline and on-therapy recordings
+    endpoint: survival/death information exists at study level, but released RR package is not a matched 365-day SCD endpoint
+    probe_mode: metadata_only
+    intended_use: auxiliary_hrv_or_mortality_method_development_only
+    verdict: AUXILIARY_ONLY
+    direct_training_eligible: false
+    blocking_reasons:
+      - population differs from chronic-heart-failure MUSIC cohort
+      - RR-only feature space
+      - antiarrhythmic treatment changes the recordings
+      - cause-specific 365-day SCD endpoint is not directly harmonized in the public RR package
+
+  - id: definite
+    name: DEFINITE trial Holter subset
+    source: THEW
+    source_url: https://thew-project.org/Database/E-HOL-03-0407-017.html
+    access: proposal_and_dua_required
+    thew_id: E-HOL-03-0401-017
+    modality: 24h_holter_ecg_plus_trial_outcomes
+    subjects: 236
+    recordings: 401
+    population: nonischemic_dilated_cardiomyopathy_lvef_below_36
+    recording: 3-lead 24 h Holter, 500 Hz
+    endpoint: trial included adjudicated arrhythmic sudden death as a prespecified secondary endpoint
+    probe_mode: metadata_only
+    intended_use: high_priority_external_validation_after_access_and_endpoint_audit
+    verdict: CONDITIONAL_EXTERNAL_VALIDATION
+    direct_training_eligible: false
+    blocking_reasons:
+      - access requires research proposal and data-use agreement
+      - patient-level Holter timing and exact 365-day endpoint mapping must be audited
+      - randomized ICD treatment creates intervention-related outcome shift
+      - should be used first as external validation rather than pooled training
+
+  - id: scd_heft
+    name: Sudden Cardiac Death in Heart Failure Trial (SCD-HeFT)
+    source: BioLINCC
+    source_url: https://biolincc.nhlbi.nih.gov/studies/scd_heft/
+    access: registered_request_required
+    modality: clinical_trial_data_with_baseline_ecg_and_holter_acquisition
+    subjects: 2521
+    population: nyha_ii_iii_chronic_heart_failure_lvef_at_most_35
+    recording: baseline 24 h ambulatory ECG was required by trial protocol
+    endpoint: all-cause death primary; cardiac and arrhythmic mortality secondary
+    probe_mode: metadata_only
+    intended_use: high_priority_external_validation_if_raw_holter_or_harmonized_features_are_obtainable
+    verdict: CONDITIONAL_EXTERNAL_VALIDATION
+    direct_training_eligible: false
+    blocking_reasons:
+      - BioLINCC access requires a data request
+      - public catalog does not establish that raw Holter waveforms are distributed
+      - treatment arms and endpoint coding must be harmonized before any pooling
+      - use as independent external validation before considering model refitting
