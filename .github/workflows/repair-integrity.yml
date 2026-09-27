@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - ".github/workflows/**"
+      - "scripts/validate_*.py"
   workflow_dispatch:
 
 permissions:
