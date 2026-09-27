@@ -9,11 +9,6 @@ on:
       - ".github/workflows/compact-candidates-validation.yml"
       - "scripts/validate_compact_candidates.py"
       - "scripts/validate_p3.py"
-  pull_request:
-    paths:
-      - ".github/workflows/compact-candidates-validation.yml"
-      - "scripts/validate_compact_candidates.py"
-      - "scripts/validate_p3.py"
 
 permissions:
   contents: read

@@ -10,12 +10,6 @@ on:
       - "scripts/validate_incremental24.py"
       - "scripts/validate_compact_candidates.py"
       - "scripts/validate_p3.py"
-  pull_request:
-    paths:
-      - ".github/workflows/incremental24-validation.yml"
-      - "scripts/validate_incremental24.py"
-      - "scripts/validate_compact_candidates.py"
-      - "scripts/validate_p3.py"
 
 permissions:
   contents: read

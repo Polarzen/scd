@@ -11,13 +11,6 @@ on:
       - "scripts/validate_p4_single_additions.py"
       - "scripts/validate_compact_candidates.py"
       - "scripts/validate_p3.py"
-  pull_request:
-    paths:
-      - ".github/workflows/p5-combos.yml"
-      - "scripts/validate_p5_combos.py"
-      - "scripts/validate_p4_single_additions.py"
-      - "scripts/validate_compact_candidates.py"
-      - "scripts/validate_p3.py"
 
 permissions:
   contents: read
