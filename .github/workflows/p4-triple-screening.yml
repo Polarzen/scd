@@ -1,0 +1,50 @@
+name: P4 triple screening
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feat/p4-optimization
+    paths:
+      - ".github/workflows/p4-triple-screening.yml"
+      - "scripts/validate_p4_triple.py"
+
+permissions:
+  contents: read
+
+jobs:
+  screen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      max-parallel: 7
+      matrix:
+        third:
+          - VT_ANY
+          - NSVT_GT10
+          - SEX_MALE
+          - QTC
+          - QRS
+          - SYNCOPE
+          - SODIUM
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - run: python -m pip install --requirement requirements-lock.txt
+      - name: Validate triple candidate
+        run: |
+          python scripts/validate_p4_triple.py \
+            --third "${{ matrix.third }}" \
+            --seed-start 0 \
+            --seed-stop 19 \
+            --output-dir "artifacts/triple/${{ matrix.third }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p4-triple-${{ matrix.third }}
+          path: artifacts/triple/${{ matrix.third }}
+          if-no-files-found: error
