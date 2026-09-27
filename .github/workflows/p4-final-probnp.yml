@@ -1,0 +1,88 @@
+name: P4 ProBNP full validation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feat/p4-optimization
+    paths:
+      - ".github/workflows/p4-final-probnp.yml"
+      - "scripts/aggregate_p4_final.py"
+
+permissions:
+  contents: read
+
+jobs:
+  repeated:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        candidate: [BASE, LOG_PROBNP]
+        batch:
+          - "00-09"
+          - "10-19"
+          - "20-29"
+          - "30-39"
+          - "40-49"
+          - "50-59"
+          - "60-69"
+          - "70-79"
+          - "80-89"
+          - "90-99"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - run: python -m pip install --requirement requirements-lock.txt
+      - name: Resolve seed range
+        id: seeds
+        shell: bash
+        run: |
+          start="${{ matrix.batch }}"
+          echo "start=${start%-*}" >> "$GITHUB_OUTPUT"
+          echo "stop=${start#*-}" >> "$GITHUB_OUTPUT"
+      - name: Validate batch
+        run: |
+          python scripts/validate_p4.py \
+            --candidate "${{ matrix.candidate }}" \
+            --seed-start "${{ steps.seeds.outputs.start }}" \
+            --seed-stop "${{ steps.seeds.outputs.stop }}" \
+            --output-dir "artifacts/final/${{ matrix.candidate }}-${{ matrix.batch }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p4-final-${{ matrix.candidate }}-${{ matrix.batch }}
+          path: artifacts/final/${{ matrix.candidate }}-${{ matrix.batch }}
+          if-no-files-found: error
+
+  aggregate:
+    needs: repeated
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - run: python -m pip install --requirement requirements-lock.txt
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: p4-final-*
+          path: artifacts/runs
+      - run: |
+          python scripts/aggregate_p4_final.py \
+            --input-root artifacts/runs \
+            --output-dir artifacts/result
+      - run: cat artifacts/result/report.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: p4-probnp-complete-validation
+          path: artifacts/result
+          if-no-files-found: error
