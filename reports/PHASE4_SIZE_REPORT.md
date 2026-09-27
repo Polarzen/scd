@@ -1,10 +1,10 @@
 # Phase 4 size report
 
 - Status: **PASS**
-- Repository data bytes: **46643625** (limit `< 104857600`)
+- Repository data bytes: **46644753** (limit `< 104857600`)
 - Maximum individual data file: **5884780** bytes (limit `< 26214400`)
 - Data files: **1709**
-- Compact repository surface: **46557850** bytes
+- Compact repository surface: **46566438** bytes
 
 ## Largest 30 files
 
@@ -20,7 +20,7 @@
 | `data/analysis/survival_ready.parquet` | 898633 |
 | `data/features/full_5min/patient_features.parquet` | 851175 |
 | `data/validation/legacy_feature_comparison.csv` | 736988 |
-| `data/integrity/build_manifest.json` | 563786 |
+| `data/integrity/build_manifest.json` | 564615 |
 | `data/features/full_5min/windows/part-00005.parquet` | 489227 |
 | `data/features/full_5min/windows/part-00004.parquet` | 484746 |
 | `data/features/full_5min/windows/part-00002.parquet` | 484222 |
@@ -31,7 +31,7 @@
 | `data/source_exact/subject-info.csv` | 308285 |
 | `data/source_exact/SHA256SUMS.txt` | 294684 |
 | `data/features/full_5min/windows/part-00006.parquet` | 265850 |
-| `data/integrity/compact_sha256.txt` | 210946 |
+| `data/integrity/compact_sha256.txt` | 211245 |
 | `data/cohort/subjects.parquet` | 203044 |
 | `data/cohort/records.parquet` | 151842 |
 | `data/features/legacy_120s/patient_features.parquet` | 143168 |
