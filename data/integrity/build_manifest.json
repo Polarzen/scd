@@ -72,6 +72,11 @@
       "sha256": "b00ede391e594a86f5c7005318c49d2f34b1509c784ba6f5a8ca8c3cf3a79360"
     },
     {
+      "bytes": 3829,
+      "path": ".github/workflows/compact24-optimization.yml",
+      "sha256": "5e68a1bfbb3489f8183cf60d4dc883c7fca97bdc5182c464babf9d1f1ae58a0c"
+    },
+    {
       "bytes": 4258,
       "path": ".github/workflows/endpoint-sensitivity.yml",
       "sha256": "f92ee1dc2660814bfa8e4d5806348185bfe3b5c1ba36476a8911203ee8c69610"
@@ -8872,6 +8877,11 @@
       "sha256": "e0a482cfa6a7be577b7b3e58d9a03f470f824f4d26dfd70541c61314f5d420ea"
     },
     {
+      "bytes": 13381,
+      "path": "scripts/optimize_compact24.py",
+      "sha256": "dae204bf259b641f600b93a4bde716ee1cb89f1a4300ef37f956f8106fb9a3f1"
+    },
+    {
       "bytes": 3688,
       "path": "scripts/promote_full_reference.py",
       "sha256": "6613372a91acbf21068b9e7407840dadcb76ca4ddb7804bea027fee8d6ed1469"
@@ -9082,11 +9092,12 @@
       "sha256": "a1e8537d2b5e8f207f316b6a9ba9fe242f5e3c33add6bb531da6bc5a47cbd343"
     }
   ],
-  "generated_at_utc": "2026-09-27T09:08:12+00:00",
+  "generated_at_utc": "2026-09-27T10:17:35+00:00",
   "hashes": {
     ".gitattributes": "3bbbf428dc1d8c9c5c9adf97ae2e6d92020b23f8f789c3ef9f10ecf1fe536e91",
     ".github/workflows/ci.yml": "29e405b7e8db27d6133cd08218c116d0ecb87c55769c64cea850db1a553d76a9",
     ".github/workflows/compact-candidates-validation.yml": "b00ede391e594a86f5c7005318c49d2f34b1509c784ba6f5a8ca8c3cf3a79360",
+    ".github/workflows/compact24-optimization.yml": "5e68a1bfbb3489f8183cf60d4dc883c7fca97bdc5182c464babf9d1f1ae58a0c",
     ".github/workflows/endpoint-sensitivity.yml": "f92ee1dc2660814bfa8e4d5806348185bfe3b5c1ba36476a8911203ee8c69610",
     ".github/workflows/formal-statistical-validation.yml": "aa84eb2def396763661871539a0369d6670ae6b119c2bd53244205d3d056ca82",
     ".github/workflows/model-validation.yml": "cfa8b7333b8fdc3fd9a089a8228d0584c1296c9f36795fe6bfeafd7333a6f32f",
@@ -10847,6 +10858,7 @@
     "scripts/endpoint_sensitivity.py": "b3ffb972b52039a78a57e075d581810e6173287e995c2fff480a965e96bfc68b",
     "scripts/finalize_phase4.py": "11b866325135f64ad482bbf407c8a2f6ff0fb2210198d223ad6af2c5a016e204",
     "scripts/model_validation.py": "e0a482cfa6a7be577b7b3e58d9a03f470f824f4d26dfd70541c61314f5d420ea",
+    "scripts/optimize_compact24.py": "dae204bf259b641f600b93a4bde716ee1cb89f1a4300ef37f956f8106fb9a3f1",
     "scripts/promote_full_reference.py": "6613372a91acbf21068b9e7407840dadcb76ca4ddb7804bea027fee8d6ed1469",
     "scripts/repeated_cv.py": "3f0934e2c33a6053f14ad8bacc1ae68f77488b5ef2537909864b72d6e44a08ae",
     "scripts/run_legacy_reproduction.py": "dc450b5d926af61154bcab2689196564b8cb8be96eb1572b19a3d9cc71584a7e",
@@ -10975,7 +10987,7 @@
   "schema_version": 1,
   "size_report": {
     "maximum_data_file_bytes": 5884780,
-    "repository_data_bytes": 46642147
+    "repository_data_bytes": 46642923
   },
   "software_platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
   "source": {
