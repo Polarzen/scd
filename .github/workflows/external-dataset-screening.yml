@@ -1,4 +1,5 @@
 name: External dataset screening
+# Compact integrity metadata is refreshed by the repository repair workflow.
 
 on:
   workflow_dispatch:
