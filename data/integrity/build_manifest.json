@@ -67,9 +67,9 @@
       "sha256": "29e405b7e8db27d6133cd08218c116d0ecb87c55769c64cea850db1a553d76a9"
     },
     {
-      "bytes": 3847,
+      "bytes": 3676,
       "path": ".github/workflows/compact-candidates-validation.yml",
-      "sha256": "b00ede391e594a86f5c7005318c49d2f34b1509c784ba6f5a8ca8c3cf3a79360"
+      "sha256": "f825b6b4581822795e634c8b719db72df87402a788cca58322fdc30c4b4c6eab"
     },
     {
       "bytes": 4258,
@@ -82,9 +82,9 @@
       "sha256": "aa84eb2def396763661871539a0369d6670ae6b119c2bd53244205d3d056ca82"
     },
     {
-      "bytes": 3236,
+      "bytes": 3026,
       "path": ".github/workflows/incremental24-validation.yml",
-      "sha256": "4f3b169aa4cde8f072cc2179ab1e6326537f447aefdf5f5a4a4c5c0f2c2ef733"
+      "sha256": "5656c58a0c8f148c2b730b0f89253fdd072ff1646ec8164bf968b564829be73d"
     },
     {
       "bytes": 3135,
@@ -92,19 +92,29 @@
       "sha256": "cfa8b7333b8fdc3fd9a089a8228d0584c1296c9f36795fe6bfeafd7333a6f32f"
     },
     {
-      "bytes": 3606,
+      "bytes": 3054,
+      "path": ".github/workflows/nested-recipe-selection.yml",
+      "sha256": "7e1110439010e9954becaaa718490a215487cc20306ee6113a99e13df4c2d2cf"
+    },
+    {
+      "bytes": 3500,
       "path": ".github/workflows/p3-validation.yml",
-      "sha256": "ead7047dbe0788f88f044ff1bb04572dfa17a0106f682bd1ec44e04767c70161"
+      "sha256": "c72bc2a0865b269684174980dc5d986942966580c8d87f5f85900f3b3a12c3b0"
     },
     {
-      "bytes": 3102,
+      "bytes": 2891,
       "path": ".github/workflows/p4-single-additions.yml",
-      "sha256": "8ff16eaca680a015a4bcae4a8e6f00052ceff0bbb5384670241a76bae415605d"
+      "sha256": "8825010bc0fabbafeea7d1ce6b3573efb477fe032e634669af672bd00bd7e2b0"
     },
     {
-      "bytes": 1430,
+      "bytes": 2265,
+      "path": ".github/workflows/p5-combos.yml",
+      "sha256": "0dba7f08420337b1b40cc70635e003d0a8e7935295d86a0211ed6ec9c50d5240"
+    },
+    {
+      "bytes": 1462,
       "path": ".github/workflows/repair-integrity.yml",
-      "sha256": "0154d9ec0d0f5915390e85096d940f9c8bf4728e8f1d8cf5b6a9d03864807b85"
+      "sha256": "5a413fbd73ae0d88f93be3afbe9a3aa3ec3311a231a56579ac49722b1c08acb4"
     },
     {
       "bytes": 6235,
@@ -8902,9 +8912,14 @@
       "sha256": "09e6128b631bfb9aa5d2010f5295fb73055505b5d58953fc8686d12a1e206af2"
     },
     {
-      "bytes": 9686,
+      "bytes": 10710,
       "path": "scripts/validate_incremental24.py",
-      "sha256": "256bfe9afb4e2398953b34e46a20e165a379641872c24667afc6469c245d1aa5"
+      "sha256": "b7aeb2d7e812d3d8c55dbe88f935d451040900332131ab413f8e3749404b9979"
+    },
+    {
+      "bytes": 16289,
+      "path": "scripts/validate_nested_selector.py",
+      "sha256": "c71e8ccba5c50463eb4d10d613cd9e6c6c15a03583e8e23e14808dc035c6a6cf"
     },
     {
       "bytes": 21786,
@@ -8915,6 +8930,11 @@
       "bytes": 9506,
       "path": "scripts/validate_p4_single_additions.py",
       "sha256": "75fc5bb1ab209c4844dd97ba6b1003fe30664e651a876940734414ab3b71a7be"
+    },
+    {
+      "bytes": 7442,
+      "path": "scripts/validate_p5_combos.py",
+      "sha256": "87d7313352ccf6fbc68b3dbc651b161300de406fe61a20ca4f0750e99867c621"
     },
     {
       "bytes": 45800,
@@ -9102,18 +9122,20 @@
       "sha256": "a1e8537d2b5e8f207f316b6a9ba9fe242f5e3c33add6bb531da6bc5a47cbd343"
     }
   ],
-  "generated_at_utc": "2026-09-27T11:04:22+00:00",
+  "generated_at_utc": "2026-09-27T12:40:11+00:00",
   "hashes": {
     ".gitattributes": "3bbbf428dc1d8c9c5c9adf97ae2e6d92020b23f8f789c3ef9f10ecf1fe536e91",
     ".github/workflows/ci.yml": "29e405b7e8db27d6133cd08218c116d0ecb87c55769c64cea850db1a553d76a9",
-    ".github/workflows/compact-candidates-validation.yml": "b00ede391e594a86f5c7005318c49d2f34b1509c784ba6f5a8ca8c3cf3a79360",
+    ".github/workflows/compact-candidates-validation.yml": "f825b6b4581822795e634c8b719db72df87402a788cca58322fdc30c4b4c6eab",
     ".github/workflows/endpoint-sensitivity.yml": "f92ee1dc2660814bfa8e4d5806348185bfe3b5c1ba36476a8911203ee8c69610",
     ".github/workflows/formal-statistical-validation.yml": "aa84eb2def396763661871539a0369d6670ae6b119c2bd53244205d3d056ca82",
-    ".github/workflows/incremental24-validation.yml": "4f3b169aa4cde8f072cc2179ab1e6326537f447aefdf5f5a4a4c5c0f2c2ef733",
+    ".github/workflows/incremental24-validation.yml": "5656c58a0c8f148c2b730b0f89253fdd072ff1646ec8164bf968b564829be73d",
     ".github/workflows/model-validation.yml": "cfa8b7333b8fdc3fd9a089a8228d0584c1296c9f36795fe6bfeafd7333a6f32f",
-    ".github/workflows/p3-validation.yml": "ead7047dbe0788f88f044ff1bb04572dfa17a0106f682bd1ec44e04767c70161",
-    ".github/workflows/p4-single-additions.yml": "8ff16eaca680a015a4bcae4a8e6f00052ceff0bbb5384670241a76bae415605d",
-    ".github/workflows/repair-integrity.yml": "0154d9ec0d0f5915390e85096d940f9c8bf4728e8f1d8cf5b6a9d03864807b85",
+    ".github/workflows/nested-recipe-selection.yml": "7e1110439010e9954becaaa718490a215487cc20306ee6113a99e13df4c2d2cf",
+    ".github/workflows/p3-validation.yml": "c72bc2a0865b269684174980dc5d986942966580c8d87f5f85900f3b3a12c3b0",
+    ".github/workflows/p4-single-additions.yml": "8825010bc0fabbafeea7d1ce6b3573efb477fe032e634669af672bd00bd7e2b0",
+    ".github/workflows/p5-combos.yml": "0dba7f08420337b1b40cc70635e003d0a8e7935295d86a0211ed6ec9c50d5240",
+    ".github/workflows/repair-integrity.yml": "5a413fbd73ae0d88f93be3afbe9a3aa3ec3311a231a56579ac49722b1c08acb4",
     ".github/workflows/repeated-cv.yml": "ddc3298650d67a5ab4f0a7123556efa92a6659a613b88ec65257bea79d1abbc0",
     ".gitignore": "4b99f9100144c956a7f10ccae31ec1c8240ef17db1b4fd3bb139ecce36372fb2",
     "DATASET.md": "ad9d793e7e15bcef45135c8667e55b3a13abf125601820d9afa6576a08ae78ac",
@@ -10873,9 +10895,11 @@
     "scripts/repeated_cv.py": "3f0934e2c33a6053f14ad8bacc1ae68f77488b5ef2537909864b72d6e44a08ae",
     "scripts/run_legacy_reproduction.py": "dc450b5d926af61154bcab2689196564b8cb8be96eb1572b19a3d9cc71584a7e",
     "scripts/validate_compact_candidates.py": "09e6128b631bfb9aa5d2010f5295fb73055505b5d58953fc8686d12a1e206af2",
-    "scripts/validate_incremental24.py": "256bfe9afb4e2398953b34e46a20e165a379641872c24667afc6469c245d1aa5",
+    "scripts/validate_incremental24.py": "b7aeb2d7e812d3d8c55dbe88f935d451040900332131ab413f8e3749404b9979",
+    "scripts/validate_nested_selector.py": "c71e8ccba5c50463eb4d10d613cd9e6c6c15a03583e8e23e14808dc035c6a6cf",
     "scripts/validate_p3.py": "8175b5d1c9c41b844035abf60ff6bcbfae5eca9e36e89795e26eb747ad6ad34a",
     "scripts/validate_p4_single_additions.py": "75fc5bb1ab209c4844dd97ba6b1003fe30664e651a876940734414ab3b71a7be",
+    "scripts/validate_p5_combos.py": "87d7313352ccf6fbc68b3dbc651b161300de406fe61a20ca4f0750e99867c621",
     "scripts/verify_all.py": "8a4d17f005c29dcce6f04fb81f82d5ca47f8687c028f14704b1bdd4bde07bb1d",
     "src/__init__.py": "09e9baa6baa0f55ebf285773b6bc4f0a67a465917a08d489a8c34b4f178f69a6",
     "src/analysis_profiles.py": "c168bfce899db92454cd91133cf7a92586cafefc0a65da35f27b012d98512af9",
@@ -10999,7 +11023,7 @@
   "schema_version": 1,
   "size_report": {
     "maximum_data_file_bytes": 5884780,
-    "repository_data_bytes": 46643736
+    "repository_data_bytes": 46645270
   },
   "software_platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
   "source": {
