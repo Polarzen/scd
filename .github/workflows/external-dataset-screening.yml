@@ -15,6 +15,11 @@ on:
       - ".github/workflows/external-dataset-screening.yml"
       - "config/external_datasets.yaml"
       - "scripts/screen_external_datasets.py"
+  pull_request:
+    paths:
+      - ".github/workflows/external-dataset-screening.yml"
+      - "config/external_datasets.yaml"
+      - "scripts/screen_external_datasets.py"
 
 permissions:
   contents: read
@@ -49,7 +54,7 @@ jobs:
         run: |
           set -euo pipefail
           extra=""
-          if [ "$EVENT_NAME" = "push" ] || [ "$MANUAL_DEEP_PROBE" = "true" ]; then
+          if [ "$EVENT_NAME" = "push" ] || [ "$EVENT_NAME" = "pull_request" ] || [ "$MANUAL_DEEP_PROBE" = "true" ]; then
             extra="--deep-probe"
           fi
           python scripts/screen_external_datasets.py \
