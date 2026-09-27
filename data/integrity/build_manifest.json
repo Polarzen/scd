@@ -82,6 +82,11 @@
       "sha256": "aa84eb2def396763661871539a0369d6670ae6b119c2bd53244205d3d056ca82"
     },
     {
+      "bytes": 3236,
+      "path": ".github/workflows/incremental24-validation.yml",
+      "sha256": "4f3b169aa4cde8f072cc2179ab1e6326537f447aefdf5f5a4a4c5c0f2c2ef733"
+    },
+    {
       "bytes": 3135,
       "path": ".github/workflows/model-validation.yml",
       "sha256": "cfa8b7333b8fdc3fd9a089a8228d0584c1296c9f36795fe6bfeafd7333a6f32f"
@@ -8897,6 +8902,11 @@
       "sha256": "09e6128b631bfb9aa5d2010f5295fb73055505b5d58953fc8686d12a1e206af2"
     },
     {
+      "bytes": 9686,
+      "path": "scripts/validate_incremental24.py",
+      "sha256": "256bfe9afb4e2398953b34e46a20e165a379641872c24667afc6469c245d1aa5"
+    },
+    {
       "bytes": 21786,
       "path": "scripts/validate_p3.py",
       "sha256": "8175b5d1c9c41b844035abf60ff6bcbfae5eca9e36e89795e26eb747ad6ad34a"
@@ -9092,13 +9102,14 @@
       "sha256": "a1e8537d2b5e8f207f316b6a9ba9fe242f5e3c33add6bb531da6bc5a47cbd343"
     }
   ],
-  "generated_at_utc": "2026-09-27T10:38:02+00:00",
+  "generated_at_utc": "2026-09-27T11:04:22+00:00",
   "hashes": {
     ".gitattributes": "3bbbf428dc1d8c9c5c9adf97ae2e6d92020b23f8f789c3ef9f10ecf1fe536e91",
     ".github/workflows/ci.yml": "29e405b7e8db27d6133cd08218c116d0ecb87c55769c64cea850db1a553d76a9",
     ".github/workflows/compact-candidates-validation.yml": "b00ede391e594a86f5c7005318c49d2f34b1509c784ba6f5a8ca8c3cf3a79360",
     ".github/workflows/endpoint-sensitivity.yml": "f92ee1dc2660814bfa8e4d5806348185bfe3b5c1ba36476a8911203ee8c69610",
     ".github/workflows/formal-statistical-validation.yml": "aa84eb2def396763661871539a0369d6670ae6b119c2bd53244205d3d056ca82",
+    ".github/workflows/incremental24-validation.yml": "4f3b169aa4cde8f072cc2179ab1e6326537f447aefdf5f5a4a4c5c0f2c2ef733",
     ".github/workflows/model-validation.yml": "cfa8b7333b8fdc3fd9a089a8228d0584c1296c9f36795fe6bfeafd7333a6f32f",
     ".github/workflows/p3-validation.yml": "ead7047dbe0788f88f044ff1bb04572dfa17a0106f682bd1ec44e04767c70161",
     ".github/workflows/p4-single-additions.yml": "8ff16eaca680a015a4bcae4a8e6f00052ceff0bbb5384670241a76bae415605d",
@@ -10862,6 +10873,7 @@
     "scripts/repeated_cv.py": "3f0934e2c33a6053f14ad8bacc1ae68f77488b5ef2537909864b72d6e44a08ae",
     "scripts/run_legacy_reproduction.py": "dc450b5d926af61154bcab2689196564b8cb8be96eb1572b19a3d9cc71584a7e",
     "scripts/validate_compact_candidates.py": "09e6128b631bfb9aa5d2010f5295fb73055505b5d58953fc8686d12a1e206af2",
+    "scripts/validate_incremental24.py": "256bfe9afb4e2398953b34e46a20e165a379641872c24667afc6469c245d1aa5",
     "scripts/validate_p3.py": "8175b5d1c9c41b844035abf60ff6bcbfae5eca9e36e89795e26eb747ad6ad34a",
     "scripts/validate_p4_single_additions.py": "75fc5bb1ab209c4844dd97ba6b1003fe30664e651a876940734414ab3b71a7be",
     "scripts/verify_all.py": "8a4d17f005c29dcce6f04fb81f82d5ca47f8687c028f14704b1bdd4bde07bb1d",
@@ -10987,7 +10999,7 @@
   "schema_version": 1,
   "size_report": {
     "maximum_data_file_bytes": 5884780,
-    "repository_data_bytes": 46642943
+    "repository_data_bytes": 46643736
   },
   "software_platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
   "source": {
