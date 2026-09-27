@@ -4,7 +4,7 @@
 - Repository data bytes: **46641766** (limit `< 104857600`)
 - Maximum individual data file: **5884780** bytes (limit `< 26214400`)
 - Data files: **1709**
-- Compact repository surface: **46525019** bytes
+- Compact repository surface: **46526285** bytes
 
 ## Largest 30 files
 
