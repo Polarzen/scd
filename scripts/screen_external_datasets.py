@@ -6,13 +6,23 @@ import re
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 import pandas as pd
 import requests
 import wfdb
 import yaml
 
+from src.full_features import (
+    FEATURE_NAMES,
+    clean_rr_intervals,
+    detect_r_peaks,
+    preprocess_ecg,
+    window_features,
+)
+
 
 PHYSIONET_FILES = "https://physionet.org/files"
+PROBE_WINDOW_SEC = 300
 
 
 def load_registry(path: Path) -> dict[str, Any]:
@@ -52,6 +62,64 @@ def get_text(url: str, timeout: int = 30) -> tuple[bool, str, str | None]:
         return False, "", f"{type(exc).__name__}: {exc}"
 
 
+def run_feature_contract_probe(record: str, pn_dir: str, fs: float, nsamp: int | None) -> dict[str, Any]:
+    target_samples = int(round(float(fs) * PROBE_WINDOW_SEC))
+    if isinstance(nsamp, int) and nsamp < target_samples:
+        return {
+            "current_feature_contract_ok": False,
+            "current_feature_contract_error": f"record shorter than {PROBE_WINDOW_SEC}s",
+            "feature_probe_finite_count": 0,
+            "feature_probe_total_count": len(FEATURE_NAMES),
+            "feature_probe_valid_rr_count": None,
+            "feature_probe_removed_rr_ratio": None,
+            "feature_probe_signal_finite_fraction": None,
+        }
+
+    try:
+        sample = wfdb.rdrecord(
+            record,
+            pn_dir=pn_dir,
+            sampfrom=0,
+            sampto=target_samples,
+            channels=[0],
+            physical=True,
+        )
+        signal = np.asarray(sample.p_signal, dtype=np.float64)[:, 0]
+        finite_fraction = float(np.isfinite(signal).mean()) if signal.size else 0.0
+        if finite_fraction < 1.0:
+            raise ValueError(f"non-finite waveform samples present; finite_fraction={finite_fraction:.6f}")
+        ecg = preprocess_ecg(signal, float(fs))
+        values = window_features(ecg, float(fs))
+        peaks = detect_r_peaks(ecg, float(fs))
+        raw_rr = np.diff(peaks).astype(np.float64) / float(fs) if peaks.size >= 2 else np.array([], dtype=np.float64)
+        _, valid_mask = clean_rr_intervals(raw_rr)
+        finite_count = sum(np.isfinite(float(values[name])) for name in FEATURE_NAMES)
+        removed_ratio = (
+            float((raw_rr.size - np.count_nonzero(valid_mask)) / raw_rr.size)
+            if raw_rr.size
+            else 0.0
+        )
+        return {
+            "current_feature_contract_ok": True,
+            "current_feature_contract_error": None,
+            "feature_probe_finite_count": int(finite_count),
+            "feature_probe_total_count": len(FEATURE_NAMES),
+            "feature_probe_valid_rr_count": int(np.count_nonzero(valid_mask)),
+            "feature_probe_removed_rr_ratio": removed_ratio,
+            "feature_probe_signal_finite_fraction": finite_fraction,
+        }
+    except Exception as exc:
+        return {
+            "current_feature_contract_ok": False,
+            "current_feature_contract_error": f"{type(exc).__name__}: {exc}",
+            "feature_probe_finite_count": 0,
+            "feature_probe_total_count": len(FEATURE_NAMES),
+            "feature_probe_valid_rr_count": None,
+            "feature_probe_removed_rr_ratio": None,
+            "feature_probe_signal_finite_fraction": None,
+        }
+
+
 def probe_physionet(entry: dict[str, Any], deep_probe: bool) -> dict[str, Any]:
     pn_dir = entry["physionet_dir"].rstrip("/")
     base = f"{PHYSIONET_FILES}/{pn_dir}"
@@ -67,6 +135,13 @@ def probe_physionet(entry: dict[str, Any], deep_probe: bool) -> dict[str, Any]:
         "sample_nsig": None,
         "sample_fs_hz": None,
         "sample_duration_sec": None,
+        "current_feature_contract_ok": None,
+        "current_feature_contract_error": None,
+        "feature_probe_finite_count": None,
+        "feature_probe_total_count": None,
+        "feature_probe_valid_rr_count": None,
+        "feature_probe_removed_rr_ratio": None,
+        "feature_probe_signal_finite_fraction": None,
     }
     if not ok:
         return result
@@ -98,19 +173,18 @@ def probe_physionet(entry: dict[str, Any], deep_probe: bool) -> dict[str, Any]:
     try:
         fs = parsed.get("fs_hz") or 250.0
         nsamp = parsed.get("nsamp")
-        target = int(fs * 60)
+        target = int(float(fs) * PROBE_WINDOW_SEC)
         sampto = min(target, nsamp) if isinstance(nsamp, int) and nsamp > 0 else target
-        sample = wfdb.rdrecord(record, pn_dir=pn_dir, sampto=sampto, physical=False)
-        shape = None
-        if getattr(sample, "d_signal", None) is not None:
-            shape = list(sample.d_signal.shape)
-        elif getattr(sample, "p_signal", None) is not None:
-            shape = list(sample.p_signal.shape)
+        sample = wfdb.rdrecord(record, pn_dir=pn_dir, sampto=sampto, channels=[0], physical=True)
+        shape = list(np.asarray(sample.p_signal).shape)
         result["sample_waveform_ok"] = True
         result["sample_waveform_shape"] = shape
+        result.update(run_feature_contract_probe(record, pn_dir, float(fs), nsamp))
     except Exception as exc:
         result["sample_waveform_ok"] = False
         result["sample_waveform_error"] = f"{type(exc).__name__}: {exc}"
+        result["current_feature_contract_ok"] = False
+        result["current_feature_contract_error"] = result["sample_waveform_error"]
     return result
 
 
@@ -143,6 +217,13 @@ def screen_entry(entry: dict[str, Any], deep_probe: bool) -> dict[str, Any]:
                 "sample_nsig": None,
                 "sample_fs_hz": None,
                 "sample_duration_sec": None,
+                "current_feature_contract_ok": True,
+                "current_feature_contract_error": None,
+                "feature_probe_finite_count": None,
+                "feature_probe_total_count": len(FEATURE_NAMES),
+                "feature_probe_valid_rr_count": None,
+                "feature_probe_removed_rr_ratio": None,
+                "feature_probe_signal_finite_fraction": None,
             }
         )
     elif entry.get("physionet_dir"):
@@ -160,6 +241,13 @@ def screen_entry(entry: dict[str, Any], deep_probe: bool) -> dict[str, Any]:
                 "sample_nsig": None,
                 "sample_fs_hz": None,
                 "sample_duration_sec": None,
+                "current_feature_contract_ok": None,
+                "current_feature_contract_error": "requires approved access and source adapter",
+                "feature_probe_finite_count": None,
+                "feature_probe_total_count": len(FEATURE_NAMES),
+                "feature_probe_valid_rr_count": None,
+                "feature_probe_removed_rr_ratio": None,
+                "feature_probe_signal_finite_fraction": None,
             }
         )
     return row
@@ -171,7 +259,7 @@ def build_markdown(rows: list[dict[str, Any]], gates: list[str]) -> str:
         "",
         "Primary task: baseline 24 h ECG/clinical prediction of 365-day SCD in chronic heart failure.",
         "",
-        "A remote technical probe only checks that public files can be reached/read. It does not make an endpoint-compatible dataset suitable for pooled model training.",
+        "A remote technical probe only checks that public files can be reached/read. A 5-minute feature-contract probe checks whether the current 20-feature extractor can process one representative waveform segment. Neither technical check makes an endpoint-incompatible dataset suitable for pooled training.",
         "",
         "## Direct-training gates",
         "",
@@ -182,23 +270,29 @@ def build_markdown(rows: list[dict[str, Any]], gates: list[str]) -> str:
             "",
             "## Screening result",
             "",
-            "| Dataset | Access | Remote probe | Verdict | Direct pooled training | Intended use |",
-            "|---|---|---:|---|---:|---|",
+            "| Dataset | Access | Remote | 20-feature probe | Verdict | Direct pooled training | Intended use |",
+            "|---|---|---:|---:|---|---:|---|",
         ]
     )
     for row in rows:
         remote = "manual" if row["remote_probe_ok"] is None else ("pass" if row["remote_probe_ok"] else "fail")
+        feature = "manual" if row["current_feature_contract_ok"] is None else ("pass" if row["current_feature_contract_ok"] else "fail")
         direct = "yes" if row["direct_training_eligible"] else "no"
         lines.append(
-            f"| {row['name']} | {row['access']} | {remote} | {row['verdict']} | {direct} | {row['intended_use']} |"
+            f"| {row['name']} | {row['access']} | {remote} | {feature} | {row['verdict']} | {direct} | {row['intended_use']} |"
         )
 
     lines.extend(["", "## Blocking reasons", ""])
     for row in rows:
-        reasons = row["blocking_reasons"] or "none"
+        reasons = row["blocking_reasons"]
         lines.append(f"### {row['name']}")
         lines.append("")
-        lines.append(reasons.replace(" | ", "\n\n- ") if reasons == "none" else "- " + reasons.replace(" | ", "\n- "))
+        if reasons:
+            lines.append("- " + reasons.replace(" | ", "\n- "))
+        else:
+            lines.append("- none")
+        if row.get("current_feature_contract_error"):
+            lines.append(f"- feature-contract probe: {row['current_feature_contract_error']}")
         lines.append("")
 
     lines.extend(
@@ -256,7 +350,11 @@ def main() -> int:
         names = ", ".join(row["id"] for row in public_probe_failures)
         raise SystemExit(f"public dataset technical probes failed: {names}")
 
-    print(pd.DataFrame(rows)[["id", "verdict", "direct_training_eligible", "remote_probe_ok"]].to_string(index=False))
+    print(
+        pd.DataFrame(rows)[
+            ["id", "verdict", "direct_training_eligible", "remote_probe_ok", "current_feature_contract_ok"]
+        ].to_string(index=False)
+    )
     return 0
 
 
