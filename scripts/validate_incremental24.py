@@ -30,7 +30,8 @@ from scripts.validate_p3 import (
 BASE = "COMPACT23"
 QRS = "COMPACT24_QRS"
 NSVT = "COMPACT24_NSVT"
-MODELS = (BASE, QRS, NSVT)
+BNP = "COMPACT24_LOG_PRO_BNP"
+MODELS = (BASE, QRS, NSVT, BNP)
 
 SUBJECTS_PATH = REPO_ROOT / "data" / "cohort" / "subjects.parquet"
 
@@ -53,7 +54,12 @@ def build_incremental_frame() -> tuple[pd.DataFrame, dict[str, list[str]], dict[
 
     subjects = pd.read_parquet(SUBJECTS_PATH)
     subjects["patient_id"] = subjects["patient_id"].astype("string")
-    required = {"patient_id", "QRS duration (ms)", "Non-sustained ventricular tachycardia (CH>10)"}
+    required = {
+        "patient_id",
+        "QRS duration (ms)",
+        "Non-sustained ventricular tachycardia (CH>10)",
+        "Pro-BNP (ng/L)",
+    }
     missing = sorted(required - set(subjects.columns))
     if missing:
         raise RuntimeError(f"subjects table is missing incremental variables: {missing}")
@@ -62,13 +68,22 @@ def build_incremental_frame() -> tuple[pd.DataFrame, dict[str, list[str]], dict[
     qrs = _num(extra["QRS duration (ms)"])
     extra["qrs_ms"] = qrs.where(qrs.between(40.0, 250.0), np.nan)
     extra["nsvt"] = _binary(extra["Non-sustained ventricular tachycardia (CH>10)"])
-    extra = extra.drop(columns=["QRS duration (ms)", "Non-sustained ventricular tachycardia (CH>10)"])
+    pro_bnp = _num(extra["Pro-BNP (ng/L)"]).where(lambda x: x >= 0)
+    extra["log_pro_bnp"] = np.log1p(pro_bnp)
+    extra = extra.drop(
+        columns=[
+            "QRS duration (ms)",
+            "Non-sustained ventricular tachycardia (CH>10)",
+            "Pro-BNP (ng/L)",
+        ]
+    )
 
     frame = frame.merge(extra, on="patient_id", how="left", validate="one_to_one")
     model_features = {
         BASE: base_cols,
         QRS: base_cols + ["qrs_ms"],
         NSVT: base_cols + ["nsvt"],
+        BNP: base_cols + ["log_pro_bnp"],
     }
     info = {
         "cohort": {
@@ -118,7 +133,7 @@ def _bootstrap(patient: pd.DataFrame, *, n_resamples: int, seed: int) -> dict[st
     y = patient["true_label"].to_numpy(int)
     rng = np.random.default_rng(seed)
     values: dict[str, list[float]] = {m: [] for m in MODELS}
-    deltas: dict[str, list[float]] = {QRS: [], NSVT: []}
+    deltas: dict[str, list[float]] = {m: [] for m in MODELS if m != BASE}
     n = len(y)
     for _ in range(n_resamples):
         idx = rng.integers(0, n, size=n)
@@ -129,8 +144,9 @@ def _bootstrap(patient: pd.DataFrame, *, n_resamples: int, seed: int) -> dict[st
         for m in MODELS:
             aucs[m] = float(roc_auc_score(yy, patient[m].to_numpy(float)[idx]))
             values[m].append(aucs[m])
-        deltas[QRS].append(aucs[QRS] - aucs[BASE])
-        deltas[NSVT].append(aucs[NSVT] - aucs[BASE])
+        for m in MODELS:
+            if m != BASE:
+                deltas[m].append(aucs[m] - aucs[BASE])
 
     def ci(arr: list[float]) -> dict[str, float | int]:
         x = np.asarray(arr, dtype=float)
@@ -227,6 +243,7 @@ def command_aggregate(args: argparse.Namespace) -> int:
         "",
         f"QRS missing: {summary['contract']['models'][QRS]['missing_counts'].get('qrs_ms')}",
         f"NSVT missing: {summary['contract']['models'][NSVT]['missing_counts'].get('nsvt')}",
+        f"log(Pro-BNP+1) missing: {summary['contract']['models'][BNP]['missing_counts'].get('log_pro_bnp')}",
     ]
     (out / "incremental24_report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(lines))
